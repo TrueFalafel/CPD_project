@@ -14,8 +14,8 @@ life3d.o: life3d.c $(LIB_PATH)/linked_list.h
 lib: $(LIB_PATH)/linked_list.o
 	$(LIBFLAGS) $(LIB_PATH)/lib_linked_list.a $<
 
-linked_list.o: linked_list.c linked_list.h
-	$(COMPFLAGS) $@ $<
+linked_list.o: $(LIB_PATH)/linked_list.c $(LIB_PATH)/linked_list.h
+	$(COMPFLAGS) $(LIB_PATH)/$@ $<
 ################################################################################
 #FAZER make run PARA CORRER O PROGRAMA##########################################
 run:
