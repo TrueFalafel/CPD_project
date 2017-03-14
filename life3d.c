@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linked_list.h"
+#include "./LinkedListLib/linked_list.h"
 #include <omp.h>
 
 void usage(){
