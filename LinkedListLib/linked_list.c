@@ -36,17 +36,8 @@ item* list_append(item* root, data K){
 	}
 
 	new->K = K;
-	new->next = NULL;
-
-	if(root == NULL){
-		root = new;
-	}else{
-		aux = root;
-		while(aux->next != NULL)
-			aux = aux->next;
-
-		aux->next = new;
-	}
+	new->next = root;
+	root = new;
 
 	return root;
 }
