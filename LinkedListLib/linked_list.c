@@ -9,23 +9,6 @@ item* list_init(){
 	return NULL;
 }
 
-data set_data(int x, int y, int z){
-	data k;
-
-	k.x = x;
-	k.y = y;
-	k.z = z;
-
-	return k;
-}
-
-int equal_data(data K1, data K2){
-	if(K1.x == K2.x && K1.y == K2.y && K1.z == K2.z)
-		return 1;
-	else
-		return 0;
-}
-
 item* list_append(item* root, data K){
 	item *new, *aux;
 
@@ -114,7 +97,7 @@ void list_print(item* root){
 	aux = root;
 	while(aux != NULL){
 		k = aux->K;
-		printf("(%d,%d,%d)\n", k.x, k.y, k.z);
+		print_data(k);
 		aux = aux->next;
 	}
 	return;
