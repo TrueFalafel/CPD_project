@@ -102,17 +102,3 @@ void list_print(item* root){
 	}
 	return;
 }
-
-/*****************BASTANTE INCOMPLETO - SO PARA DAR PARA COMPILAR**************/
-data *set_data(int x, int y, int z){
-	return NULL;
-}
-
-int equal_data(data K1, data K2){
-	return 0;
-}
-
-void print_data(data K){
-	printf("%d %d %d\n", K.x, K.y, K.z);
-	return;
-}
