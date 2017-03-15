@@ -2,6 +2,7 @@
 #define _LINKED_LIST_LIB_H_
 #include <stdio.h>
 #include <stdlib.h>
+
 /***Definir estrutura que contem dados de cada nó**/
 struct data{
 	int x;
@@ -28,7 +29,7 @@ void list_free(item* root);
 void list_print(item* root);
 
 /***** funções abstratas (falta implementação)***/
-data set_data(int x, int y, int z);
+data *set_data(int x, int y, int z);
 
 int equal_data(data K1, data K2); //sucesso=1, insucesso=0
 

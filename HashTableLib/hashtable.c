@@ -1,20 +1,17 @@
 #include "hashtable.h"
-#include "linked_list.h"
+#include "../LinkedListLib/linked_list.h"
 
 struct hashtable_s {
 	int size;
-	item **table;
+	struct item **table;
+	int (*hash_function)(data);
 };
 
-int hash_function(data k){
-	return k.x
-}
-
-int hash_getSize(hashtable_s hashtable){
+int hash_getSize(hashtable_s *hashtable){
 	return hashtable->size;
 }
 
-hashtable_s *hash_create(int size){
+hashtable_s *hash_create(int size, int(*hash_f)(data)){
 
 	hashtable_s *hashtable = NULL;
 	int i;
@@ -39,6 +36,28 @@ hashtable_s *hash_create(int size){
 	}
 
 	hashtable->size = size;
+	hashtable->hash_function = hash_f;
 
 	return hashtable;
+}
+
+void hash_insert(hashtable_s *hashtable, data K){
+	int index = hashtable->hash_function(K);
+
+	if(index > hashtable->size-1){
+		printf("Hashtable index out of bounds\n");
+		exit(20);
+	}
+	hashtable->table[index] = list_append(hashtable->table[index], K);
+	return;
+}
+
+void hash_print(hashtable_s *hashtable){
+	int i;
+
+	for(i=0; i < hashtable->size; i++){
+		printf("Position %d:\n", i);
+		list_print(hashtable->table[i]);
+	}
+	return;
 }
