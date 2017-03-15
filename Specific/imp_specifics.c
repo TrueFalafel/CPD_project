@@ -1,4 +1,4 @@
-#include "linked_list.h"
+#include "../LinkedListLib/linked_list.h"
 
 data set_data(int x, int y, int z){
 	data k;
