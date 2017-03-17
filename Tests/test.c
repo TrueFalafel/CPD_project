@@ -34,5 +34,6 @@ int main(int argc, char const *argv[]) {
 	list_print(root);
 	list_free(root);
 
+	hash
 	return 0;
 }

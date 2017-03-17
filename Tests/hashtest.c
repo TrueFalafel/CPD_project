@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "../LinkedListLib/linked_list.h"
 #include "../HashTableLib/hashtable.h"
+#define MAX 256
 
 int hashfunction (struct data k){
     return k.x + k.y + k.z;
@@ -9,34 +10,37 @@ int hashfunction (struct data k){
 
 int main(){
     hashtable_s *hashtable;
-    int i, size = 4;
+    int i, size = 20;
+    char line[256];
 
     hashtable = hash_create(size, hashfunction);
 
-    data K;
+    data k;
 
-    K.x=0; K.y=1; K.z=1;
-    hash_insert(hashtable, K);
-
-    K.x=1; K.y=1; K.z=1;
-    hash_insert(hashtable, K);
-
-    K.x=1; K.y=1; K.z=0;
-    hash_insert(hashtable, K);
-
-    K.x=1; K.y=0; K.z=1;
-    hash_insert(hashtable, K);
-
-    K.x=0; K.y=0; K.z=0;
-    hash_insert(hashtable, K);
-
-    K.x=2; K.y=0; K.z=0;
-    hash_insert(hashtable, K);
-
-    K.x=0; K.y=1; K.z=0 ;
-    hash_insert(hashtable, K);
+    printf("Introduza célula\n");
+	fgets(line, MAX, stdin);
+	sscanf(line,"%d %d %d", &k.x, &k.y, &k.z);
+	while(k.x != -1){
+		hash_insert(hashtable, k);
+		printf("Introduza célula\n");
+		fgets(line, MAX, stdin);
+		sscanf(line,"%d %d %d", &k.x, &k.y, &k.z);
+	}
 
     hash_print(hashtable);
+
+    printf("Agora remova\n");
+	fgets(line, MAX, stdin);
+	sscanf(line,"%d %d %d", &k.x, &k.y, &k.z);
+	while(k.x != -1){
+		hash_remove(hashtable, k);
+		printf("outra:\n");
+		fgets(line, MAX, stdin);
+		sscanf(line,"%d %d %d", &k.x, &k.y, &k.z);
+	}
+
+    hash_print(hashtable);
+    hash_free(hashtable);
 
     return 0;
 }

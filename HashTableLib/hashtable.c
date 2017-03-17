@@ -32,7 +32,7 @@ hashtable_s *hash_create(int size, int(*hash_f)(data)){
 	}
 	//Inicialização das entradas da hashtable
 	for( i = 0; i < size; i++ ) {
-		hashtable->table[i] = NULL;
+		hashtable->table[i] = list_init();
 	}
 
 	hashtable->size = size;
@@ -41,8 +41,13 @@ hashtable_s *hash_create(int size, int(*hash_f)(data)){
 	return hashtable;
 }
 
-void hash_insert(hashtable_s *hashtable, data K){
+int get_index(hashtable_s *hashtable, data K){
 	int index = hashtable->hash_function(K);
+	return index;
+}
+
+void hash_insert(hashtable_s *hashtable, data K){
+	int index = get_index(hashtable, K);
 
 	if(index > hashtable->size-1){
 		printf("Hashtable index out of bounds\n");
@@ -60,4 +65,30 @@ void hash_print(hashtable_s *hashtable){
 		list_print(hashtable->table[i]);
 	}
 	return;
+}
+
+item *hash_search(hashtable_s *hashtable, data K){
+	item *aux;
+
+	int index = get_index(hashtable, K);
+
+	aux = list_search(hashtable->table[index], K);
+	return aux;
+}
+
+void hash_remove(hashtable_s *hashtable, data K){
+	int index = get_index(hashtable, K);
+
+	hashtable->table[index] = list_remove(hashtable->table[index], K);
+	return;
+}
+void hash_free(hashtable_s *hashtable){
+	int size = hashtable->size;
+	int i;
+
+	for(i=0;i<size;i++){
+		list_free(hashtable->table[i]);
+	}
+	free(hashtable->table);
+	free(hashtable);
 }
