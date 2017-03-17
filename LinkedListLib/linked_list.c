@@ -9,6 +9,16 @@ item* list_init(){
 	return NULL;
 }
 
+item* list_first(item** root, data K){
+	item *first;
+
+	first = (*root);
+	(*root) = (*root)->next;
+	first->next = NULL;
+
+	return first;
+}
+
 item* list_append(item* root, data K){
 	item *new, *aux;
 

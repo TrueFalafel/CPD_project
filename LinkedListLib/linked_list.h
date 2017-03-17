@@ -18,6 +18,8 @@ typedef struct item item;
 
 item* list_init();
 
+item* list_first(item** root, data K);
+
 item* list_append(item* root, data K);
 
 item* list_remove(item* root, data K);
