@@ -25,6 +25,10 @@ item* list_append(item* root, data K){
 	return root;
 }
 
+int equal_data(data K1, data K2){ return 0;}; //sucesso=1, insucesso=0
+
+void print_data(data K){};
+
 item* list_remove(item* root, data K){
 	item *aux, *aux_seg;
 

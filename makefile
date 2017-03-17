@@ -1,21 +1,29 @@
 COMPFLAGS = gcc -Wall -g -c -o
 LINKFLAGS = gcc -Wall -fopenmp -o
 LIBFLAGS = ar -cvq
-LIB_PATH = ./LinkedListLib
+LL_LIB_PATH = ./LinkedListLib
+HT_LIB_PATH = ./HashTableLib
 IN_FILES_PATH = ./InputFiles
 #FAZER make PARA COMPILAR O PROGRAMA############################################
 life3d: life3d.o
-	$(LINKFLAGS) $@ $< -L$(LIB_PATH) -l_linked_list
+	$(LINKFLAGS) $@ $< -L$(LL_LIB_PATH) -l_linked_list -L$(HT_LIB_PATH) -l_hash_table
 
-life3d.o: life3d.c $(LIB_PATH)/linked_list.h
+life3d.o: life3d.c $(LL_LIB_PATH)/linked_list.h $(HT_LIB_PATH)/hashtable.h
 	$(COMPFLAGS) $@ $<
 ################################################################################
-#FAZER make lib PARA CRIAR A BIBLIOTECA#########################################
-lib: $(LIB_PATH)/linked_list.o
-	$(LIBFLAGS) $(LIB_PATH)/lib_linked_list.a $<
+#FAZER make linked_list_lib PARA CRIAR A BIBLIOTECA#############################
+linked_list_lib: $(LL_LIB_PATH)/linked_list.o
+	$(LIBFLAGS) $(LL_LIB_PATH)/lib_linked_list.a $<
 
-linked_list.o: $(LIB_PATH)/linked_list.c $(LIB_PATH)/linked_list.h
-	$(COMPFLAGS) $(LIB_PATH)/$@ $<
+linked_list.o: $(LL_LIB_PATH)/linked_list.c $(LL_LIB_PATH)/linked_list.h
+	$(COMPFLAGS) $(LL_LIB_PATH)/$@ $<
+################################################################################
+#FAZER make hash_table_lib PARA CRIAR A BIBLIOTECA##############################
+hash_table_lib: $(HT_LIB_PATH)/hashtable.o
+	$(LIBFLAGS) $(HT_LIB_PATH)/lib_hash_table.a $<
+
+hash_table.o: $(HT_LIB_PATH)/hashtable.c $(HT_LIB_PATH)/hashtable.h
+	$(COMPFLAGS) $(HT_LIB_PATH)/$@ $<
 ################################################################################
 #FAZER make run PARA CORRER O PROGRAMA##########################################
 run:
@@ -26,5 +34,5 @@ clean:
 	rm life3d *.o
 #FAZER make clean_all PARA LIMPAR APP FILES E A BIBLIOTECA######################
 clean_all:
-	rm life3d *.o  $(LIB_PATH)/*.o $(LIB_PATH)/lib_linked_list.a
+	rm life3d *.o  $(LL_LIB_PATH)/*.o $(LL_LIB_PATH)/lib_linked_list.a $(HT_LIB_PATH)/*.o $(HT_LIB_PATH)/lib_hash_table.a
 ################################################################################

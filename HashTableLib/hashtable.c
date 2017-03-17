@@ -1,5 +1,4 @@
 #include "hashtable.h"
-#include "../LinkedListLib/linked_list.h"
 
 struct hashtable_s {
 	int size;

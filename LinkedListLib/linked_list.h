@@ -35,4 +35,5 @@ int equal_data(data K1, data K2); //sucesso=1, insucesso=0
 
 void print_data(data K);
 /*************************************************/
+
 #endif //_LINKED_LIST_LIB_H_
