@@ -3,16 +3,18 @@
 #include "./LinkedListLib/linked_list.h"
 #include "./HashTableLib/hashtable.h"
 #include <omp.h>
+#define N_SLICES 3
 
 void usage();
 int hashfunction (struct data k);
-data set_data(int x, int y, int z);
-int equal_data(data K1, data K2);
-void print_data(data K);
+int mindex(int i, int j);
+
+unsigned cube_size=0;
 
 int main(int argc, char *argv[])
 {
     double end, start = omp_get_wtime();
+	int i=0;
     /*GET INPUT TEXT FILE, CHECK FOR ERRORS**************************************/
     if(argc != 3)
     {
@@ -30,8 +32,16 @@ int main(int argc, char *argv[])
     }
     /**************************************************************************/
     /*GET CUBE SIZE -> FIRST LINE OF INPUT TEXT FILE & NUMBER OF GENERATIONS***/
-    unsigned cube_size, n_generations = atoi(argv[2]);
+    unsigned n_generations = atoi(argv[2]);
     fscanf(pf, "%d", &cube_size);
+	/* Matrix that runs through the cube*/
+	int *dynamic_matrix[N_SLICES];
+	for(i=0; i < N_SLICES; i++){
+		dynamic_matrix[i] = (int *)calloc(cube_size * cube_size, sizeof(int));
+	}
+
+	dynamic_matrix[0][mindex(1,1)] = 1;
+	printf("Teste: %d %d\n", dynamic_matrix[0][mindex(1,1)], dynamic_matrix[0][mindex(0,0)]);
     /**************************************************************************/
 
     /*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
@@ -43,6 +53,13 @@ int main(int argc, char *argv[])
 	}
     /****************************************************************************/
 
+	/****Cycle for generations****************************************************/
+	int n=0;
+	for(n=0 ; n < n_generations; n++){
+
+
+	}
+
     hash_print(hashtable);
     hash_free(hashtable);
     end = omp_get_wtime();
@@ -50,8 +67,6 @@ int main(int argc, char *argv[])
     printf("Execution time: %e s\n", end - start); // PRINT IN SCIENTIFIC NOTATION
     exit(0);
 }
-
-
 /****************************END of MAIN******************************************/
 
 
@@ -83,4 +98,8 @@ int equal_data(data K1, data K2){
 
 void print_data(data K){
 	printf("%d %d %d\n", K.x, K.y, K.z);
+}
+
+int mindex(int i, int j){
+	return i*cube_size + j;
 }
