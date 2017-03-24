@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 			ATENÇÃO à PRIMEIRA SLICE*/
 			if(i==0){
 				first_slice = dynamic_matrix[0];
-				dynamic_matrix[0] =(signed char *)malloc(cube_size * cube_size, sizeof(char));
+				dynamic_matrix[0] =(signed char *)malloc(cube_size * cube_size * sizeof(char));
 			}
 			/*NAO ACABADO
 			**********************/
