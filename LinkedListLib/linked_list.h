@@ -34,6 +34,8 @@ void list_free(item* root);
 
 void list_print(item* root);
 
+item* lists_concatenate(item* list1, item* list2);
+
 /***** funções abstratas (falta implementação)***/
 data set_data(int x, int y, int z);
 

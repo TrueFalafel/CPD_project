@@ -4,19 +4,22 @@
 #include "./HashTableLib/hashtable.h"
 #include <omp.h>
 #define N_SLICES 3
+#define MIDDLE_SLICE 1
 
 void usage();
 int hashfunction (struct data k);
 int mindex(int i, int j);
 void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
 void slice_clean(signed char * slice);
+void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count);
+void check_entry(signed char *entry, item **dead_to_live, item *node, int *count);
 
 unsigned cube_size=0;
 
 int main(int argc, char *argv[])
 {
     double end, start = omp_get_wtime();
-	int i=0;
+	int i=0, j=0;
     /*GET INPUT TEXT FILE, CHECK FOR ERRORS**************************************/
     if(argc != 3)
     {
@@ -63,18 +66,45 @@ int main(int argc, char *argv[])
 		for(i=0; i < N_SLICES; i++){
 			insert_in_slice(dynamic_matrix[i], hashtable, i);
 		}
-		for( i=0; i < cube_size; i++){
-		/****CHECK DOS VIZINHOS, QUEM MORRE E QUEM VIVE**
-		*****************************
-		ATENÇÃO à PRIMEIRA SLICE
-		**********************/
 
-		//matrix shift
-		matrix_tmp = dynamic_matrix[0];
-		dynamic_matrix[0] = dynamic_matrix[1];
-		dynamic_matrix[1] = dynamic_matrix[2];
-		dynamic_matrix[2] = matrix_tmp;
-		slice_clean(dynamic_matrix[2]);
+		/*lists that takes all the possible dead candidates to becaome live
+		one for each slice*/
+		item *dead_to_live[N_SLICES];
+		for(j=0; j<N_SLICES; j++)
+			dead_to_live[j] = list_init();
+
+		for( i=0; i < cube_size; i++){
+			int middle = 2; //keeps track of the hashlist correspondig to the middle slice
+			item *list_aux = list_init(), *aux=NULL;
+
+			int count;
+			while(hashtable->table[middle] != NULL){
+				count = 0;
+				aux = hash_first(hashtable,middle);
+				check_neighbors(dynamic_matrix, dead_to_live, aux, &count);
+				//if cell stays alive goes to the temporary list
+				if(count >= 2 && count <= 4)
+					list_aux = list_push(list_aux, aux);
+				//else it dies, so doesn't stay in the hash table
+			}
+			//inserts just the live cells that stayed alive
+			hashtable->table[middle] = list_aux;
+			//insert dead cells that become live in hashtable
+			hashtable->table[middle-1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[0]);
+
+			/****************************
+			ATENÇÃO à PRIMEIRA SLICE
+			**********************/
+			//dead_to_live lists shift
+			dead_to_live[0] = dead_to_live[1];
+			dead_to_live[1] = dead_to_live[2];
+			dead_to_live[2] = list_init();
+			//matrix shift
+			matrix_tmp = dynamic_matrix[0];
+			dynamic_matrix[0] = dynamic_matrix[1];
+			dynamic_matrix[1] = dynamic_matrix[2];
+			dynamic_matrix[2] = matrix_tmp;
+			slice_clean(dynamic_matrix[2]);
 		}
 
 	}
@@ -141,4 +171,29 @@ void slice_clean(signed char * slice){
 	for(i=0; i< cube_size; i++)
 		for(j=0; j< cube_size; j++)
 			slice[mindex(i,j)] = 0;
+}
+
+void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count){
+	int y = node->K.y;
+	int z = node->K.z;
+
+	check_entry(&matrix[0][mindex(y,z)], &dead_to_live[0], node, count);
+	check_entry(&matrix[2][mindex(y,z)], &dead_to_live[2], node, count);
+	check_entry(&matrix[1][mindex(y+1,z)], &dead_to_live[1], node, count);
+	check_entry(&matrix[1][mindex(y-1,z)], &dead_to_live[1], node, count);
+	check_entry(&matrix[1][mindex(y,z+1)], &dead_to_live[1], node, count);
+	check_entry(&matrix[1][mindex(y,z-1)], &dead_to_live[1], node, count);
+}
+
+void check_entry(signed char *entry, item **dead_to_live, item *node, int *count){
+
+	if(*entry==0){
+			(*entry)++;
+		if((*entry) == 2)
+			(*dead_to_live) = list_push((*dead_to_live), node);
+		else if((*entry) == 4)
+			(*dead_to_live) = list_remove((*dead_to_live), node->K);
+	}else{
+		(*count)++;
+	}
 }
