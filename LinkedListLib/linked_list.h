@@ -10,15 +10,19 @@ struct data{
 	int z;
 };
 /**************************************************/
-
-struct item;
+struct item{
+	struct data K;
+	struct item* next;
+};
 
 typedef struct data data;
 typedef struct item item;
 
 item* list_init();
 
-item* list_first(item** root, data K);
+item* list_first(item** root);
+
+item* list_push(item* root, item* other);
 
 item* list_append(item* root, data K);
 

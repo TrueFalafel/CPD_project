@@ -8,6 +8,8 @@
 void usage();
 int hashfunction (struct data k);
 int mindex(int i, int j);
+void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
+void slice_clean(signed char * slice);
 
 unsigned cube_size=0;
 
@@ -35,9 +37,9 @@ int main(int argc, char *argv[])
     unsigned n_generations = atoi(argv[2]);
     fscanf(pf, "%d", &cube_size);
 	/* Matrix that runs through the cube*/
-	int *dynamic_matrix[N_SLICES];
+	signed char *dynamic_matrix[N_SLICES];
 	for(i=0; i < N_SLICES; i++){
-		dynamic_matrix[i] = (int *)calloc(cube_size * cube_size, sizeof(int));
+		dynamic_matrix[i] = (signed char *)calloc(cube_size * cube_size, sizeof(char));
 	}
 
 	dynamic_matrix[0][mindex(1,1)] = 1;
@@ -55,8 +57,25 @@ int main(int argc, char *argv[])
 
 	/****Cycle for generations****************************************************/
 	int n=0;
+	signed char * matrix_tmp=NULL;
 	for(n=0 ; n < n_generations; n++){
+		//first 3 slice insertions
+		for(i=0; i < N_SLICES; i++){
+			insert_in_slice(dynamic_matrix[i], hashtable, i);
+		}
+		for( i=0; i < cube_size; i++){
+		/****CHECK DOS VIZINHOS, QUEM MORRE E QUEM VIVE**
+		*****************************
+		ATENÇÃO à PRIMEIRA SLICE
+		**********************/
 
+		//matrix shift
+		matrix_tmp = dynamic_matrix[0];
+		dynamic_matrix[0] = dynamic_matrix[1];
+		dynamic_matrix[1] = dynamic_matrix[2];
+		dynamic_matrix[2] = matrix_tmp;
+		slice_clean(dynamic_matrix[2]);
+		}
 
 	}
 
@@ -102,4 +121,24 @@ void print_data(data K){
 
 int mindex(int i, int j){
 	return i*cube_size + j;
+}
+
+void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
+	item *aux;
+	item *list_aux=NULL;
+
+	while(hashtable->table[entry]!=NULL){
+		aux = hash_first(hashtable, entry);
+		slice[mindex(aux->K.y, aux->K.z)] = -1;
+		list_aux = list_push(list_aux, aux);
+	}
+	hashtable->table[entry] = list_aux;
+}
+
+void slice_clean(signed char * slice){
+	int i,j;
+
+	for(i=0; i< cube_size; i++)
+		for(j=0; j< cube_size; j++)
+			slice[mindex(i,j)] = 0;
 }

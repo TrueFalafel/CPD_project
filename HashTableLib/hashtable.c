@@ -1,11 +1,5 @@
 #include "hashtable.h"
 
-struct hashtable_s {
-	int size;
-	struct item **table;
-	int (*hash_function)(data);
-};
-
 int hash_getSize(hashtable_s *hashtable){
 	return hashtable->size;
 }
@@ -81,6 +75,11 @@ void hash_remove(hashtable_s *hashtable, data K){
 	hashtable->table[index] = list_remove(hashtable->table[index], K);
 	return;
 }
+
+item* hash_first(hashtable_s *hashtable, int entry){
+	return list_first(&hashtable->table[entry]);
+}
+
 void hash_free(hashtable_s *hashtable){
 	int size = hashtable->size;
 	int i;

@@ -1,22 +1,27 @@
 #include "linked_list.h"
 
-struct item{
-	struct data K;
-	item* next;
-};
-
 item* list_init(){
 	return NULL;
 }
 
-item* list_first(item** root, data K){
+item* list_first(item** root){
 	item *first;
 
 	first = (*root);
-	(*root) = (*root)->next;
-	first->next = NULL;
+	if(root!=NULL){
+		(*root) = (*root)->next;
+		first->next = NULL;
+	}
 
 	return first;
+}
+
+item* list_push(item* root, item* other){
+
+	other->next = root;
+	root = other;
+
+	return root;
 }
 
 item* list_append(item* root, data K){
