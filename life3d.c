@@ -61,6 +61,7 @@ int main(int argc, char *argv[])
 	/****Cycle for generations****************************************************/
 	int n=0;
 	signed char * matrix_tmp=NULL;
+	signed char * first_slice;
 	for(n=0 ; n < n_generations; n++){
 		//first 3 slice insertions
 		for(i=0; i < N_SLICES; i++){
@@ -93,7 +94,12 @@ int main(int argc, char *argv[])
 			hashtable->table[middle-1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[0]);
 
 			/****************************
-			ATENÇÃO à PRIMEIRA SLICE
+			ATENÇÃO à PRIMEIRA SLICE*/
+			if(i==0){
+				first_slice = dynamic_matrix[0];
+				dynamic_matrix[0] =(signed char *)malloc(cube_size * cube_size, sizeof(char));
+			}
+			/*NAO ACABADO
 			**********************/
 			//dead_to_live lists shift
 			dead_to_live[0] = dead_to_live[1];
@@ -187,6 +193,7 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 
 void check_entry(signed char *entry, item **dead_to_live, item *node, int *count){
 
+	//CHECKAR COM WRAP!!
 	if(*entry==0){
 			(*entry)++;
 		if((*entry) == 2)
