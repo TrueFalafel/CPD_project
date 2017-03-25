@@ -1,4 +1,4 @@
-COMPFLAGS = gcc -Wall -g -ggdb -c -o
+COMPFLAGS = gcc -Wall -g -c -o
 LINKFLAGS = gcc -Wall -o
 #Fazer link flags diferentes pra omp (-fopenmp)
 LIBFLAGS = ar -cvq

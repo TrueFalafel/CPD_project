@@ -90,3 +90,13 @@ void hash_free(hashtable_s *hashtable){
 	free(hashtable->table);
 	free(hashtable);
 }
+
+void hash_sort(hashtable_s *hashtable){
+	int size = hashtable->size;
+	int i;
+
+	for(i=0;i<size;i++){
+		list_sort(&hashtable->table[i]);
+	}
+
+}

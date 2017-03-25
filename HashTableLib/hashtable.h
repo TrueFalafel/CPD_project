@@ -30,4 +30,6 @@ item* hash_first(hashtable_s *hashtable, int entry);
 
 void hash_free(hashtable_s *hashtable);
 
+void hash_sort(hashtable_s *hashtable);
+
 #endif //_HASHTABLE_LIB_H_

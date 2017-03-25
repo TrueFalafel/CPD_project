@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "./LinkedListLib/linked_list.h"
 #include "./HashTableLib/hashtable.h"
-#include <omp.h>
+//#include <omp.h>
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 
@@ -18,7 +18,7 @@ unsigned cube_size=0;
 
 int main(int argc, char *argv[])
 {
-    double end, start = omp_get_wtime();
+    //double end, start = omp_get_wtime();
 	int i=0, j=0;
     /*GET INPUT TEXT FILE, CHECK FOR ERRORS**************************************/
     if(argc != 3)
@@ -45,8 +45,6 @@ int main(int argc, char *argv[])
 		dynamic_matrix[i] = (signed char *)calloc(cube_size * cube_size, sizeof(char));
 	}
 
-	dynamic_matrix[0][mindex(1,1)] = 1;
-	printf("Teste: %d %d\n", dynamic_matrix[0][mindex(1,1)], dynamic_matrix[0][mindex(0,0)]);
     /**************************************************************************/
 
     /*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
@@ -56,7 +54,7 @@ int main(int argc, char *argv[])
     while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
     	hash_insert( hashtable, k);
 	}
-    
+
 	fclose(pf);
     /****************************************************************************/
 
@@ -107,9 +105,9 @@ int main(int argc, char *argv[])
 				hashtable->table[middle-1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[0]);
 				dead_to_live[0]=NULL;
 			if(i == cube_size-1){
-				hashtable->table[cube_size-1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[0]);
-				hashtable->table[0] = lists_concatenate(hashtable->table[middle-1], dead_to_live[1]);
-				hashtable->table[1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[2]);
+				hashtable->table[cube_size-1] = lists_concatenate(hashtable->table[cube_size-1], dead_to_live[0]);
+				hashtable->table[0] = lists_concatenate(hashtable->table[0], dead_to_live[1]);
+				hashtable->table[1] = lists_concatenate(hashtable->table[1], dead_to_live[2]);
 				dead_to_live[0]=NULL;
 				dead_to_live[1]=NULL;
 				dead_to_live[2]=NULL;
@@ -164,10 +162,11 @@ int main(int argc, char *argv[])
 	for(i=0; i < N_SLICES; i++)
 		free(dynamic_matrix[i]);
 
+	hash_sort(hashtable);
     hash_print(hashtable);
     hash_free(hashtable);
-    end = omp_get_wtime();
-    printf("Execution time: %e s\n", end - start); // PRINT IN SCIENTIFIC NOTATION
+    //end = omp_get_wtime();
+    //printf("Execution time: %e s\n", end - start); // PRINT IN SCIENTIFIC NOTATION
     exit(0);
 }
 /****************************END of MAIN******************************************/

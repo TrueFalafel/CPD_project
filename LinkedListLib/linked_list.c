@@ -122,10 +122,14 @@ item* lists_concatenate(item* list1, item* list2){
 	item* aux=NULL;
 
 	aux = list1;
-	while(aux->next != NULL)
-		aux = aux->next;
+	if(aux == NULL)
+		list1 = list2;
+	else{
+		while(aux->next != NULL)
+			aux = aux->next;
+		aux->next = list2;
+	}
 
-	aux->next = list2;
 	return list1;
 }
 /*Recursively divide the list in half and sort the sublists*/
