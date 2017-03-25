@@ -28,6 +28,8 @@ int main(){
 	}
 
     hash_print(hashtable);
+    list_sort(&hashtable->table[3]);
+    hash_print(hashtable);
 
     printf("Agora remova\n");
 	fgets(line, MAX, stdin);

@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
     while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
     	hash_insert( hashtable, k);
 	}
+    
 	fclose(pf);
     /****************************************************************************/
 
@@ -261,4 +262,39 @@ void check_entry(signed char *entry, item **dead_to_live, item *node, int *count
 	}else{
 		(*count)++;
 	}
+}
+
+item* sort(item* list1, item* list2){
+    item* result = NULL;
+
+    if(list1 == NULL){
+        return list2;
+    }else if (list2 == NULL){
+        return list1;
+    }
+
+    if(list1->K.x < list2->K.x){
+        result = list1;
+        result->next = sort(list1->next, list2);
+    }else if((list1->K.x > list2->K.x)){
+        result = list2;
+        result->next = sort(list1, list2->next);
+    }else{
+        if(list1->K.y < list2->K.y){
+            result = list1;
+            result->next = sort(list1->next, list2);
+        }else if((list1->K.y > list2->K.y)){
+            result = list2;
+            result->next = sort(list1, list2->next);
+        }else{
+            if(list1->K.z < list2->K.z){
+                result = list1;
+                result->next = sort(list1->next, list2);
+            }else if((list1->K.z > list2->K.z)){
+                result = list2;
+                result->next = sort(list1, list2->next);
+            }
+        }
+    }
+    return result;
 }
