@@ -128,3 +128,55 @@ item* lists_concatenate(item* list1, item* list2){
 	aux->next = list2;
 	return list1;
 }
+/*Recursively divide the list in half and sort the sublists*/
+void list_sort(item** head){
+	item* first_half;
+	item* second_half;
+	item* tmphead = *head;
+
+	/*Empty list or with only one element*/
+	if((tmphead == NULL) || (tmphead->next == NULL)){
+		return;
+	}
+
+	/*create the 2 sublists*/
+	list_split(tmphead, &first_half, &second_half);
+
+	/*recursively sort the 2 sublists*/
+	list_sort(&first_half);
+	list_sort(&second_half);
+
+	/*sort and merge the sublists together*/
+	*head = sort(first_half, second_half);
+	//return;
+}
+
+/*Divides the list in half
+Uses 1 pointer that advances 2 elements (fast) and
+1 pointer that only advances 1(slow)*/
+void list_split(item* head, item** first_half, item** second_half){
+	item* slow;
+	item* fast;
+
+	/*Empty list or with only one element*/
+	if((head == NULL) || (head->next == NULL)){
+		*first_half = head;
+		*second_half = NULL;
+	}else{
+		slow = head;
+		fast = head->next;
+
+		while(fast != NULL){
+			fast = fast->next;
+			if(fast != NULL){
+				slow = slow->next;
+				fast = fast->next;
+			}
+		}
+
+		/*slow is in before the element in the middle*/
+		*first_half = head;
+		*second_half = slow->next;
+		slow->next = NULL;
+	}
+}

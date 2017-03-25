@@ -36,12 +36,18 @@ void list_print(item* root);
 
 item* lists_concatenate(item* list1, item* list2);
 
+void list_sort(item** head);
+
+void list_split(item* head, item** first_half, item** second_half);
+
 /***** funções abstratas (falta implementação)***/
 data set_data(int x, int y, int z);
 
 int equal_data(data K1, data K2); //sucesso=1, insucesso=0
 
 void print_data(data K);
+
+item* sort(item* list1, item* list2);
 /*************************************************/
 
 #endif //_LINKED_LIST_LIB_H_
