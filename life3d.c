@@ -57,12 +57,6 @@ int main(int argc, char *argv[])
     	hash_insert( hashtable, k);
 	}
 
-    hash_print(hashtable);
-    for(int coco; coco < hashtable->size; coco++){
-        list_sort(&hashtable->table[coco]);
-    }
-    printf("#######################\n#######################\n###############################\n");
-    hash_print(hashtable);
     /****************************************************************************/
 
 	/****Cycle for generations****************************************************/
