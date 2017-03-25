@@ -56,12 +56,14 @@ int main(int argc, char *argv[])
     while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
     	hash_insert( hashtable, k);
 	}
+	fclose(pf);
     /****************************************************************************/
 
 	/****Cycle for generations****************************************************/
 	int n=0;
 	signed char * matrix_tmp=NULL;
-	signed char * first_slice;
+	signed char *first_slice, *second_slice;
+	item *first_list, *second_list;
 	for(n=0 ; n < n_generations; n++){
 		//first 3 slice insertions
 		for(i=0; i < N_SLICES; i++){
@@ -74,11 +76,19 @@ int main(int argc, char *argv[])
 		for(j=0; j<N_SLICES; j++)
 			dead_to_live[j] = list_init();
 
+		int middle = 1; //keeps track of the hashlist correspondig to the middle slice
 		for( i=0; i < cube_size; i++){
-			int middle = 2; //keeps track of the hashlist correspondig to the middle slice
+
 			item *list_aux = list_init(), *aux=NULL;
 
 			int count;
+			//in the last iteration we should examine teh first hash_list
+			if(middle == cube_size)
+				middle=0;
+			/*first 3 slices are already filled, and when it wraps around
+			slices 1 and 2 are already filled too*/
+			if(i!=0 && i!=cube_size-2 && i!=cube_size-1)
+				insert_in_slice(dynamic_matrix[2], hashtable, middle+1);
 			while(hashtable->table[middle] != NULL){
 				count = 0;
 				aux = hash_first(hashtable,middle);
@@ -90,35 +100,72 @@ int main(int argc, char *argv[])
 			}
 			//inserts just the live cells that stayed alive
 			hashtable->table[middle] = list_aux;
-			//insert dead cells that become live in hashtable
-			hashtable->table[middle-1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[0]);
-
+			list_aux = NULL;
+			//insert dead cells that become live in hashtable (only if not in the first or second iteration)
+			if(i!=0 && i!=1 && i!=cube_size-1)
+				hashtable->table[middle-1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[0]);
+				dead_to_live[0]=NULL;
+			if(i == cube_size-1){
+				hashtable->table[cube_size-1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[0]);
+				hashtable->table[0] = lists_concatenate(hashtable->table[middle-1], dead_to_live[1]);
+				hashtable->table[1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[2]);
+				dead_to_live[0]=NULL;
+				dead_to_live[1]=NULL;
+				dead_to_live[2]=NULL;
+			}
 			/****************************
-			ATENÇÃO à PRIMEIRA SLICE*/
+			ATENÇÃO à PRIMEIRA e SEGUNDA SLICE
+			(isto tem de se mudar...)*/
 			if(i==0){
 				first_slice = dynamic_matrix[0];
 				dynamic_matrix[0] =(signed char *)malloc(cube_size * cube_size * sizeof(char));
+				first_list = dead_to_live[0];
+				dead_to_live[0] = NULL;
 			}
-			/*NAO ACABADO
-			**********************/
+			if(i==1){
+				second_slice = dynamic_matrix[0];
+				dynamic_matrix[0] =(signed char *)malloc(cube_size * cube_size * sizeof(char));
+				second_list = dead_to_live[0];
+				dead_to_live[0] = NULL;
+			}
+
 			//dead_to_live lists shift
 			dead_to_live[0] = dead_to_live[1];
 			dead_to_live[1] = dead_to_live[2];
-			dead_to_live[2] = list_init();
+			if(i == cube_size - 3){
+				dead_to_live[2] = first_list;
+			}else if(i == cube_size - 2){
+				dead_to_live[2] = second_list;
+			}else{
+				dead_to_live[2] = list_init();
+			}
 			//matrix shift
 			matrix_tmp = dynamic_matrix[0];
 			dynamic_matrix[0] = dynamic_matrix[1];
 			dynamic_matrix[1] = dynamic_matrix[2];
-			dynamic_matrix[2] = matrix_tmp;
-			slice_clean(dynamic_matrix[2]);
+			if(i == cube_size - 3){
+				dynamic_matrix[2] = first_slice;
+				free(matrix_tmp);
+			}else if(i == cube_size - 2){
+				dynamic_matrix[2] = second_slice;
+				free(matrix_tmp);
+			}else{
+				dynamic_matrix[2] = matrix_tmp;
+				slice_clean(dynamic_matrix[2]);
+			}
+
+			//goes on in the hashtable
+			middle++;
 		}
 
 	}
 
+	for(i=0; i < N_SLICES; i++)
+		free(dynamic_matrix[i]);
+
     hash_print(hashtable);
     hash_free(hashtable);
     end = omp_get_wtime();
-    fclose(pf);
     printf("Execution time: %e s\n", end - start); // PRINT IN SCIENTIFIC NOTATION
     exit(0);
 }
@@ -185,16 +232,27 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 
 	check_entry(&matrix[0][mindex(y,z)], &dead_to_live[0], node, count);
 	check_entry(&matrix[2][mindex(y,z)], &dead_to_live[2], node, count);
-	check_entry(&matrix[1][mindex(y+1,z)], &dead_to_live[1], node, count);
-	check_entry(&matrix[1][mindex(y-1,z)], &dead_to_live[1], node, count);
-	check_entry(&matrix[1][mindex(y,z+1)], &dead_to_live[1], node, count);
-	check_entry(&matrix[1][mindex(y,z-1)], &dead_to_live[1], node, count);
+	if(y != cube_size-1)
+		check_entry(&matrix[1][mindex(y+1,z)], &dead_to_live[1], node, count);
+	else
+		check_entry(&matrix[1][mindex(0,z)], &dead_to_live[1], node, count);
+	if(y != 0)
+		check_entry(&matrix[1][mindex(y-1,z)], &dead_to_live[1], node, count);
+	else
+		check_entry(&matrix[1][mindex(cube_size-1,z)], &dead_to_live[1], node, count);
+	if(z != cube_size-1)
+		check_entry(&matrix[1][mindex(y,z+1)], &dead_to_live[1], node, count);
+	else
+		check_entry(&matrix[1][mindex(y,0)], &dead_to_live[1], node, count);
+	if(z != 0)
+		check_entry(&matrix[1][mindex(y,z-1)], &dead_to_live[1], node, count);
+	else
+		check_entry(&matrix[1][mindex(y,cube_size-1)], &dead_to_live[1], node, count);
 }
 
 void check_entry(signed char *entry, item **dead_to_live, item *node, int *count){
 
-	//CHECKAR COM WRAP!!
-	if(*entry==0){
+	if((*entry)!=-1){
 			(*entry)++;
 		if((*entry) == 2)
 			(*dead_to_live) = list_push((*dead_to_live), node);
