@@ -54,7 +54,7 @@ void hash_print(hashtable_s *hashtable){
 	int i;
 
 	for(i=0; i < hashtable->size; i++){
-		printf("Position %d:\n", i);
+		//printf("Position %d:\n", i);
 		list_print(hashtable->table[i]);
 	}
 	return;

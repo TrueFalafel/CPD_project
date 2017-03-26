@@ -28,7 +28,7 @@ hashtable.o: $(HT_LIB_PATH)/hashtable.c $(HT_LIB_PATH)/hashtable.h
 ################################################################################
 #FAZER make serial PARA CORRER O PROGRAMA ######################################
 run:
-	./life3d $(IN_FILES_PATH)/simple.in 1
+	./life3d $(IN_FILES_PATH)/simple.in 2
 ################################################################################
 #FAZER make clean PARA LIMPAR APENAS OS FICHEIROS DO PROGRAMA###################
 clean:

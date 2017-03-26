@@ -1,4 +1,4 @@
-COMPFLAGS = gcc -Wall -g -c -o
+COMPFLAGS = gcc -Wall -g -ggdb -c -o
 LINKFLAGS = gcc -Wall -o
 #Fazer link flags diferentes pra omp (-fopenmp)
 LIBFLAGS = ar -cvq
@@ -28,7 +28,7 @@ hashtable.o: $(HT_LIB_PATH)/hashtable.c $(HT_LIB_PATH)/hashtable.h
 ################################################################################
 #FAZER make serial PARA CORRER O PROGRAMA ######################################
 run:
-	./life3d $(IN_FILES_PATH)/simple.in 1
+	./life3d $(IN_FILES_PATH)/
 ################################################################################
 #FAZER make clean PARA LIMPAR APENAS OS FICHEIROS DO PROGRAMA###################
 clean:

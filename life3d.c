@@ -12,7 +12,8 @@ int mindex(int i, int j);
 void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
 void slice_clean(signed char * slice);
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count);
-void check_entry(signed char *entry, item **dead_to_live, item *node, int *count);
+void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
+void matrix_print(signed char ** matrix);
 
 unsigned cube_size=0;
 
@@ -58,6 +59,8 @@ int main(int argc, char *argv[])
 	fclose(pf);
     /****************************************************************************/
 
+	//hash_print(hashtable);
+
 	/****Cycle for generations****************************************************/
 	int n=0;
 	signed char * matrix_tmp=NULL;
@@ -95,6 +98,8 @@ int main(int argc, char *argv[])
 				//if cell stays alive goes to the temporary list
 				if(count >= 2 && count <= 4)
 					list_aux = list_push(list_aux, aux);
+				else
+					free(aux);
 				//else it dies, so doesn't stay in the hash table
 			}
 			//inserts just the live cells that stayed alive
@@ -112,6 +117,15 @@ int main(int argc, char *argv[])
 				dead_to_live[1]=NULL;
 				dead_to_live[2]=NULL;
 			}
+
+
+			/*ZONA DE TESTE*
+
+			matrix_print(dynamic_matrix);
+			getchar();
+
+			********[END] ZONA DE TESTE********************/
+
 			/****************************
 			ATENÇÃO à PRIMEIRA e SEGUNDA SLICE
 			(isto tem de se mudar...)*/
@@ -155,14 +169,17 @@ int main(int argc, char *argv[])
 
 			//goes on in the hashtable
 			middle++;
+
 		}
 
+		for(i=0; i < N_SLICES; i++)
+			slice_clean(dynamic_matrix[i]);
 	}
 
 	for(i=0; i < N_SLICES; i++)
 		free(dynamic_matrix[i]);
 
-	hash_sort(hashtable);
+	//hash_sort(hashtable);
     hash_print(hashtable);
     hash_free(hashtable);
     //end = omp_get_wtime();
@@ -203,7 +220,7 @@ void print_data(data K){
 }
 
 int mindex(int i, int j){
-	return i*cube_size + j;
+	return i + j*cube_size;
 }
 
 void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
@@ -227,37 +244,66 @@ void slice_clean(signed char * slice){
 }
 
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count){
+	int x = node->K.x;
 	int y = node->K.y;
 	int z = node->K.z;
+	data K = {.x = x, .y = y, .z = z};
 
-	check_entry(&matrix[0][mindex(y,z)], &dead_to_live[0], node, count);
-	check_entry(&matrix[2][mindex(y,z)], &dead_to_live[2], node, count);
-	if(y != cube_size-1)
-		check_entry(&matrix[1][mindex(y+1,z)], &dead_to_live[1], node, count);
+	// x coordenate neighbor search
+	if(x != 0)
+		K.x = x - 1;
 	else
-		check_entry(&matrix[1][mindex(0,z)], &dead_to_live[1], node, count);
-	if(y != 0)
-		check_entry(&matrix[1][mindex(y-1,z)], &dead_to_live[1], node, count);
+		K.x = cube_size - 1;
+	check_entry(&matrix[0][mindex(y,z)], &dead_to_live[0], K, count);
+	if(x != cube_size-1)
+		K.x = x + 1;
 	else
-		check_entry(&matrix[1][mindex(cube_size-1,z)], &dead_to_live[1], node, count);
-	if(z != cube_size-1)
-		check_entry(&matrix[1][mindex(y,z+1)], &dead_to_live[1], node, count);
-	else
-		check_entry(&matrix[1][mindex(y,0)], &dead_to_live[1], node, count);
-	if(z != 0)
-		check_entry(&matrix[1][mindex(y,z-1)], &dead_to_live[1], node, count);
-	else
-		check_entry(&matrix[1][mindex(y,cube_size-1)], &dead_to_live[1], node, count);
+		K.x = 0;
+	check_entry(&matrix[2][mindex(y,z)], &dead_to_live[2], K, count);
+	K.x = x;
+
+	// y coordenate neighbor search
+	if(y != cube_size-1){
+		K.y = y + 1;
+		check_entry(&matrix[1][mindex(y+1,z)], &dead_to_live[1], K, count);
+	}else{
+		K.y = 0;
+		check_entry(&matrix[1][mindex(0,z)], &dead_to_live[1], K, count);
+	}
+	if(y != 0){
+		K.y = y - 1;
+		check_entry(&matrix[1][mindex(y-1,z)], &dead_to_live[1], K, count);
+	}else{
+		K.y = cube_size-1;
+		check_entry(&matrix[1][mindex(cube_size-1,z)], &dead_to_live[1], K, count);
+	}
+	K.y = y;
+
+	// z coordenate neighbor search
+	if(z != cube_size-1){
+		K.z = z + 1;
+		check_entry(&matrix[1][mindex(y,z+1)], &dead_to_live[1], K, count);
+	}else{
+		K.z = 0;
+		check_entry(&matrix[1][mindex(y,0)], &dead_to_live[1], K, count);
+	}
+	if(z != 0){
+		K.z = z - 1;
+		check_entry(&matrix[1][mindex(y,z-1)], &dead_to_live[1], K, count);
+	}else{
+		K.z = cube_size-1;
+		check_entry(&matrix[1][mindex(y,cube_size-1)], &dead_to_live[1], K, count);
+	}
 }
 
-void check_entry(signed char *entry, item **dead_to_live, item *node, int *count){
+void check_entry(signed char *entry, item **dead_to_live, data K, int *count){
 
 	if((*entry)!=-1){
 			(*entry)++;
 		if((*entry) == 2)
-			(*dead_to_live) = list_push((*dead_to_live), node);
+			(*dead_to_live) = list_append((*dead_to_live), K);
 		else if((*entry) == 4)
-			(*dead_to_live) = list_remove((*dead_to_live), node->K);
+			(*dead_to_live) = list_remove((*dead_to_live), K);
 	}else{
 		(*count)++;
 	}
@@ -296,4 +342,18 @@ item* sort(item* list1, item* list2){
         }
     }
     return result;
+}
+
+void matrix_print(signed char ** matrix){
+	int i, j;
+
+	for(i=0; i<N_SLICES; i++){
+		printf("%d slice:", i);
+		for(j=0; j<(cube_size*cube_size); j++){
+			if(j%cube_size == 0)
+				printf("\n" );
+			printf("%d ", matrix[i][j]);
+		}
+		printf("\n\n");
+	}
 }
