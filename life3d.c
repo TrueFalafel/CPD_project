@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "./LinkedListLib/linked_list.h"
 #include "./HashTableLib/hashtable.h"
+#include <string.h>
 //#include <omp.h>
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
@@ -106,9 +107,10 @@ int main(int argc, char *argv[])
 			hashtable->table[middle] = list_aux;
 			list_aux = NULL;
 			//insert dead cells that become live in hashtable (only if not in the first or second iteration)
-			if(i!=0 && i!=1 && i!=cube_size-1)
+			if(i!=0 && i!=1 && i!=cube_size-1){
 				hashtable->table[middle-1] = lists_concatenate(hashtable->table[middle-1], dead_to_live[0]);
 				dead_to_live[0]=NULL;
+			}
 			if(i == cube_size-1){
 				hashtable->table[cube_size-1] = lists_concatenate(hashtable->table[cube_size-1], dead_to_live[0]);
 				hashtable->table[0] = lists_concatenate(hashtable->table[0], dead_to_live[1]);
@@ -236,11 +238,7 @@ void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
 }
 
 void slice_clean(signed char * slice){
-	int i,j;
-
-	for(i=0; i< cube_size; i++)
-		for(j=0; j< cube_size; j++)
-			slice[mindex(i,j)] = 0;
+	memset(slice, 0, cube_size*cube_size);
 }
 
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count){
@@ -263,37 +261,33 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 	K.x = x;
 
 	// y coordenate neighbor search
-	if(y != 0){
+	if(y != 0)
 		K.y = y - 1;
-		check_entry(&matrix[1][mindex(y-1,z)], &dead_to_live[1], K, count);
-	}else{
+	else
 		K.y = cube_size-1;
-		check_entry(&matrix[1][mindex(cube_size-1,z)], &dead_to_live[1], K, count);
-	}
-	if(y != cube_size-1){
+	check_entry(&matrix[1][mindex(K.y,z)], &dead_to_live[1], K, count);
+
+	if(y != cube_size-1)
 		K.y = y + 1;
-		check_entry(&matrix[1][mindex(y+1,z)], &dead_to_live[1], K, count);
-	}else{
+	else
 		K.y = 0;
-		check_entry(&matrix[1][mindex(0,z)], &dead_to_live[1], K, count);
-	}
+	check_entry(&matrix[1][mindex(K.y,z)], &dead_to_live[1], K, count);
+
 	K.y = y;
 
 	// z coordenate neighbor search
-	if(z != 0){
+	if(z != 0)
 		K.z = z - 1;
-		check_entry(&matrix[1][mindex(y,z-1)], &dead_to_live[1], K, count);
-	}else{
+	else
 		K.z = cube_size-1;
-		check_entry(&matrix[1][mindex(y,cube_size-1)], &dead_to_live[1], K, count);
-	}
-	if(z != cube_size-1){
+	check_entry(&matrix[1][mindex(y,K.z)], &dead_to_live[1], K, count);
+
+	if(z != cube_size-1)
 		K.z = z + 1;
-		check_entry(&matrix[1][mindex(y,z+1)], &dead_to_live[1], K, count);
-	}else{
+	else
 		K.z = 0;
-		check_entry(&matrix[1][mindex(y,0)], &dead_to_live[1], K, count);
-	}
+	check_entry(&matrix[1][mindex(y,K.z)], &dead_to_live[1], K, count);
+
 }
 
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count){
