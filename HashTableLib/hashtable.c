@@ -10,18 +10,18 @@ hashtable_s *hash_create(int size, int(*hash_f)(data)){
 	int i;
 
 	if( size < 1 ){
-		printf("Invalid hashtable size\n");
-		return NULL;
+		perror("Invalid hashtable size\n");
+		exit(-1);
 	}
 	//Alocação da estrutura da hashtable
 	if( ( hashtable = malloc(sizeof(hashtable_s))) == NULL ) {
-		printf("Error allocating hashtable structure\n");
-		return NULL;
+		perror("Error allocating hashtable structure\n");
+		exit(-1);
 	}
 	//Alocação da tabela da hashtable
 	if( ( hashtable->table = malloc(sizeof(item*) * size)) == NULL ) {
-		printf("Error allocating hashtable table\n");
-		return NULL;
+		perror("Error allocating hashtable table\n");
+		exit(-1);
 	}
 	//Inicialização das entradas da hashtable
 	for( i = 0; i < size; i++ ) {
@@ -43,8 +43,8 @@ void hash_insert(hashtable_s *hashtable, data K){
 	int index = get_index(hashtable, K);
 
 	if(index > hashtable->size-1){
-		printf("Hashtable index out of bounds\n");
-		exit(20);
+		perror("Hashtable index out of bounds\n");
+		exit(-1);
 	}
 	hashtable->table[index] = list_append(hashtable->table[index], K);
 	return;

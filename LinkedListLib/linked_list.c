@@ -11,6 +11,9 @@ item* list_first(item** root){
 	if(root!=NULL){
 		(*root) = (*root)->next;
 		first->next = NULL;
+	}else{
+		perror("List already empty\n");
+		exit(-1);
 	}
 
 	return first;
@@ -29,7 +32,7 @@ item* list_append(item* root, data K){
 
 	new = (item*)malloc(sizeof(item));
 	if(new == NULL){
-		printf("Erro na alocação\n");
+		perror("Erro na alocação de new item\n");
 		exit(-1);
 	}
 
@@ -44,8 +47,8 @@ item* list_remove(item* root, data K){
 	item *aux, *aux_seg;
 
 	if(root == NULL){
-		printf("Already an empty list!\n");
-		return root;
+		perror("Already an empty list!\n");
+		exit(-1);
 	}
 
 	aux = root;
@@ -56,8 +59,8 @@ item* list_remove(item* root, data K){
 	}else{
 		while(!equal_data(aux_seg->K, K)){
 			if(aux_seg->next == NULL){
-				printf("No data K found in remove!\n");
-				return root;
+				perror("No data K found in remove!\n");
+				exit(-1);
 			}
 			aux = aux->next;
 			aux_seg = aux_seg->next;
