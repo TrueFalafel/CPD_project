@@ -1,0 +1,981 @@
+desc: (none)
+cmd: ./life3d InputFiles/s500e300k.in 2000
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=545709710
+mem_heap_B=8424840
+mem_heap_extra_B=4780608
+mem_stacks_B=0
+heap_tree=peak
+n5: 8424840 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 7170816 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n1: 7170336 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+   n0: 7170336 0x400A02: main (life3d.c:57)
+  n0: 480 in 1 place, below massif's threshold (01.00%)
+ n0: 750000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=2
+#-----------
+time=1194093850
+mem_heap_B=1461312
+mem_heap_extra_B=138256
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=1671977239
+mem_heap_B=1461072
+mem_heap_extra_B=138096
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=2029491434
+mem_heap_B=1460952
+mem_heap_extra_B=138016
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460952 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206928 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 206928 0x40146D: check_entry (life3d.c:298)
+   n1: 66528 0x401218: check_neighbors (life3d.c:255)
+    n0: 66528 0x400BAE: main (life3d.c:98)
+   n1: 37008 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 37008 0x400BAE: main (life3d.c:98)
+   n1: 35112 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35112 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 33264 0x401404: check_neighbors (life3d.c:289)
+    n0: 33264 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=5
+#-----------
+time=2492894281
+mem_heap_B=1461528
+mem_heap_extra_B=138416
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=3020945875
+mem_heap_B=1461024
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=3723276974
+mem_heap_B=1461720
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=4214944287
+mem_heap_B=1460592
+mem_heap_extra_B=137792
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=4531027339
+mem_heap_B=1460784
+mem_heap_extra_B=137920
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=5075095016
+mem_heap_B=1461528
+mem_heap_extra_B=138416
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=5498299689
+mem_heap_B=1460688
+mem_heap_extra_B=137856
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=5921497023
+mem_heap_B=1460400
+mem_heap_extra_B=137664
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460400 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206376 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 206376 0x40146D: check_entry (life3d.c:298)
+   n1: 66072 0x401218: check_neighbors (life3d.c:255)
+    n0: 66072 0x400BAE: main (life3d.c:98)
+   n1: 36432 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36432 0x400BAE: main (life3d.c:98)
+   n1: 35040 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35040 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 33816 0x401404: check_neighbors (life3d.c:289)
+    n0: 33816 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=13
+#-----------
+time=6344654246
+mem_heap_B=1461576
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=7069990201
+mem_heap_B=1460760
+mem_heap_extra_B=137904
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=7553582732
+mem_heap_B=1460112
+mem_heap_extra_B=137472
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=8037402310
+mem_heap_B=1460736
+mem_heap_extra_B=137888
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=8400252529
+mem_heap_B=1461360
+mem_heap_extra_B=138304
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=8823569316
+mem_heap_B=1460232
+mem_heap_extra_B=137552
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=9367891712
+mem_heap_B=1460976
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=9730729942
+mem_heap_B=1460208
+mem_heap_extra_B=137520
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=10154086844
+mem_heap_B=1461552
+mem_heap_extra_B=138432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461552 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207528 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 207528 0x40146D: check_entry (life3d.c:298)
+   n1: 67176 0x401218: check_neighbors (life3d.c:255)
+    n0: 67176 0x400BAE: main (life3d.c:98)
+   n1: 35352 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35352 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 34824 0x401404: check_neighbors (life3d.c:289)
+    n0: 34824 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=22
+#-----------
+time=10577458281
+mem_heap_B=1460808
+mem_heap_extra_B=137936
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=11182029436
+mem_heap_B=1461816
+mem_heap_extra_B=138608
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=11786625708
+mem_heap_B=1461144
+mem_heap_extra_B=138160
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=12270276512
+mem_heap_B=1460304
+mem_heap_extra_B=137600
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=12995783342
+mem_heap_B=1460712
+mem_heap_extra_B=137872
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=13358538221
+mem_heap_B=1461192
+mem_heap_extra_B=138192
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461192 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207168 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 207168 0x40146D: check_entry (life3d.c:298)
+   n1: 66792 0x401218: check_neighbors (life3d.c:255)
+    n0: 66792 0x400BAE: main (life3d.c:98)
+   n1: 36000 0x401404: check_neighbors (life3d.c:289)
+    n0: 36000 0x400BAE: main (life3d.c:98)
+   n1: 35904 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35904 0x400BAE: main (life3d.c:98)
+   n1: 34416 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34416 0x400BAE: main (life3d.c:98)
+   n1: 34056 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34056 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=28
+#-----------
+time=13842203680
+mem_heap_B=1461648
+mem_heap_extra_B=138496
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=14325932371
+mem_heap_B=1461048
+mem_heap_extra_B=138096
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=14809596993
+mem_heap_B=1460184
+mem_heap_extra_B=137520
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=15293290712
+mem_heap_B=1460400
+mem_heap_extra_B=137664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=16018822586
+mem_heap_B=1461672
+mem_heap_extra_B=138496
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=16623399379
+mem_heap_B=1461360
+mem_heap_extra_B=138288
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=16997384874
+mem_heap_B=1460280
+mem_heap_extra_B=137568
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=17558339788
+mem_heap_B=1460712
+mem_heap_extra_B=137856
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=18119309712
+mem_heap_B=1461384
+mem_heap_extra_B=138304
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=18867236648
+mem_heap_B=1460904
+mem_heap_extra_B=137984
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=19241238015
+mem_heap_B=1461384
+mem_heap_extra_B=138304
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=19802211994
+mem_heap_B=1460808
+mem_heap_extra_B=137920
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=20550131510
+mem_heap_B=1461384
+mem_heap_extra_B=138304
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=21298083071
+mem_heap_B=1461696
+mem_heap_extra_B=138512
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=21859035727
+mem_heap_B=1461456
+mem_heap_extra_B=138352
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=22233020953
+mem_heap_B=1460208
+mem_heap_extra_B=137520
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=22794003281
+mem_heap_B=1460736
+mem_heap_extra_B=137872
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460736 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206712 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 206712 0x40146D: check_entry (life3d.c:298)
+   n1: 66432 0x401218: check_neighbors (life3d.c:255)
+    n0: 66432 0x400BAE: main (life3d.c:98)
+   n1: 36168 0x401404: check_neighbors (life3d.c:289)
+    n0: 36168 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34224 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34224 0x400BAE: main (life3d.c:98)
+   n1: 33960 0x40133F: check_neighbors (life3d.c:274)
+    n0: 33960 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=45
+#-----------
+time=23354985931
+mem_heap_B=1461312
+mem_heap_extra_B=138256
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=24102970512
+mem_heap_B=1460736
+mem_heap_extra_B=137872
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=24663946582
+mem_heap_B=1461312
+mem_heap_extra_B=138256
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461312 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207288 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 207288 0x40146D: check_entry (life3d.c:298)
+   n1: 66888 0x401218: check_neighbors (life3d.c:255)
+    n0: 66888 0x400BAE: main (life3d.c:98)
+   n1: 36000 0x401404: check_neighbors (life3d.c:289)
+    n0: 36000 0x400BAE: main (life3d.c:98)
+   n1: 35664 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35664 0x400BAE: main (life3d.c:98)
+   n1: 34392 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34392 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=48
+#-----------
+time=25411927341
+mem_heap_B=1460736
+mem_heap_extra_B=137872
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=25972905308
+mem_heap_B=1461312
+mem_heap_extra_B=138256
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=26288988429
+mem_heap_B=1461432
+mem_heap_extra_B=138336
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=26605083887
+mem_heap_B=1461024
+mem_heap_extra_B=138064
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=26921169068
+mem_heap_B=1460904
+mem_heap_extra_B=137984
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460904 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206880 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 206880 0x40146D: check_entry (life3d.c:298)
+   n1: 66528 0x401218: check_neighbors (life3d.c:255)
+    n0: 66528 0x400BAE: main (life3d.c:98)
+   n1: 35880 0x401404: check_neighbors (life3d.c:289)
+    n0: 35880 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 34560 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34560 0x400BAE: main (life3d.c:98)
+   n1: 34176 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34176 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=53
+#-----------
+time=27237270394
+mem_heap_B=1460760
+mem_heap_extra_B=137888
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=27553376738
+mem_heap_B=1460760
+mem_heap_extra_B=137888
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=27869460270
+mem_heap_B=1460760
+mem_heap_extra_B=137888
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=28185561872
+mem_heap_B=1460424
+mem_heap_extra_B=137664
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=28501645186
+mem_heap_B=1460472
+mem_heap_extra_B=137696
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=28817743597
+mem_heap_B=1460304
+mem_heap_extra_B=137584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=29133831732
+mem_heap_B=1460280
+mem_heap_extra_B=137568
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=29449920349
+mem_heap_B=1460232
+mem_heap_extra_B=137536
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=29766027326
+mem_heap_B=1460088
+mem_heap_extra_B=137440
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=30082136933
+mem_heap_B=1459968
+mem_heap_extra_B=137360
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1459968 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 205944 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 205944 0x40146D: check_entry (life3d.c:298)
+   n1: 65616 0x401218: check_neighbors (life3d.c:255)
+    n0: 65616 0x400BAE: main (life3d.c:98)
+   n1: 36432 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36432 0x400BAE: main (life3d.c:98)
+   n1: 35208 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35208 0x400BAE: main (life3d.c:98)
+   n1: 34728 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34728 0x400BAE: main (life3d.c:98)
+   n1: 33960 0x401404: check_neighbors (life3d.c:289)
+    n0: 33960 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=63
+#-----------
+time=30398241628
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=30714324771
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=65
+#-----------
+time=31030415683
+mem_heap_B=1460520
+mem_heap_extra_B=137728
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=31346525504
+mem_heap_B=1460544
+mem_heap_extra_B=137744
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=31662619185
+mem_heap_B=1460808
+mem_heap_extra_B=137920
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=31978709949
+mem_heap_B=1460904
+mem_heap_extra_B=137984
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=32294817811
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=70
+#-----------
+time=32610923741
+mem_heap_B=1461096
+mem_heap_extra_B=138112
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=71
+#-----------
+time=32927030677
+mem_heap_B=1461240
+mem_heap_extra_B=138208
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=33243129941
+mem_heap_B=1461432
+mem_heap_extra_B=138336
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461432 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207408 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 207408 0x40146D: check_entry (life3d.c:298)
+   n1: 67056 0x401218: check_neighbors (life3d.c:255)
+    n0: 67056 0x400BAE: main (life3d.c:98)
+   n1: 35760 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35760 0x400BAE: main (life3d.c:98)
+   n1: 35184 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35184 0x400BAE: main (life3d.c:98)
+   n1: 34920 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34920 0x400BAE: main (life3d.c:98)
+   n1: 34488 0x401404: check_neighbors (life3d.c:289)
+    n0: 34488 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=73
+#-----------
+time=33559220628
+mem_heap_B=1461432
+mem_heap_extra_B=138336
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=74
+#-----------
+time=33875303760
+mem_heap_B=1461528
+mem_heap_extra_B=138400
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=75
+#-----------
+time=34191386914
+mem_heap_B=1461552
+mem_heap_extra_B=138416
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=76
+#-----------
+time=34507484060
+mem_heap_B=1461552
+mem_heap_extra_B=138416
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=77
+#-----------
+time=34823578384
+mem_heap_B=1461648
+mem_heap_extra_B=138480
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=78
+#-----------
+time=35139661619
+mem_heap_B=1461816
+mem_heap_extra_B=138592
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=79
+#-----------
+time=35455771191
+mem_heap_B=1461720
+mem_heap_extra_B=138528
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=80
+#-----------
+time=35771854297
+mem_heap_B=1461648
+mem_heap_extra_B=138480
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=81
+#-----------
+time=36087937464
+mem_heap_B=1461576
+mem_heap_extra_B=138432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=82
+#-----------
+time=36404044598
+mem_heap_B=1461336
+mem_heap_extra_B=138272
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461336 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207312 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 207312 0x40146D: check_entry (life3d.c:298)
+   n1: 66984 0x401218: check_neighbors (life3d.c:255)
+    n0: 66984 0x400BAE: main (life3d.c:98)
+   n1: 35880 0x401404: check_neighbors (life3d.c:289)
+    n0: 35880 0x400BAE: main (life3d.c:98)
+   n1: 35592 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35592 0x400BAE: main (life3d.c:98)
+   n1: 34536 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34536 0x400BAE: main (life3d.c:98)
+   n1: 34320 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34320 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=83
+#-----------
+time=36720127797
+mem_heap_B=1461144
+mem_heap_extra_B=138144
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=84
+#-----------
+time=37036230415
+mem_heap_B=1460928
+mem_heap_extra_B=138000
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=85
+#-----------
+time=37352323554
+mem_heap_B=1460880
+mem_heap_extra_B=137968
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=86
+#-----------
+time=37668408769
+mem_heap_B=1460736
+mem_heap_extra_B=137872
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=87
+#-----------
+time=37984492091
+mem_heap_B=1460760
+mem_heap_extra_B=137888
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=88
+#-----------
+time=38300586058
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=89
+#-----------
+time=38616678710
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=90
+#-----------
+time=38932778034
+mem_heap_B=1460280
+mem_heap_extra_B=137568
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=91
+#-----------
+time=39248861180
+mem_heap_B=1460232
+mem_heap_extra_B=137536
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=92
+#-----------
+time=39564966582
+mem_heap_B=1460208
+mem_heap_extra_B=137520
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460208 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206184 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+  n6: 206184 0x40146D: check_entry (life3d.c:298)
+   n1: 65856 0x401218: check_neighbors (life3d.c:255)
+    n0: 65856 0x400BAE: main (life3d.c:98)
+   n1: 35904 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35904 0x400BAE: main (life3d.c:98)
+   n1: 35400 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35400 0x400BAE: main (life3d.c:98)
+   n1: 34608 0x401404: check_neighbors (life3d.c:289)
+    n0: 34608 0x400BAE: main (life3d.c:98)
+   n1: 34416 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34416 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n0: 4024 in 3 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=93
+#-----------
+time=39881070655
+mem_heap_B=1460184
+mem_heap_extra_B=137504
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=94
+#-----------
+time=40197153901
+mem_heap_B=1460136
+mem_heap_extra_B=137472
+mem_stacks_B=0
+heap_tree=empty
