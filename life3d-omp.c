@@ -3,7 +3,7 @@
 #include "./LinkedListLib/linked_list.h"
 #include "./HashTableLib/hashtable.h"
 #include <string.h>
-//#include <omp.h>
+#include <omp.h>
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 
@@ -69,6 +69,7 @@ int main(int argc, char *argv[])
 	item *first_list, *second_list;
 	for(n=0 ; n < n_generations; n++){
 		//first 3 slice insertions
+        #pragma omp parallel for
 		for(i=0; i < N_SLICES; i++){
 			insert_in_slice(dynamic_matrix[i], hashtable, i);
 		}
@@ -76,10 +77,14 @@ int main(int argc, char *argv[])
 		/*lists that takes all the possible dead candidates to become live
 		one for each slice*/
 		item *dead_to_live[N_SLICES];
+
+        #pragma omp parallel for
 		for(j=0; j<N_SLICES; j++)
 			dead_to_live[j] = list_init();
 
 		int middle = 1; //keeps track of the hashlist correspondig to the middle slice
+
+
 		for( i=0; i < cube_size; i++){
 			//printf("%d\n", i);
 			item *list_aux = list_init(), *aux=NULL;
