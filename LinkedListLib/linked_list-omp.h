@@ -13,6 +13,7 @@ struct data{
 struct item{
 	struct data K;
 	struct item* next;
+    struct item* prev;
 };
 
 typedef struct data data;

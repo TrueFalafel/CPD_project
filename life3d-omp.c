@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "./LinkedListLib/linked_list.h"
-#include "./HashTableLib/hashtable.h"
+#include "./LinkedListLib/linked_list-omp.h"
+#include "./HashTableLib/hashtable-omp.h"
 #include <string.h>
 #include <omp.h>
 #define N_SLICES 3
@@ -79,8 +79,9 @@ int main(int argc, char *argv[])
 		item *dead_to_live[N_SLICES];
 
         #pragma omp parallel for
-		for(j=0; j<N_SLICES; j++)
+		for(j=0; j<N_SLICES; j++){
 			dead_to_live[j] = list_init();
+		}
 
 		int middle = 1; //keeps track of the hashlist correspondig to the middle slice
 
@@ -97,6 +98,7 @@ int main(int argc, char *argv[])
 			slices 1 and 2 are already filled too*/
 			if(i!=0 && i!=cube_size-2 && i!=cube_size-1)
 				insert_in_slice(dynamic_matrix[2], hashtable, middle+1);
+			printf("aquiiiiii\n");
 			while(hashtable->table[middle] != NULL){
 				count = 0;
 				aux = hash_first(hashtable,middle);
@@ -108,6 +110,7 @@ int main(int argc, char *argv[])
 					free(aux);
 				//else it dies, so doesn't stay in the hash table
 			}
+
 			//inserts just the live cells that stayed alive
 			hashtable->table[middle] = list_aux;
 			list_aux = NULL;
@@ -296,7 +299,6 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 }
 
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count){
-
 	if((*entry)!=-1){
 		(*entry)++;
 		if((*entry) == 2)
