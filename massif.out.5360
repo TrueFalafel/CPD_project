@@ -1,0 +1,1105 @@
+desc: --pages-as-heap=yes
+cmd: ./life3d InputFiles/s500e300k.in 2000
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=12288
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=0
+mem_heap_B=20480
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=0
+mem_heap_B=163840
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=0
+mem_heap_B=172032
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=0
+mem_heap_B=176128
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=0
+mem_heap_B=180224
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=0
+mem_heap_B=188416
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=0
+mem_heap_B=200704
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=0
+mem_heap_B=204800
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=0
+mem_heap_B=204800
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=detailed
+n1: 204800 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=10
+#-----------
+time=3696
+mem_heap_B=212992
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=8084
+mem_heap_B=2318336
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=8165
+mem_heap_B=2326528
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=11584
+mem_heap_B=2428928
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=14540
+mem_heap_B=6393856
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=14601
+mem_heap_B=6418432
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=16548
+mem_heap_B=6438912
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=20646
+mem_heap_B=6443008
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=21606
+mem_heap_B=6451200
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=98261
+mem_heap_B=6352896
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=detailed
+n2: 6352896 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n2: 6148096 0x4019619: mmap (syscall-template.S:81)
+  n1: 6070272 0x4006AF0: _dl_map_object_from_fd (dl-load.c:1293)
+   n2: 6070272 0x4008DCE: _dl_map_object (dl-load.c:2605)
+    n1: 3964928 0x400D5D0: openaux (dl-deps.c:63)
+     n1: 3964928 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 3964928 0x400DCD3: _dl_map_object_deps (dl-deps.c:254)
+       n1: 3964928 0x400312E: dl_main (rtld.c:1738)
+        n1: 3964928 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 3964928 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 3964928 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 3964928 0x1: ???
+            n1: 3964928 0xFFF0000A1: ???
+             n1: 3964928 0xFFF0000AA: ???
+              n0: 3964928 0xFFF0000C2: ???
+    n1: 2105344 0x40014BC: map_doit (rtld.c:626)
+     n1: 2105344 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 2105344 0x4000B2D: do_preload (rtld.c:815)
+       n1: 2105344 0x400443B: dl_main (rtld.c:1629)
+        n1: 2105344 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 2105344 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 2105344 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 2105344 0x1: ???
+            n1: 2105344 0xFFF0000A1: ???
+             n1: 2105344 0xFFF0000AA: ???
+              n0: 2105344 0xFFF0000C2: ???
+  n0: 77824 in 4 places, all below massif's threshold (01.00%)
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=20
+#-----------
+time=98261
+mem_heap_B=6348800
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=161260
+mem_heap_B=6483968
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=163877
+mem_heap_B=6488064
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=165450
+mem_heap_B=6742016
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=165716
+mem_heap_B=6995968
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=165982
+mem_heap_B=7249920
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=8240649
+mem_heap_B=7385088
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=16593693
+mem_heap_B=7520256
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=24944724
+mem_heap_B=7655424
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=33291881
+mem_heap_B=7790592
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=detailed
+n4: 7790592 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n2: 6144000 0x4019619: mmap (syscall-template.S:81)
+  n1: 6070272 0x4006AF0: _dl_map_object_from_fd (dl-load.c:1293)
+   n2: 6070272 0x4008DCE: _dl_map_object (dl-load.c:2605)
+    n1: 3964928 0x400D5D0: openaux (dl-deps.c:63)
+     n1: 3964928 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 3964928 0x400DCD3: _dl_map_object_deps (dl-deps.c:254)
+       n1: 3964928 0x400312E: dl_main (rtld.c:1738)
+        n1: 3964928 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 3964928 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 3964928 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 3964928 0x1: ???
+            n1: 3964928 0xFFF0000A1: ???
+             n1: 3964928 0xFFF0000AA: ???
+              n0: 3964928 0xFFF0000C2: ???
+    n1: 2105344 0x40014BC: map_doit (rtld.c:626)
+     n1: 2105344 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 2105344 0x4000B2D: do_preload (rtld.c:815)
+       n1: 2105344 0x400443B: dl_main (rtld.c:1629)
+        n1: 2105344 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 2105344 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 2105344 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 2105344 0x1: ???
+            n1: 2105344 0xFFF0000A1: ???
+             n1: 2105344 0xFFF0000AA: ???
+              n0: 2105344 0xFFF0000C2: ???
+  n0: 73728 in 4 places, all below massif's threshold (01.00%)
+ n2: 765952 0x4D1F0E9: mmap (syscall-template.S:81)
+  n1: 761856 0x4CA7B96: _int_malloc (malloc.c:2305)
+   n1: 761856 0x4CAA1EA: calloc (malloc.c:3219)
+    n0: 761856 0x4009B4: main (life3d.c:47)
+  n0: 4096 in 1 place, below massif's threshold (01.00%)
+ n1: 675840 0x4D1B93B: brk (brk.c:31)
+  n1: 675840 0x4D1B9D4: sbrk (sbrk.c:53)
+   n1: 675840 0x4CABF97: __default_morecore (morecore.c:47)
+    n1: 675840 0x4CA7820: _int_malloc (malloc.c:2462)
+     n2: 675840 0x4CA96CE: malloc (malloc.c:2891)
+      n1: 540672 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+       n1: 540672 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+        n0: 540672 0x400A02: main (life3d.c:57)
+      n1: 135168 0x4C9537B: __fopen_internal (iofopen.c:73)
+       n0: 135168 0x40092A: main (life3d.c:34)
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=30
+#-----------
+time=41644750
+mem_heap_B=7925760
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=49995331
+mem_heap_B=8060928
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=58346218
+mem_heap_B=8196096
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=66698129
+mem_heap_B=8331264
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=75053879
+mem_heap_B=8466432
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=83407857
+mem_heap_B=8601600
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=91756800
+mem_heap_B=8736768
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=100109457
+mem_heap_B=8871936
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=108460466
+mem_heap_B=9007104
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=116808836
+mem_heap_B=9142272
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=detailed
+n4: 9142272 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n2: 6144000 0x4019619: mmap (syscall-template.S:81)
+  n1: 6070272 0x4006AF0: _dl_map_object_from_fd (dl-load.c:1293)
+   n2: 6070272 0x4008DCE: _dl_map_object (dl-load.c:2605)
+    n1: 3964928 0x400D5D0: openaux (dl-deps.c:63)
+     n1: 3964928 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 3964928 0x400DCD3: _dl_map_object_deps (dl-deps.c:254)
+       n1: 3964928 0x400312E: dl_main (rtld.c:1738)
+        n1: 3964928 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 3964928 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 3964928 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 3964928 0x1: ???
+            n1: 3964928 0xFFF0000A1: ???
+             n1: 3964928 0xFFF0000AA: ???
+              n0: 3964928 0xFFF0000C2: ???
+    n1: 2105344 0x40014BC: map_doit (rtld.c:626)
+     n1: 2105344 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 2105344 0x4000B2D: do_preload (rtld.c:815)
+       n1: 2105344 0x400443B: dl_main (rtld.c:1629)
+        n1: 2105344 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 2105344 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 2105344 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 2105344 0x1: ???
+            n1: 2105344 0xFFF0000A1: ???
+             n1: 2105344 0xFFF0000AA: ???
+              n0: 2105344 0xFFF0000C2: ???
+  n0: 73728 in 4 places, all below massif's threshold (01.00%)
+ n1: 2027520 0x4D1B93B: brk (brk.c:31)
+  n1: 2027520 0x4D1B9D4: sbrk (sbrk.c:53)
+   n1: 2027520 0x4CABF97: __default_morecore (morecore.c:47)
+    n1: 2027520 0x4CA7820: _int_malloc (malloc.c:2462)
+     n2: 2027520 0x4CA96CE: malloc (malloc.c:2891)
+      n1: 1892352 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+       n1: 1892352 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+        n0: 1892352 0x400A02: main (life3d.c:57)
+      n1: 135168 0x4C9537B: __fopen_internal (iofopen.c:73)
+       n0: 135168 0x40092A: main (life3d.c:34)
+ n2: 765952 0x4D1F0E9: mmap (syscall-template.S:81)
+  n1: 761856 0x4CA7B96: _int_malloc (malloc.c:2305)
+   n1: 761856 0x4CAA1EA: calloc (malloc.c:3219)
+    n0: 761856 0x4009B4: main (life3d.c:47)
+  n0: 4096 in 1 place, below massif's threshold (01.00%)
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=40
+#-----------
+time=125163225
+mem_heap_B=9277440
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=133519068
+mem_heap_B=9412608
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=141868345
+mem_heap_B=9547776
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=150216777
+mem_heap_B=9682944
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=158566753
+mem_heap_B=9818112
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=166918906
+mem_heap_B=9953280
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=175270763
+mem_heap_B=10088448
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=183622026
+mem_heap_B=10223616
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=191975537
+mem_heap_B=10358784
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=200330731
+mem_heap_B=10493952
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=detailed
+n4: 10493952 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n2: 6144000 0x4019619: mmap (syscall-template.S:81)
+  n1: 6070272 0x4006AF0: _dl_map_object_from_fd (dl-load.c:1293)
+   n2: 6070272 0x4008DCE: _dl_map_object (dl-load.c:2605)
+    n1: 3964928 0x400D5D0: openaux (dl-deps.c:63)
+     n1: 3964928 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 3964928 0x400DCD3: _dl_map_object_deps (dl-deps.c:254)
+       n1: 3964928 0x400312E: dl_main (rtld.c:1738)
+        n1: 3964928 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 3964928 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 3964928 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 3964928 0x1: ???
+            n1: 3964928 0xFFF0000A1: ???
+             n1: 3964928 0xFFF0000AA: ???
+              n0: 3964928 0xFFF0000C2: ???
+    n1: 2105344 0x40014BC: map_doit (rtld.c:626)
+     n1: 2105344 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 2105344 0x4000B2D: do_preload (rtld.c:815)
+       n1: 2105344 0x400443B: dl_main (rtld.c:1629)
+        n1: 2105344 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 2105344 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 2105344 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 2105344 0x1: ???
+            n1: 2105344 0xFFF0000A1: ???
+             n1: 2105344 0xFFF0000AA: ???
+              n0: 2105344 0xFFF0000C2: ???
+  n0: 73728 in 4 places, all below massif's threshold (01.00%)
+ n1: 3379200 0x4D1B93B: brk (brk.c:31)
+  n1: 3379200 0x4D1B9D4: sbrk (sbrk.c:53)
+   n1: 3379200 0x4CABF97: __default_morecore (morecore.c:47)
+    n1: 3379200 0x4CA7820: _int_malloc (malloc.c:2462)
+     n2: 3379200 0x4CA96CE: malloc (malloc.c:2891)
+      n1: 3244032 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+       n1: 3244032 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+        n0: 3244032 0x400A02: main (life3d.c:57)
+      n1: 135168 0x4C9537B: __fopen_internal (iofopen.c:73)
+       n0: 135168 0x40092A: main (life3d.c:34)
+ n2: 765952 0x4D1F0E9: mmap (syscall-template.S:81)
+  n1: 761856 0x4CA7B96: _int_malloc (malloc.c:2305)
+   n1: 761856 0x4CAA1EA: calloc (malloc.c:3219)
+    n0: 761856 0x4009B4: main (life3d.c:47)
+  n0: 4096 in 1 place, below massif's threshold (01.00%)
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=50
+#-----------
+time=208680321
+mem_heap_B=10629120
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=217034145
+mem_heap_B=10764288
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=225384845
+mem_heap_B=10899456
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=233739296
+mem_heap_B=11034624
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=242085831
+mem_heap_B=11169792
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=250439519
+mem_heap_B=11304960
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=258794270
+mem_heap_B=11440128
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=267148037
+mem_heap_B=11575296
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=275499703
+mem_heap_B=11710464
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=283852086
+mem_heap_B=11845632
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=detailed
+n4: 11845632 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n2: 6144000 0x4019619: mmap (syscall-template.S:81)
+  n1: 6070272 0x4006AF0: _dl_map_object_from_fd (dl-load.c:1293)
+   n2: 6070272 0x4008DCE: _dl_map_object (dl-load.c:2605)
+    n1: 3964928 0x400D5D0: openaux (dl-deps.c:63)
+     n1: 3964928 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 3964928 0x400DCD3: _dl_map_object_deps (dl-deps.c:254)
+       n1: 3964928 0x400312E: dl_main (rtld.c:1738)
+        n1: 3964928 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 3964928 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 3964928 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 3964928 0x1: ???
+            n1: 3964928 0xFFF0000A1: ???
+             n1: 3964928 0xFFF0000AA: ???
+              n0: 3964928 0xFFF0000C2: ???
+    n1: 2105344 0x40014BC: map_doit (rtld.c:626)
+     n1: 2105344 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 2105344 0x4000B2D: do_preload (rtld.c:815)
+       n1: 2105344 0x400443B: dl_main (rtld.c:1629)
+        n1: 2105344 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 2105344 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 2105344 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 2105344 0x1: ???
+            n1: 2105344 0xFFF0000A1: ???
+             n1: 2105344 0xFFF0000AA: ???
+              n0: 2105344 0xFFF0000C2: ???
+  n0: 73728 in 4 places, all below massif's threshold (01.00%)
+ n1: 4730880 0x4D1B93B: brk (brk.c:31)
+  n1: 4730880 0x4D1B9D4: sbrk (sbrk.c:53)
+   n1: 4730880 0x4CABF97: __default_morecore (morecore.c:47)
+    n1: 4730880 0x4CA7820: _int_malloc (malloc.c:2462)
+     n2: 4730880 0x4CA96CE: malloc (malloc.c:2891)
+      n1: 4595712 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+       n1: 4595712 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+        n0: 4595712 0x400A02: main (life3d.c:57)
+      n1: 135168 0x4C9537B: __fopen_internal (iofopen.c:73)
+       n0: 135168 0x40092A: main (life3d.c:34)
+ n2: 765952 0x4D1F0E9: mmap (syscall-template.S:81)
+  n1: 761856 0x4CA7B96: _int_malloc (malloc.c:2305)
+   n1: 761856 0x4CAA1EA: calloc (malloc.c:3219)
+    n0: 761856 0x4009B4: main (life3d.c:47)
+  n0: 4096 in 1 place, below massif's threshold (01.00%)
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=60
+#-----------
+time=292206560
+mem_heap_B=11980800
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=300555397
+mem_heap_B=12115968
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=308910143
+mem_heap_B=12251136
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=317263716
+mem_heap_B=12386304
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=325616224
+mem_heap_B=12521472
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=65
+#-----------
+time=333970273
+mem_heap_B=12656640
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=342325134
+mem_heap_B=12791808
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=350679578
+mem_heap_B=12926976
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=359032985
+mem_heap_B=13062144
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=367385973
+mem_heap_B=13197312
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=detailed
+n4: 13197312 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n2: 6144000 0x4019619: mmap (syscall-template.S:81)
+  n1: 6070272 0x4006AF0: _dl_map_object_from_fd (dl-load.c:1293)
+   n2: 6070272 0x4008DCE: _dl_map_object (dl-load.c:2605)
+    n1: 3964928 0x400D5D0: openaux (dl-deps.c:63)
+     n1: 3964928 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 3964928 0x400DCD3: _dl_map_object_deps (dl-deps.c:254)
+       n1: 3964928 0x400312E: dl_main (rtld.c:1738)
+        n1: 3964928 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 3964928 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 3964928 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 3964928 0x1: ???
+            n1: 3964928 0xFFF0000A1: ???
+             n1: 3964928 0xFFF0000AA: ???
+              n0: 3964928 0xFFF0000C2: ???
+    n1: 2105344 0x40014BC: map_doit (rtld.c:626)
+     n1: 2105344 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 2105344 0x4000B2D: do_preload (rtld.c:815)
+       n1: 2105344 0x400443B: dl_main (rtld.c:1629)
+        n1: 2105344 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 2105344 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 2105344 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 2105344 0x1: ???
+            n1: 2105344 0xFFF0000A1: ???
+             n1: 2105344 0xFFF0000AA: ???
+              n0: 2105344 0xFFF0000C2: ???
+  n0: 73728 in 4 places, all below massif's threshold (01.00%)
+ n1: 6082560 0x4D1B93B: brk (brk.c:31)
+  n1: 6082560 0x4D1B9D4: sbrk (sbrk.c:53)
+   n1: 6082560 0x4CABF97: __default_morecore (morecore.c:47)
+    n1: 6082560 0x4CA7820: _int_malloc (malloc.c:2462)
+     n2: 6082560 0x4CA96CE: malloc (malloc.c:2891)
+      n1: 5947392 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+       n1: 5947392 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+        n0: 5947392 0x400A02: main (life3d.c:57)
+      n1: 135168 0x4C9537B: __fopen_internal (iofopen.c:73)
+       n0: 135168 0x40092A: main (life3d.c:34)
+ n2: 765952 0x4D1F0E9: mmap (syscall-template.S:81)
+  n1: 761856 0x4CA7B96: _int_malloc (malloc.c:2305)
+   n1: 761856 0x4CAA1EA: calloc (malloc.c:3219)
+    n0: 761856 0x4009B4: main (life3d.c:47)
+  n0: 4096 in 1 place, below massif's threshold (01.00%)
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=70
+#-----------
+time=375738320
+mem_heap_B=13332480
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=71
+#-----------
+time=384091330
+mem_heap_B=13467648
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=392443191
+mem_heap_B=13602816
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=73
+#-----------
+time=400793453
+mem_heap_B=13737984
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=74
+#-----------
+time=409146089
+mem_heap_B=13873152
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=75
+#-----------
+time=417497761
+mem_heap_B=14008320
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=76
+#-----------
+time=425850532
+mem_heap_B=14143488
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=77
+#-----------
+time=434205096
+mem_heap_B=14278656
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=78
+#-----------
+time=442557139
+mem_heap_B=14413824
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=79
+#-----------
+time=450905654
+mem_heap_B=14548992
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=detailed
+n4: 14548992 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n1: 7434240 0x4D1B93B: brk (brk.c:31)
+  n1: 7434240 0x4D1B9D4: sbrk (sbrk.c:53)
+   n1: 7434240 0x4CABF97: __default_morecore (morecore.c:47)
+    n1: 7434240 0x4CA7820: _int_malloc (malloc.c:2462)
+     n2: 7434240 0x4CA96CE: malloc (malloc.c:2891)
+      n1: 7299072 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+       n1: 7299072 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+        n0: 7299072 0x400A02: main (life3d.c:57)
+      n0: 135168 in 1 place, below massif's threshold (01.00%)
+ n2: 6144000 0x4019619: mmap (syscall-template.S:81)
+  n1: 6070272 0x4006AF0: _dl_map_object_from_fd (dl-load.c:1293)
+   n2: 6070272 0x4008DCE: _dl_map_object (dl-load.c:2605)
+    n1: 3964928 0x400D5D0: openaux (dl-deps.c:63)
+     n1: 3964928 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 3964928 0x400DCD3: _dl_map_object_deps (dl-deps.c:254)
+       n1: 3964928 0x400312E: dl_main (rtld.c:1738)
+        n1: 3964928 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 3964928 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 3964928 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 3964928 0x1: ???
+            n1: 3964928 0xFFF0000A1: ???
+             n1: 3964928 0xFFF0000AA: ???
+              n0: 3964928 0xFFF0000C2: ???
+    n1: 2105344 0x40014BC: map_doit (rtld.c:626)
+     n1: 2105344 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 2105344 0x4000B2D: do_preload (rtld.c:815)
+       n1: 2105344 0x400443B: dl_main (rtld.c:1629)
+        n1: 2105344 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 2105344 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 2105344 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 2105344 0x1: ???
+            n1: 2105344 0xFFF0000A1: ???
+             n1: 2105344 0xFFF0000AA: ???
+              n0: 2105344 0xFFF0000C2: ???
+  n0: 73728 in 4 places, all below massif's threshold (01.00%)
+ n2: 765952 0x4D1F0E9: mmap (syscall-template.S:81)
+  n1: 761856 0x4CA7B96: _int_malloc (malloc.c:2305)
+   n1: 761856 0x4CAA1EA: calloc (malloc.c:3219)
+    n0: 761856 0x4009B4: main (life3d.c:47)
+  n0: 4096 in 1 place, below massif's threshold (01.00%)
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=80
+#-----------
+time=459261817
+mem_heap_B=14684160
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=81
+#-----------
+time=467614160
+mem_heap_B=14819328
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=82
+#-----------
+time=475963812
+mem_heap_B=14954496
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=83
+#-----------
+time=484320409
+mem_heap_B=15089664
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=84
+#-----------
+time=492667537
+mem_heap_B=15224832
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=85
+#-----------
+time=501021303
+mem_heap_B=15360000
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=86
+#-----------
+time=509372786
+mem_heap_B=15495168
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=87
+#-----------
+time=517724638
+mem_heap_B=16543744
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=88
+#-----------
+time=582504243
+mem_heap_B=17592320
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=89
+#-----------
+time=593361713
+mem_heap_B=17592320
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=peak
+n4: 17592320 (page allocation syscalls) mmap/mremap/brk, --alloc-fns, etc.
+ n1: 8380416 0x4D1B93B: brk (brk.c:31)
+  n1: 8380416 0x4D1B9D4: sbrk (sbrk.c:53)
+   n1: 8380416 0x4CABF97: __default_morecore (morecore.c:47)
+    n1: 8380416 0x4CA7820: _int_malloc (malloc.c:2462)
+     n2: 8380416 0x4CA96CE: malloc (malloc.c:2891)
+      n1: 8245248 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+       n1: 8245248 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+        n0: 8245248 0x400A02: main (life3d.c:57)
+      n0: 135168 in 1 place, below massif's threshold (01.00%)
+ n2: 6144000 0x4019619: mmap (syscall-template.S:81)
+  n1: 6070272 0x4006AF0: _dl_map_object_from_fd (dl-load.c:1293)
+   n2: 6070272 0x4008DCE: _dl_map_object (dl-load.c:2605)
+    n1: 3964928 0x400D5D0: openaux (dl-deps.c:63)
+     n1: 3964928 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 3964928 0x400DCD3: _dl_map_object_deps (dl-deps.c:254)
+       n1: 3964928 0x400312E: dl_main (rtld.c:1738)
+        n1: 3964928 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 3964928 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 3964928 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 3964928 0x1: ???
+            n1: 3964928 0xFFF0000A1: ???
+             n1: 3964928 0xFFF0000AA: ???
+              n0: 3964928 0xFFF0000C2: ???
+    n1: 2105344 0x40014BC: map_doit (rtld.c:626)
+     n1: 2105344 0x400FFC2: _dl_catch_error (dl-error.c:187)
+      n1: 2105344 0x4000B2D: do_preload (rtld.c:815)
+       n1: 2105344 0x400443B: dl_main (rtld.c:1629)
+        n1: 2105344 0x4017523: _dl_sysdep_start (dl-sysdep.c:249)
+         n1: 2105344 0x4004CC6: _dl_start (rtld.c:331)
+          n1: 2105344 0x40012D6: ??? (in /lib/x86_64-linux-gnu/ld-2.19.so)
+           n1: 2105344 0x1: ???
+            n1: 2105344 0xFFF0000A1: ???
+             n1: 2105344 0xFFF0000AA: ???
+              n0: 2105344 0xFFF0000C2: ???
+  n0: 73728 in 4 places, all below massif's threshold (01.00%)
+ n3: 2863104 0x4D1F0E9: mmap (syscall-template.S:81)
+  n1: 2097152 0x4CA7AE0: _int_malloc (malloc.c:2495)
+   n1: 2097152 0x4CA96CE: malloc (malloc.c:2891)
+    n1: 2097152 0x4017DC: list_append (in /home/falafel/projetos/CPD_project/life3d)
+     n1: 2097152 0x401D8F: hash_insert (in /home/falafel/projetos/CPD_project/life3d)
+      n0: 2097152 0x400A02: main (life3d.c:57)
+  n1: 761856 0x4CA7B96: _int_malloc (malloc.c:2305)
+   n1: 761856 0x4CAA1EA: calloc (malloc.c:3219)
+    n0: 761856 0x4009B4: main (life3d.c:47)
+  n0: 4096 in 1 place, below massif's threshold (01.00%)
+ n0: 204800 0xFFFFFFFFFFFFFFFF: ???
+#-----------
+snapshot=90
+#-----------
+time=593361713
+mem_heap_B=17588224
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=91
+#-----------
+time=814721853
+mem_heap_B=17334272
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=92
+#-----------
+time=42693011108
+mem_heap_B=17080320
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=93
+#-----------
+time=42693011161
+mem_heap_B=16826368
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=94
+#-----------
+time=42695101446
+mem_heap_B=16830464
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=95
+#-----------
+time=42709491862
+mem_heap_B=16826368
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty

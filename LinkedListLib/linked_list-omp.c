@@ -18,9 +18,10 @@ item* list_first(item** root){
         (*root) = (*root)->next;
 		(*root)->prev = first->prev;
 		first->prev->next = (*root);
-		first->next = NULL;
-        first->prev = NULL;
 	}
+	first->next = NULL;
+	first->prev = NULL;
+
 	return first;
 }
 
@@ -75,17 +76,28 @@ item* list_remove(item* root, data K){
     }
 
     item *front = root, *back = root->prev;
-    int front_found = 0, back_found = 0;
-    #pragma omp parallel sections shared(front, back, front_found, back_found)
+    int front_found = 0, back_found = 0, not_found = 0;
+    #pragma omp parallel sections shared(front, back, front_found, back_found, not_found)
     {
         #pragma omp section
         {
             while(1){
-                if(!front_found && !back_found){
+                if(!front_found && !back_found && !not_found){
                     if(equal_data(front->K, K)){
                         front_found = 1;
                     }else{
-                        front = front->next;
+						//just on the front so it won't prevent from seeing all elements
+						if(front != back){
+                        	front = front->next;
+							if(front == root){
+								not_found = 1;
+								break;
+							}
+						}else{
+							//just on the front so it won't prevent from seeing all elements
+							not_found = 1;
+							break;
+						}
                     }
                 }else{
                     break;
@@ -95,12 +107,19 @@ item* list_remove(item* root, data K){
         #pragma omp section
         {
             while(1){
-                if(!front_found && !back_found){
+                if(!front_found && !back_found && !not_found){
                     if(equal_data(back->K, K)){
                         back_found = 1;
                     }else{
-                        if(back != front && back->prev != front)
+                        if(back != front && back->prev != front){
                             back = back->prev;
+							if(back == root->prev){
+								not_found = 1;
+								break;
+							}
+						}else{
+							break;
+						}
                     }
                 }else{
                     break;
@@ -125,6 +144,7 @@ item* list_remove(item* root, data K){
 }
 
 //Search for item with data K in the list
+/*Em principio ta MAL, só nao alterei pq nao usamos
 item* list_search(item* root, data K){
 
     if(root == NULL){
@@ -185,8 +205,10 @@ item* list_search(item* root, data K){
         return NULL;
     }
 }
+*/
 
 //Free all the elements of a list
+/*ACHO QUE NAO DÁ PARA PARALELO
 void list_free(item* root){
 
     if(root == NULL){
@@ -213,7 +235,6 @@ void list_free(item* root){
         }
         #pragma omp section
         {
-            tail = root->prev;
             while(back != front && tail != NULL){
                 back = tail;
                 tail = tail->prev;
@@ -221,6 +242,21 @@ void list_free(item* root){
             }
         }
     }
+}
+*/
+
+void list_free(item* root){
+	item *aux;
+
+	if(root != NULL){
+		root->prev->next = NULL;
+	}
+	while(root != NULL){
+		aux = root;
+		root = root->next;
+		free(aux);
+	}
+	return;
 }
 
 //Print all the elements of a list
@@ -240,11 +276,13 @@ void list_print(item* root){
 
 //Appends one list to the end of another list
 item* lists_concatenate(item* list1, item* list2){
+	item *aux;
 
     list2->prev->next = list1;
 	list1->prev->next = list2;
+	aux = list1->prev;
     list1->prev = list2->prev;
-    list2->prev = list1->prev->next;
+    list2->prev = aux;
 
 	return list1;
 }
