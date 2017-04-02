@@ -1,4 +1,5 @@
 #include "linked_list-omp.h"
+#include <omp.h>
 
 item* list_init(){
 	return NULL;
@@ -57,8 +58,39 @@ item* list_append(item* root, data K){
 	return root;
 }
 
-//Removes element with data K from the list
+
 item* list_remove(item* root, data K){
+	item *aux, *aux_seg;
+
+	if(root == NULL){
+		perror("Already an empty list!\n");
+		exit(-1);
+	}
+
+	aux = root;
+	aux_seg = aux->next;
+	if(equal_data(root->K, K)){
+		root = root->next;
+		root->prev = aux->prev;
+		aux->prev->next = root;
+		free(aux);
+	}else{
+		while(!equal_data(aux_seg->K, K)){
+			if(aux_seg->next == root){
+				perror("No data K found in remove!\n");
+				exit(-1);
+			}
+			aux = aux->next;
+			aux_seg = aux_seg->next;
+		}
+		aux->next = aux_seg->next;
+		aux_seg->next->prev = aux;
+		free(aux_seg);
+	}
+	return root;
+}
+//Removes element with data K from the list
+/*item* list_remove(item* root, data K){
 
     if(root == NULL){
 		perror("Already an empty list!\n");
@@ -141,7 +173,7 @@ item* list_remove(item* root, data K){
     front->next->prev = back;
     free(front);
     return root;
-}
+}*/
 
 //Search for item with data K in the list
 /*Em principio ta MAL, só nao alterei pq nao usamos

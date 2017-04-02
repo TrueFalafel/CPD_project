@@ -60,14 +60,14 @@ void hash_print(hashtable_s *hashtable){
 	return;
 }
 
-item *hash_search(hashtable_s *hashtable, data K){
+/*item *hash_search(hashtable_s *hashtable, data K){
 	item *aux;
 
 	int index = get_index(hashtable, K);
 
 	aux = list_search(hashtable->table[index], K);
 	return aux;
-}
+}*/
 
 void hash_remove(hashtable_s *hashtable, data K){
 	int index = get_index(hashtable, K);

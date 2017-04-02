@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	item *first_list, *second_list;
 	for(n=0 ; n < n_generations; n++){
 		//first 3 slice insertions
-        #pragma omp parallel for
+        //pragma omp parallel for
 		for(i=0; i < N_SLICES; i++){
 			insert_in_slice(dynamic_matrix[i], hashtable, i);
 		}
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
 		one for each slice*/
 		item *dead_to_live[N_SLICES];
 
-        #pragma omp parallel for
+        //pragma omp parallel for
 		for(j=0; j<N_SLICES; j++){
 			dead_to_live[j] = list_init();
 		}

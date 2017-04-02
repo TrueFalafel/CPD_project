@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../LinkedListLib/linked_list.h"
+#include "../LinkedListLib/linked_list-omp.h"
 #define MAX 256
 
 int main(int argc, char const *argv[]) {
@@ -34,6 +34,5 @@ int main(int argc, char const *argv[]) {
 	list_print(root);
 	list_free(root);
 
-	hash
 	return 0;
 }
