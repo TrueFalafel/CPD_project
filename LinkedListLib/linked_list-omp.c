@@ -310,13 +310,20 @@ void list_print(item* root){
 item* lists_concatenate(item* list1, item* list2){
 	item *aux;
 
-    list2->prev->next = list1;
-	list1->prev->next = list2;
-	aux = list1->prev;
-    list1->prev = list2->prev;
-    list2->prev = aux;
-
-	return list1;
+	if(list1 == NULL && list2 == NULL){
+		return NULL;
+	}else if(list1 == NULL && list2 != NULL){
+		return list2;
+	}else if(list1 != NULL && list2 == NULL){
+		return list1;
+	}else{
+	    list2->prev->next = list1;
+		list1->prev->next = list2;
+		aux = list1->prev;
+	    list1->prev = list2->prev;
+	    list2->prev = aux;
+		return list1;
+	}
 }
 //Recursively divide the list in half and sort the sublists
 //Needs to be called in a parallel section
