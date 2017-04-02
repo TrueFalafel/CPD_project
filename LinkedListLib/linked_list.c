@@ -4,6 +4,7 @@ item* list_init(){
 	return NULL;
 }
 
+//Removes first element of the list
 item* list_first(item** root){
 	item *first;
 
@@ -19,6 +20,7 @@ item* list_first(item** root){
 	return first;
 }
 
+//Puts an element in the beginning of the list
 item* list_push(item* root, item* other){
 
 	other->next = root;
@@ -27,6 +29,7 @@ item* list_push(item* root, item* other){
 	return root;
 }
 
+//Creates an element and puts it in the beginning of the list
 item* list_append(item* root, data K){
 	item *new, *aux;
 
@@ -43,6 +46,7 @@ item* list_append(item* root, data K){
 	return root;
 }
 
+//Removes element with data K from the list
 item* list_remove(item* root, data K){
 	item *aux, *aux_seg;
 
@@ -71,6 +75,7 @@ item* list_remove(item* root, data K){
 	return root;
 }
 
+//Search for item with data K in the list
 item* list_search(item* root, data K){
 	item *aux;
 
@@ -97,6 +102,7 @@ item* list_search(item* root, data K){
 
 }
 
+//Free all the elements of a list
 void list_free(item* root){
 	item *aux;
 
@@ -108,6 +114,7 @@ void list_free(item* root){
 	return;
 }
 
+//Print all the elements of a list
 void list_print(item* root){
 	item *aux;
 	data k;
@@ -121,6 +128,7 @@ void list_print(item* root){
 	return;
 }
 
+//Appends one list to the end of another list
 item* lists_concatenate(item* list1, item* list2){
 	item* aux=NULL;
 
@@ -135,11 +143,11 @@ item* lists_concatenate(item* list1, item* list2){
 
 	return list1;
 }
-/*Recursively divide the list in half and sort the sublists*/
-void list_sort(item** head){
+//Recursively divide the list in half and sort the sublists
+void list_sort(item** root){
 	item* first_half;
 	item* second_half;
-	item* tmphead = *head;
+	item* tmphead = *root;
 
 	/*Empty list or with only one element*/
 	if((tmphead == NULL) || (tmphead->next == NULL)){
