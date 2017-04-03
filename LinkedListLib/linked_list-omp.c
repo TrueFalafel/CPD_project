@@ -57,7 +57,7 @@ item* list_append(item* root, data K){
 	return root;
 }
 
-/*
+
 item* list_remove(item* root, data K){
 	item *aux, *aux_seg;
 
@@ -92,10 +92,10 @@ item* list_remove(item* root, data K){
 		free(aux_seg);
 	}
 	return root;
-}*/
+}
 
 //Removes element with data K from the list
-item* list_remove(item* root, data K){
+/*item* list_remove(item* root, data K){
 
     if(root == NULL){
 		perror("Already an empty list!\n");
@@ -180,7 +180,7 @@ item* list_remove(item* root, data K){
 		root = back;
     free(front);
     return root;
-}
+}*/
 
 //Search for item with data K in the list
 /*Em principio ta MAL, só nao alterei pq nao usamos
