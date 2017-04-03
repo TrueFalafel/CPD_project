@@ -57,8 +57,8 @@ item* list_append(item* root, data K){
 	return root;
 }
 
-
-/*item* list_remove(item* root, data K){
+/*
+item* list_remove(item* root, data K){
 	item *aux, *aux_seg;
 
 	if(root == NULL){
