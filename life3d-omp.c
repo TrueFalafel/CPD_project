@@ -81,8 +81,8 @@ void compute_generations(hashtable_s *hashtable){
 	    launched_threads = cube_size/3;
 	    if(launched_threads >= omp_get_num_threads())
 	 		launched_threads = omp_get_num_threads();
-	    else
-	    	omp_set_num_threads(launched_threads);
+
+		//printf("%d\n", launched_threads);
 		first_iter = malloc(sizeof(int)*launched_threads);
 		threads_1st_iter(first_iter, launched_threads);
 
@@ -91,6 +91,9 @@ void compute_generations(hashtable_s *hashtable){
 		//  printf("Thread %d first_iter = %d\n", THREAD_ID, first_iter[THREAD_ID]);
 		//  getchar();
 	}
+	printf("%d\n", launched_threads);
+	if(launched_threads < omp_get_num_threads())
+		omp_set_num_threads(launched_threads);
 
 	/*SHARED VARIABLES***********************************************************/
 	int i;
@@ -105,6 +108,7 @@ void compute_generations(hashtable_s *hashtable){
 	while(n_generations--){
 		#pragma omp parallel
 		{
+		printf("%d\n", omp_get_num_threads());
 		/*PRIVATE VARIABLES FOR THREADS******************************************/
 	  	for(i = 0; i < N_SLICES; i++) //first 3 slice insertions
 	  		insert_in_slice(dynamic_matrix[THREAD_SPACE(i)], hashtable, first_iter[THREAD_ID] + i);
