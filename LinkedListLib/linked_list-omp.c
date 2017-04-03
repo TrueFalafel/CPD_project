@@ -59,7 +59,7 @@ item* list_append(item* root, data K){
 }
 
 
-item* list_remove(item* root, data K){
+/*item* list_remove(item* root, data K){
 	item *aux, *aux_seg;
 
 	if(root == NULL){
@@ -70,10 +70,15 @@ item* list_remove(item* root, data K){
 	aux = root;
 	aux_seg = aux->next;
 	if(equal_data(root->K, K)){
-		root = root->next;
-		root->prev = aux->prev;
-		aux->prev->next = root;
-		free(aux);
+		if(root->next == root){
+			free(root);
+			root = NULL;
+		}else{
+			root = root->next;
+			root->prev = aux->prev;
+			aux->prev->next = root;
+			free(aux);
+		}
 	}else{
 		while(!equal_data(aux_seg->K, K)){
 			if(aux_seg->next == root){
@@ -88,9 +93,10 @@ item* list_remove(item* root, data K){
 		free(aux_seg);
 	}
 	return root;
-}
+}*/
+
 //Removes element with data K from the list
-/*item* list_remove(item* root, data K){
+item* list_remove(item* root, data K){
 
     if(root == NULL){
 		perror("Already an empty list!\n");
@@ -171,9 +177,11 @@ item* list_remove(item* root, data K){
     back = back->prev;
     back->next = front->next;
     front->next->prev = back;
+	if(front == root)
+		root = back;
     free(front);
     return root;
-}*/
+}
 
 //Search for item with data K in the list
 /*Em principio ta MAL, só nao alterei pq nao usamos

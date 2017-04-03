@@ -98,7 +98,6 @@ int main(int argc, char *argv[])
 			slices 1 and 2 are already filled too*/
 			if(i!=0 && i!=cube_size-2 && i!=cube_size-1)
 				insert_in_slice(dynamic_matrix[2], hashtable, middle+1);
-			printf("aquiiiiii\n");
 			while(hashtable->table[middle] != NULL){
 				count = 0;
 				aux = hash_first(hashtable,middle);
