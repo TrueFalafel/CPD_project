@@ -39,14 +39,14 @@ int get_index(hashtable_s *hashtable, data K){
 	return index;
 }
 
-void hash_insert(hashtable_s *hashtable, item* aux){
-	int index = get_index(hashtable, aux->K);
+void hash_insert(hashtable_s *hashtable, data K){
+	int index = get_index(hashtable, K);
 
 	if(index > hashtable->size-1){
 		perror("Hashtable index out of bounds\n");
 		exit(-1);
 	}
-	hashtable->table[index] = list_push(hashtable->table[index], aux);
+	hashtable->table[index] = list_append(hashtable->table[index], K);
 	return;
 }
 
