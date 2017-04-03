@@ -41,6 +41,8 @@ void list_sort(item** root);
 
 void list_split(item* head, item** first_half, item** second_half);
 
+item* list_dering(item *root);
+
 /***** funções abstratas (falta implementação)***/
 data set_data(int x, int y, int z);
 

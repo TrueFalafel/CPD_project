@@ -96,6 +96,7 @@ void hash_sort(hashtable_s *hashtable){
 	int i;
 
 	for(i=0;i<size;i++){
+		hashtable->table[i] = list_dering(hashtable->table[i]);
 		list_sort(&hashtable->table[i]);
 	}
 

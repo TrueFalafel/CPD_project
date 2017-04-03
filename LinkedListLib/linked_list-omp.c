@@ -277,12 +277,10 @@ void list_free(item* root){
 }
 */
 
+//Free all the elements of a list
 void list_free(item* root){
 	item *aux;
 
-	if(root != NULL){
-		root->prev->next = NULL;
-	}
 	while(root != NULL){
 		aux = root;
 		root = root->next;
@@ -296,9 +294,8 @@ void list_print(item* root){
 	item *aux;
 	data k;
 
-	print_data(root->K);
-	aux = root->next;
-	while(aux != root){
+	aux = root;
+	while(aux != NULL){
 		k = aux->K;
 		print_data(k);
 		aux = aux->next;
@@ -333,7 +330,7 @@ void list_sort(item** root){
 	item* tmphead = *root;
 
 	/*Empty list or with only one element*/
-	if((tmphead == NULL) || (tmphead->next == tmphead)){
+	if((tmphead == NULL) || (tmphead->next == NULL)){
 		return;
 	}
 
@@ -353,34 +350,37 @@ void list_sort(item** root){
 Uses 1 pointer that advances 2 elements (fast) and
 1 pointer that only advances 1(slow)*/
 void list_split(item* head, item** first_half, item** second_half){
-	printf("aiai\n");
 	item* slow;
 	item* fast;
-	item* begin = head;
 
 	/*Empty list or with only one element*/
-	if((head == NULL) || (head->next == head)){
+	if((head == NULL) || (head->next == NULL)){
 		*first_half = head;
 		*second_half = NULL;
 	}else{
 		slow = head;
 		fast = head->next;
 
-		while(fast != begin){
+		while(fast != NULL){
 			fast = fast->next;
-			if(fast != begin){
+			if(fast != NULL){
 				slow = slow->next;
 				fast = fast->next;
 			}
 		}
 
-		/*slow is before the element in the middle*/
-		slow->next->prev = begin->prev;
-		head->prev->next = slow->next;
-		*second_half = slow->next;
-		head->prev = slow;
-		slow->next = head;
+		/*slow is in before the element in the middle*/
 		*first_half = head;
-
+		*second_half = slow->next;
+		slow->next = NULL;
 	}
+}
+
+item* list_dering(item *root){
+
+	if(root != NULL){
+		root->prev->next = NULL;
+		root->prev = NULL;
+	}
+	return root;
 }
