@@ -4,6 +4,7 @@
 #include "./HashTableLib/hashtable-omp.h"
 #include <string.h>
 #include <omp.h>
+#include <math.h>
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 
@@ -15,12 +16,13 @@ void slice_clean(signed char * slice);
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count);
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
 void matrix_print(signed char ** matrix);
+//void file_split(FILE *file, int count);
 
 unsigned cube_size=0;
 
 int main(int argc, char *argv[])
 {
-    //double end, start = omp_get_wtime();
+    double end, start = omp_get_wtime();
 	int i=0, j=0;
     /*GET INPUT TEXT FILE, CHECK FOR ERRORS**************************************/
     if(argc != 3)
@@ -53,8 +55,33 @@ int main(int argc, char *argv[])
     hashtable_s *hashtable;
     data k;
     hashtable = hash_create( cube_size, &hashfunction);
-    while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
-    	hash_insert( hashtable, k);
+	item *pool = list_init();
+	int finished = 0;
+	#pragma omp parallel sections
+	{
+		#pragma omp section
+		{
+		    while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
+				#pragma omp critical (pool)
+				{
+		    		pool = list_append(pool, k);
+				}
+			}
+			finished = 1;
+		}
+		#pragma omp section
+		{
+			item *aux = NULL;
+			while(!finished){
+				#pragma omp critical (pool)
+				{
+					aux = list_first(&pool);
+				}
+				if(aux != NULL){
+					hash_insert(hashtable, aux);
+				}
+			}
+		}
 	}
 
 	fclose(pf);
@@ -98,7 +125,7 @@ int main(int argc, char *argv[])
 			slices 1 and 2 are already filled too*/
 			if(i!=0 && i!=cube_size-2 && i!=cube_size-1)
 				insert_in_slice(dynamic_matrix[2], hashtable, middle+1);
-			printf("aquiiiiii\n");
+			//printf("aquiiiiii\n");
 			while(hashtable->table[middle] != NULL){
 				count = 0;
 				aux = hash_first(hashtable,middle);
@@ -192,8 +219,8 @@ int main(int argc, char *argv[])
 	hash_sort(hashtable);
     hash_print(hashtable);
     hash_free(hashtable);
-    //end = omp_get_wtime();
-    //printf("Execution time: %e s\n", end - start); // PRINT IN SCIENTIFIC NOTATION
+    end = omp_get_wtime();
+    printf("Execution time: %e s\n", end - start); // PRINT IN SCIENTIFIC NOTATION
     exit(0);
 }
 /****************************END of MAIN******************************************/
@@ -362,3 +389,32 @@ void matrix_print(signed char ** matrix){
 		printf("\n\n");
 	}
 }
+/* EM PRINCIPIO NAO SE USA
+void file_split(FILE *file, int num_threads, int num_lines){
+
+	char line [128];
+	char subfile_name[15];
+	FILE *subfile;
+	int filecounter=1, linecounter=1;
+	int count = ceil((double)num_lines/num_threads);
+
+	sprintf(subfile_name, "file_part%d", filecounter);
+	subfile = fopen(subfile_name, "w");
+
+	while (fgets(line, sizeof(line), file!=NULL) {
+		if (linecounter > count) {
+			fclose(subfile);
+			linecounter = 1;
+			filecounter++;
+			sprintf(subfile_name, "file_part%d", filecounter);
+			subfile = fopen(subfile_name, "w");
+			if (subfile == NULL){
+				perror("creating subfile")
+				exit(-1);
+			}
+		}
+		fprintf(subfile,"%s\n", line);
+		linecounter++;
+	}
+	fclose(subfile);
+}*/

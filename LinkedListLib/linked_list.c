@@ -162,7 +162,7 @@ void list_sort(item** root){
 	list_sort(&second_half);
 
 	/*sort and merge the sublists together*/
-	*head = sort(first_half, second_half);
+	*root = sort(first_half, second_half);
 	//return;
 }
 

@@ -18,7 +18,7 @@ hashtable_s *hash_create(int size, int (*hash_f)(data));
 
 int get_index(hashtable_s *hashtable, data K);
 
-void hash_insert(hashtable_s *hashtable, data K);
+void hash_insert(hashtable_s *hashtable, item *aux);
 
 void hash_print(hashtable_s *hashtable);
 

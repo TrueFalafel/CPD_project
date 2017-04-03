@@ -1,4 +1,4 @@
-#include "linked_list-omp.h"
+#include "ring_list.h"
 #include <omp.h>
 
 item* list_init(){

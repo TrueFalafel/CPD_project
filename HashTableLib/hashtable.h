@@ -22,7 +22,7 @@ void hash_insert(hashtable_s *hashtable, data K);
 
 void hash_print(hashtable_s *hashtable);
 
-item *hash_search(hashtable_s *hashtable, data K);
+//item *hash_search(hashtable_s *hashtable, data K);
 
 void hash_remove(hashtable_s *hashtable, data K);
 
