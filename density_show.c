@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){
 
 	int i;
 	strsep(&argv[1], "/");
-	char title[100] = "density_";
+	char title[100] = "Densities/density_";
 	strcat(title ,argv[1]);
 	printf("%s\n", title);
 	FILE *fd = fopen(title, "w");
