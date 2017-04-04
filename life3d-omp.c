@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./LinkedListLib/linked_list.h"
-#include "./HashTableLib/hashtable.h"
+#include "./HashTableLib/hashtable-omp.h"
 #include <string.h>
 #include <omp.h>
 #include <math.h>
@@ -26,7 +26,6 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
 void matrix_print(signed char ** matrix);
 void compute_generations(hashtable_s *hashtable);
-int limits(int i, int*);
 void threads_1st_iter(int *, int);
 
 unsigned cube_size, n_generations;
@@ -84,6 +83,7 @@ void compute_generations(hashtable_s *hashtable){
 	item *dead_to_live[N_SLICES*launched_threads];
 	signed char *dynamic_matrix[N_SLICES*launched_threads];
 	signed char *first_slice[launched_threads], *second_slice[launched_threads];
+	int danger_zone_finished[launched_threads];
 
 	for(i = 0; i < N_SLICES*launched_threads; i++)
 		dynamic_matrix[i] = calloc(cube_size * cube_size, sizeof(char));
@@ -91,102 +91,116 @@ void compute_generations(hashtable_s *hashtable){
 	while(n_generations--){
 		#pragma omp parallel
 		{
-		/*PRIVATE VARIABLES FOR THREADS******************************************/
-	  	for(i = 0; i < N_SLICES; i++){ //first 3 slice insertions
-	  		insert_in_slice(dynamic_matrix[THREAD_SPACE(i)], hashtable, first_iter[THREAD_ID] + i);
-		}
-		/*lists that takes all the possible dead candidates to become live
-	  	one for each slice*/
-	  	for(i = 0; i < N_SLICES; i++)   // INITIATE TO NULL
-	  		dead_to_live[THREAD_SPACE(i)] = list_init();
+			/*PRIVATE VARIABLES FOR THREADS******************************************/
+		  	for(i = 0; i < N_SLICES; i++){ //first 3 slice insertions
+		  		insert_in_slice(dynamic_matrix[THREAD_SPACE(i)], hashtable, first_iter[THREAD_ID] + i);
+			}
+			/*lists that takes all the possible dead candidates to become live
+		  	one for each slice*/
+		  	for(i = 0; i < N_SLICES; i++)   // INITIATE TO NULL
+		  		dead_to_live[THREAD_SPACE(i)] = list_init();
 
-		signed char *matrix_tmp = NULL;
-	  	int middle = first_iter[THREAD_ID] + 1; //keeps track of the hashlist correspondig to the middle slice
-	    /************************************************************************/
-	    /*BEGIN PARALLEL FOR*****************************************************/
-	    #pragma omp for
-	        for(i = 0; i < cube_size; i++){
+			signed char *matrix_tmp = NULL;
+		  	int middle = first_iter[THREAD_ID] + 1; //keeps track of the hashlist correspondig to the middle slice
+		    /************************************************************************/
+			/*to keep other threads from reaching this thread first and second slice
+			before it has finished working with them*/
+			danger_zone_finished[THREAD_ID] = 0;
+		    /*BEGIN PARALLEL FOR*****************************************************/
+			printf("GEN %d, thread %d\n", n_generations, THREAD_ID);
+			fflush(stdout);
+			#pragma omp barrier
+		    #pragma omp for
+		        for(i = 0; i < cube_size; i++){
+		    		if(middle == cube_size) // IF LAST ITERATION SET MIDDLE = 0 (WRAP of x)
+		    			middle = 0;
 
-	    		if(middle == cube_size) // IF LAST ITERATION SET MIDDLE = 0
-	    			middle = 0;
+					printf("Thread %d reached slice %d or %d\n", THREAD_ID, i+2, middle+1);
 
-	          	item *list_aux = list_init(), *aux = NULL;
-	          	int count;
-	            /*first 3 slices are already filled, and when it wraps around
-	    		slices 1 and 2 are already filled too*/
-				if(i != first_iter[THREAD_ID] && i != RIGHT_LIM - 2 && i != RIGHT_LIM - 1)
-	    			insert_in_slice(dynamic_matrix[THREAD_SPACE(2)], hashtable, middle + 1);
-				while(hashtable->table[middle] != NULL){
-	            	count = 0;
-	    			aux = hash_first(hashtable, middle);
-	    			check_neighbors(dynamic_matrix + THREAD_SPACE(0),
-						dead_to_live + THREAD_SPACE(0), aux, &count);
-	    			//if cell stays alive goes to the temporary list
-	    			if(count >= 2 && count <= 4)
-	    				list_aux = list_push(list_aux, aux);
-	    			else
-	    				free(aux);
-	    			//else it dies, so doesn't stay in the hash table
-	    		}
-	    		//inserts just the live cells that stayed alive
-	    		hashtable->table[middle] = list_aux;
-				list_aux = NULL;
-				//insert dead cells that become live in hashtable (only if not in the first or second iteration)
-	    		if(i != first_iter[THREAD_ID] && i != first_iter[THREAD_ID]+1 && i != RIGHT_LIM - 1){
-	    			hashtable->table[middle - 1] = lists_concatenate(hashtable->table[middle - 1], dead_to_live[THREAD_SPACE(0)]);
-	    			dead_to_live[THREAD_SPACE(0)] = NULL;
-	    		}
-	    		else if(i == RIGHT_LIM - 1){
-	    			hashtable->table[RIGHT_LIM - 1] = lists_concatenate(hashtable->table[RIGHT_LIM - 1], dead_to_live[THREAD_SPACE(0)]);
-	    			hashtable->table[RIGHT_WRAP] = lists_concatenate(hashtable->table[RIGHT_WRAP], dead_to_live[THREAD_SPACE(1)]);
-	    			hashtable->table[RIGHT_WRAP + 1] = lists_concatenate(hashtable->table[RIGHT_WRAP + 1], dead_to_live[THREAD_SPACE(2)]);
-	    			dead_to_live[THREAD_SPACE(0)] = NULL;
-	    			dead_to_live[THREAD_SPACE(1)] = NULL;
-	    			dead_to_live[THREAD_SPACE(2)] = NULL;
-	    		}
-	    		else if(i == first_iter[THREAD_ID]){
-	    			first_slice[THREAD_ID] = dynamic_matrix[THREAD_SPACE(0)];
-	    			dynamic_matrix[THREAD_SPACE(0)] = malloc(cube_size * cube_size * sizeof(char));
-	    			first_list[THREAD_ID] = dead_to_live[THREAD_SPACE(0)];
-	    			dead_to_live[THREAD_SPACE(0)] = NULL;
-	    		}
-	    		else if(i == first_iter[THREAD_ID]+1){
-	    			second_slice[THREAD_ID] = dynamic_matrix[THREAD_SPACE(0)];
-	    			dynamic_matrix[THREAD_SPACE(0)] = malloc(cube_size * cube_size * sizeof(char));
-	    			second_list[THREAD_ID] = dead_to_live[THREAD_SPACE(0)];
-	    			dead_to_live[THREAD_SPACE(0)] = NULL;
-	    		}
+		          	item *list_aux = list_init(), *aux = NULL;
+		          	int count;
+		            /*first 3 slices are already filled, and when it wraps around
+		    		slices 1 and 2 are already filled too*/
+					if(i != first_iter[THREAD_ID] && i != RIGHT_LIM - 2 && i != RIGHT_LIM - 1)
+		    			insert_in_slice(dynamic_matrix[THREAD_SPACE(2)], hashtable, middle + 1);
+					while(hashtable->table[middle] != NULL){
+		            	count = 0;
+		    			aux = hash_first(hashtable, middle);
+						//#pragma omp critical (check_neighbors)
+		    			check_neighbors(dynamic_matrix + THREAD_SPACE(0),
+							dead_to_live + THREAD_SPACE(0), aux, &count);
+		    			//if cell stays alive goes to the temporary list
+		    			if(count >= 2 && count <= 4)
+		    				list_aux = list_push(list_aux, aux);
+		    			else
+		    				free(aux);
+		    			//else it dies, so doesn't stay in the hash table
+		    		}
+		    		//inserts just the live cells that stayed alive
+		    		hashtable->table[middle] = list_aux;
+					list_aux = NULL;
 
-	    		//dead_to_live lists shift
-	    		dead_to_live[THREAD_SPACE(0)] = dead_to_live[THREAD_SPACE(1)];
-	    		dead_to_live[THREAD_SPACE(1)] = dead_to_live[THREAD_SPACE(2)];
-	    		if(i == RIGHT_LIM - 3){
-	    			dead_to_live[2] = first_list[NEXT_THREAD];
-	    		}else if(i == RIGHT_LIM - 2){
-	    			dead_to_live[2] = second_list[NEXT_THREAD];
-	    		}else{
-	    			dead_to_live[2] = list_init();
-	    		}
-	    		//matrix shift
-	    		matrix_tmp = dynamic_matrix[THREAD_SPACE(0)];
-	    		dynamic_matrix[THREAD_SPACE(0)] = dynamic_matrix[THREAD_SPACE(1)];
-	    		dynamic_matrix[THREAD_SPACE(1)] = dynamic_matrix[THREAD_SPACE(2)];
-	    		if(i == RIGHT_LIM - 3){
-	    			dynamic_matrix[THREAD_SPACE(2)] = first_slice[NEXT_THREAD];
-	    			free(matrix_tmp);
-	    		}else if(i == RIGHT_LIM - 2){
-	    			dynamic_matrix[THREAD_SPACE(2)] = second_slice[NEXT_THREAD];
-	    			free(matrix_tmp);
-	    		}else{
-	    			dynamic_matrix[THREAD_SPACE(2)] = matrix_tmp;
-	    			SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(2)]);
-	    		}
-	    		middle++; //goes on in the hashtable
-	    	}
-			/*FOR LOOP FINISH********************************************/
+					//insert dead cells that become live in hashtable (only if not in the first or second iteration)
+		    		if(i != first_iter[THREAD_ID] && i != first_iter[THREAD_ID]+1 && i != RIGHT_LIM - 1){
+		    			hashtable->table[middle - 1] = lists_concatenate(hashtable->table[middle - 1], dead_to_live[THREAD_SPACE(0)]);
+		    			dead_to_live[THREAD_SPACE(0)] = NULL;
+		    		}
+		    		else if(i == RIGHT_LIM - 1){
+		    			hashtable->table[RIGHT_LIM - 1] = lists_concatenate(hashtable->table[RIGHT_LIM - 1], dead_to_live[THREAD_SPACE(0)]);
+		    			hashtable->table[RIGHT_WRAP] = lists_concatenate(hashtable->table[RIGHT_WRAP], dead_to_live[THREAD_SPACE(1)]);
+		    			hashtable->table[RIGHT_WRAP + 1] = lists_concatenate(hashtable->table[RIGHT_WRAP + 1], dead_to_live[THREAD_SPACE(2)]);
+		    			dead_to_live[THREAD_SPACE(0)] = NULL;
+		    			dead_to_live[THREAD_SPACE(1)] = NULL;
+		    			dead_to_live[THREAD_SPACE(2)] = NULL;
+						//break;
+		    		}/*T2 TEM DE CHEGAR AQUI ANTES DE O OUTRO T1 CHEGAR ÀS SUAS SLICES*/
+		    		else if(i == first_iter[THREAD_ID]){
+		    			first_slice[THREAD_ID] = dynamic_matrix[THREAD_SPACE(0)];
+		    			dynamic_matrix[THREAD_SPACE(0)] = malloc(cube_size * cube_size * sizeof(char));
+		    			first_list[THREAD_ID] = dead_to_live[THREAD_SPACE(0)];
+		    			dead_to_live[THREAD_SPACE(0)] = NULL;
+		    		}
+		    		else if(i == first_iter[THREAD_ID]+1){
+		    			second_slice[THREAD_ID] = dynamic_matrix[THREAD_SPACE(0)];
+		    			dynamic_matrix[THREAD_SPACE(0)] = malloc(cube_size * cube_size * sizeof(char));
+		    			second_list[THREAD_ID] = dead_to_live[THREAD_SPACE(0)];
+		    			dead_to_live[THREAD_SPACE(0)] = NULL;
+						danger_zone_finished[THREAD_ID] = 1;
+		    		}
 
+		    		//dead_to_live lists shift
+		    		dead_to_live[THREAD_SPACE(0)] = dead_to_live[THREAD_SPACE(1)];
+		    		dead_to_live[THREAD_SPACE(1)] = dead_to_live[THREAD_SPACE(2)];
+		    		if(i == RIGHT_LIM - 3){
+						//waits for next thread to finish danger zone
+						while(!danger_zone_finished[NEXT_THREAD]);
+		    			dead_to_live[THREAD_SPACE(2)] = first_list[NEXT_THREAD];
+		    		}else if(i == RIGHT_LIM - 2){
+		    			dead_to_live[THREAD_SPACE(2)] = second_list[NEXT_THREAD];
+		    		}else{
+		    			dead_to_live[THREAD_SPACE(2)] = list_init();
+		    		}
+		    		//matrix shift
+		    		matrix_tmp = dynamic_matrix[THREAD_SPACE(0)];
+		    		dynamic_matrix[THREAD_SPACE(0)] = dynamic_matrix[THREAD_SPACE(1)];
+		    		dynamic_matrix[THREAD_SPACE(1)] = dynamic_matrix[THREAD_SPACE(2)];
+		    		if(i == RIGHT_LIM - 3){
+		    			dynamic_matrix[THREAD_SPACE(2)] = first_slice[NEXT_THREAD];
+		    			free(matrix_tmp);
+		    		}else if(i == RIGHT_LIM - 2){
+		    			dynamic_matrix[THREAD_SPACE(2)] = second_slice[NEXT_THREAD];
+		    			free(matrix_tmp);
+		    		}else{
+		    			dynamic_matrix[THREAD_SPACE(2)] = matrix_tmp;
+		    			SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(2)]);
+		    		}
+		    		middle++; //goes on in the hashtable
+		    	}
+			/*PARALLEL FOR LOOP FINISH********************************************/
 			for(i = 0; i < N_SLICES; i++)
 				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(i)]);
+
+			printf("NEXT GENERATION!\n" );
 	    } /*END OF PARALLEL SECTION**********************************************/
 	}
 	for(i = 0; i < N_SLICES*launched_threads; i++)
@@ -227,7 +241,7 @@ data set_data(int x, int y, int z){
 }
 
 int equal_data(data K1, data K2){
-	return K1.x == K2.x && K1.y == K2.y && K1.z == K2.z ? 1 : 0;
+	return K1.x == K2.x && K1.y == K2.y && K1.z == K2.z;
 }
 
 void print_data(data K){

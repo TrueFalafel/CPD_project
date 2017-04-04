@@ -9,12 +9,11 @@ item* list_first(item** root){
 	item *first;
 
 	first = (*root);
-	if(root!=NULL){
+	if((*root)!=NULL){
 		(*root) = (*root)->next;
 		first->next = NULL;
 	}else{
-		perror("List already empty\n");
-		exit(-1);
+		printf("List already empty\n");
 	}
 
 	return first;
