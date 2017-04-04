@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 			free(aux);
 		}
 
-		fprintf(fd, "Slice %d has %d elements: density = %0.2f\n", i, count, (float)count/(size*size));
+		fprintf(fd, "Slice %d has %d elements: density = %0.3f\n", i, count, (float)count/(size*size));
 	}
 	fclose(fd);
 }

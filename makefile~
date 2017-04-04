@@ -7,10 +7,10 @@ LL_LIB_PATH = ./LinkedListLib
 HT_LIB_PATH = ./HashTableLib
 
 #FAZER make PARA COMPILAR e LINKAR VERSAO PARALLEL##############################
-life3d-omp: life3d-omp.o $(LL_LIB_PATH)/linked_list-omp.o $(HT_LIB_PATH)/hashtable-omp.o
-	$(LINKFLAGS_OPENMP) $@ $^
+life3d-omp: life3d-omp.o $(LL_LIB_PATH)/linked_list.o $(HT_LIB_PATH)/hashtable-omp.o
+	$(LINKFLAGS_OPENMP) $@ $^ -lm
 
-life3d-omp.o: life3d-omp.c $(LL_LIB_PATH)/linked_list-omp.h $(HT_LIB_PATH)/hashtable-omp.h
+life3d-omp.o: life3d-omp.c $(LL_LIB_PATH)/linked_list.h $(HT_LIB_PATH)/hashtable-omp.h
 	$(COMPFLAGS_OPENMP) $@ $<
 ################################################################################
 #FAZER make serial PARA COMPILAR E LINKAR VERSAO SERIAL#########################
