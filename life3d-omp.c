@@ -13,9 +13,9 @@
 #define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
 #define THREAD_ID (omp_get_thread_num())
 #define NEXT_THREAD (THREAD_ID == omp_get_num_threads()-1 ? 0 : THREAD_ID+1)
-#define THREAD_SPACE(j) ((N_SLICES) * (omp_get_thread_num() + (j))) // Domain in dynamic_matrix
-#define RIGHT_LIM ( THREAD_ID < omp_get_num_threads() - 1 ? first_iter[THREAD_ID + 1] : cube_size)
-#define RIGHT_WRAP ( RIGHT_LIM==cube_size ? 0 : RIGHT_LIM)
+#define THREAD_SPACE(j) ((N_SLICES) * omp_get_thread_num() + (j)) // Domain in dynamic_matrix
+#define RIGHT_LIM (THREAD_ID < omp_get_num_threads() - 1 ? first_iter[THREAD_ID + 1] : cube_size)
+#define RIGHT_WRAP (RIGHT_LIM == cube_size ? 0 : RIGHT_LIM)
 
 void usage();
 int hashfunction (struct data k);
@@ -72,30 +72,13 @@ void compute_generations(hashtable_s *hashtable){
 
 	/*SHARED VARIABLES***********************************************************/
   	int *first_iter;
-	int launched_threads;
-	/****************************************************************************/
-	#pragma omp parallel
-	{
-		#pragma omp single
-		{
-	    launched_threads = cube_size/3;
-	    if(launched_threads >= omp_get_num_threads())
-	 		launched_threads = omp_get_num_threads();
-
-		//printf("%d\n", launched_threads);
-		first_iter = malloc(sizeof(int)*launched_threads);
-		threads_1st_iter(first_iter, launched_threads);
-
-		}
-		//  printf("launched_threads %d\n", launched_threads); // TO DEBUG
-		//  printf("Thread %d first_iter = %d\n", THREAD_ID, first_iter[THREAD_ID]);
-		//  getchar();
-	}
-	printf("%d\n", launched_threads);
-	if(launched_threads < omp_get_num_threads())
+	int launched_threads = cube_size/N_SLICES;
+	if(launched_threads >= omp_get_max_threads())
+		launched_threads = omp_get_max_threads();
+	else
 		omp_set_num_threads(launched_threads);
-
-	/*SHARED VARIABLES***********************************************************/
+	first_iter = malloc(sizeof(int)*launched_threads);
+	threads_1st_iter(first_iter, launched_threads);
 	int i;
 	item *first_list[launched_threads], *second_list[launched_threads];
 	item *dead_to_live[N_SLICES*launched_threads];
@@ -108,19 +91,17 @@ void compute_generations(hashtable_s *hashtable){
 	while(n_generations--){
 		#pragma omp parallel
 		{
-		printf("%d\n", omp_get_num_threads());
 		/*PRIVATE VARIABLES FOR THREADS******************************************/
-	  	for(i = 0; i < N_SLICES; i++) //first 3 slice insertions
+	  	for(i = 0; i < N_SLICES; i++){ //first 3 slice insertions
 	  		insert_in_slice(dynamic_matrix[THREAD_SPACE(i)], hashtable, first_iter[THREAD_ID] + i);
-	  	/*lists that takes all the possible dead candidates to become live
+		}
+		/*lists that takes all the possible dead candidates to become live
 	  	one for each slice*/
 	  	for(i = 0; i < N_SLICES; i++)   // INITIATE TO NULL
 	  		dead_to_live[THREAD_SPACE(i)] = list_init();
 
 		signed char *matrix_tmp = NULL;
 	  	int middle = first_iter[THREAD_ID] + 1; //keeps track of the hashlist correspondig to the middle slice
-	    //matrix_print(dynamic_matrix + THREAD_SPACE(0)); // TO DEBUG
-	    //getchar();
 	    /************************************************************************/
 	    /*BEGIN PARALLEL FOR*****************************************************/
 	    #pragma omp for
@@ -133,16 +114,15 @@ void compute_generations(hashtable_s *hashtable){
 	          	int count;
 	            /*first 3 slices are already filled, and when it wraps around
 	    		slices 1 and 2 are already filled too*/
-	    		if(limits(i, first_iter))
+				if(i != first_iter[THREAD_ID] && i != RIGHT_LIM - 2 && i != RIGHT_LIM - 1)
 	    			insert_in_slice(dynamic_matrix[THREAD_SPACE(2)], hashtable, middle + 1);
-	    		while(hashtable->table[middle] != NULL){
+				while(hashtable->table[middle] != NULL){
 	            	count = 0;
 	    			aux = hash_first(hashtable, middle);
 	    			check_neighbors(dynamic_matrix + THREAD_SPACE(0),
 						dead_to_live + THREAD_SPACE(0), aux, &count);
 	    			//if cell stays alive goes to the temporary list
 	    			if(count >= 2 && count <= 4)
-					//A VER!!!!!!!!!!!!!!!!!
 	    				list_aux = list_push(list_aux, aux);
 	    			else
 	    				free(aux);
@@ -150,13 +130,13 @@ void compute_generations(hashtable_s *hashtable){
 	    		}
 	    		//inserts just the live cells that stayed alive
 	    		hashtable->table[middle] = list_aux;
-	    		list_aux = NULL;
-	    		//insert dead cells that become live in hashtable (only if not in the first or second iteration)
-	    		if(i != first_iter[THREAD_ID] && i != first_iter[THREAD_ID]+1 && i != RIGHT_LIM  - 1){
+				list_aux = NULL;
+				//insert dead cells that become live in hashtable (only if not in the first or second iteration)
+	    		if(i != first_iter[THREAD_ID] && i != first_iter[THREAD_ID]+1 && i != RIGHT_LIM - 1){
 	    			hashtable->table[middle - 1] = lists_concatenate(hashtable->table[middle - 1], dead_to_live[THREAD_SPACE(0)]);
-	    			dead_to_live[0] = NULL;
+	    			dead_to_live[THREAD_SPACE(0)] = NULL;
 	    		}
-	    		else if(i == RIGHT_LIM  - 1){
+	    		else if(i == RIGHT_LIM - 1){
 	    			hashtable->table[RIGHT_LIM - 1] = lists_concatenate(hashtable->table[RIGHT_LIM - 1], dead_to_live[THREAD_SPACE(0)]);
 	    			hashtable->table[RIGHT_WRAP] = lists_concatenate(hashtable->table[RIGHT_WRAP], dead_to_live[THREAD_SPACE(1)]);
 	    			hashtable->table[RIGHT_WRAP + 1] = lists_concatenate(hashtable->table[RIGHT_WRAP + 1], dead_to_live[THREAD_SPACE(2)]);
@@ -199,7 +179,7 @@ void compute_generations(hashtable_s *hashtable){
 	    			free(matrix_tmp);
 	    		}else{
 	    			dynamic_matrix[THREAD_SPACE(2)] = matrix_tmp;
-	    			slice_clean(dynamic_matrix[THREAD_SPACE(2)]);
+	    			SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(2)]);
 	    		}
 	    		middle++; //goes on in the hashtable
 	    	}
@@ -215,7 +195,6 @@ void compute_generations(hashtable_s *hashtable){
 
 void threads_1st_iter(int *w, int parts){
 	int n = cube_size, size = 0, k;
-
 	do{
 		k = (int)ceil((double)n/parts);
 	    w[size++] = k;
@@ -227,7 +206,6 @@ void threads_1st_iter(int *w, int parts){
 	   	w[n] = accum;
 	   	accum += aux;
 	}
-
 }
 
 void usage(){
@@ -367,8 +345,4 @@ void matrix_print(signed char **matrix){
 		}
 		printf("\n\n");
 	}
-}
-
-int limits(int i, int *first_iter){
-	return (i != first_iter[THREAD_ID] && i != RIGHT_LIM - 2 && i != RIGHT_LIM  - 1);
 }
