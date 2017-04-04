@@ -26,7 +26,6 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
 void matrix_print(signed char ** matrix);
 void compute_generations(hashtable_s *hashtable);
-int limits(int i, int*);
 void threads_1st_iter(int *, int);
 
 unsigned cube_size, n_generations;
@@ -227,7 +226,7 @@ data set_data(int x, int y, int z){
 }
 
 int equal_data(data K1, data K2){
-	return K1.x == K2.x && K1.y == K2.y && K1.z == K2.z ? 1 : 0;
+	return K1.x == K2.x && K1.y == K2.y && K1.z == K2.z;
 }
 
 void print_data(data K){
