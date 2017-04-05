@@ -4,22 +4,23 @@
 #include <string.h>
 
 int main(){
-    int size = 10000;
-    int live = 500000;
+    int size = 6;
+    int live = 8;
 
     int cells[3][live];
     memset(cells, 0, 3*live);
     int x, y, z;
     int index = 0;
     int found;
+	int i,j,n;
     srand(time(NULL));
-    for(int i = 0; i < live; i++){
+    for(i = 0; i < live; i++){
         x = random()%size;
         y = random()%size;
         z = random()%size;
         found = 0;
 
-        for(int j = 0; j < live; j++){
+        for( j = 0; j < live; j++){
             if(x == cells[0][j]){
                 if(y == cells[1][j]){
                     if(z == cells[2][j]){
@@ -38,9 +39,11 @@ int main(){
         }
     }
 
-    FILE* fd = fopen("InputFiles/s10000e500000.in", "w");
+	char title[100];
+	sprintf(title,"InputFiles/s%de%d.in", size, live);
+    FILE* fd = fopen(title, "w");
     fprintf(fd, "%d\n", size);
-    for(int n = 0; n < live; n++){
+    for( n = 0; n < live; n++){
         fprintf(fd, "%d %d %d\n", cells[0][n], cells[1][n], cells[2][n]);
     }
     fclose(fd);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./LinkedListLib/linked_list.h"
-#include "./HashTableLib/hashtable-omp.h"
+#include "./HashTableLib/hashtable.h"
 #include <string.h>
 #include <omp.h>
 #include <math.h>
@@ -13,7 +13,7 @@
 #define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
 #define THREAD_ID (omp_get_thread_num())
 #define NEXT_THREAD (THREAD_ID == omp_get_num_threads()-1 ? 0 : THREAD_ID+1)
-#define THREAD_SPACE(j) ((N_SLICES) * omp_get_thread_num() + (j)) // Domain in dynamic_matrix
+#define THREAD_SPACE(j) ((N_SLICES) * THREAD_ID + (j)) // Domain in dynamic_matrix
 #define RIGHT_LIM (THREAD_ID < omp_get_num_threads() - 1 ? first_iter[THREAD_ID + 1] : cube_size)
 #define RIGHT_WRAP (RIGHT_LIM == cube_size ? 0 : RIGHT_LIM)
 
@@ -83,39 +83,56 @@ void compute_generations(hashtable_s *hashtable){
 	item *dead_to_live[N_SLICES*launched_threads];
 	signed char *dynamic_matrix[N_SLICES*launched_threads];
 	signed char *first_slice[launched_threads], *second_slice[launched_threads];
-	int danger_zone_finished[launched_threads];
+	int first_slice_finished[launched_threads], second_slice_finished[launched_threads];
 
 	for(i = 0; i < N_SLICES*launched_threads; i++)
 		dynamic_matrix[i] = calloc(cube_size * cube_size, sizeof(char));
+
 	/****************************************************************************/
 	while(n_generations--){
 		#pragma omp parallel
 		{
+			int n;
 			/*PRIVATE VARIABLES FOR THREADS******************************************/
-		  	for(i = 0; i < N_SLICES; i++){ //first 3 slice insertions
-		  		insert_in_slice(dynamic_matrix[THREAD_SPACE(i)], hashtable, first_iter[THREAD_ID] + i);
+		  	for(n = 0; n < N_SLICES; n++){ //first 3 slice insertions
+		  		insert_in_slice(dynamic_matrix[THREAD_SPACE(n)], hashtable, first_iter[THREAD_ID] + n);
 			}
+			/*
+			for(i=k; k< N_SLICES; k++){
+				printf("%d\n", THREAD_SPACE(i));
+			}
+			fflush(stdout);
+			getchar();
+			*/
 			/*lists that takes all the possible dead candidates to become live
 		  	one for each slice*/
-		  	for(i = 0; i < N_SLICES; i++)   // INITIATE TO NULL
-		  		dead_to_live[THREAD_SPACE(i)] = list_init();
+		  	for(n = 0; n < N_SLICES; n++)   // INITIATE TO NULL
+		  		dead_to_live[THREAD_SPACE(n)] = list_init();
 
 			signed char *matrix_tmp = NULL;
 		  	int middle = first_iter[THREAD_ID] + 1; //keeps track of the hashlist correspondig to the middle slice
 		    /************************************************************************/
 			/*to keep other threads from reaching this thread first and second slice
 			before it has finished working with them*/
-			danger_zone_finished[THREAD_ID] = 0;
+			first_slice_finished[THREAD_ID] = 0;
+			second_slice_finished[THREAD_ID] = 0;
 		    /*BEGIN PARALLEL FOR*****************************************************/
-			printf("GEN %d, thread %d\n", n_generations, THREAD_ID);
-			fflush(stdout);
+			/*printf("GEN %d, thread %d\n", n_generations, THREAD_ID);
+			fflush(stdout);*/
 			#pragma omp barrier
 		    #pragma omp for
 		        for(i = 0; i < cube_size; i++){
 		    		if(middle == cube_size) // IF LAST ITERATION SET MIDDLE = 0 (WRAP of x)
 		    			middle = 0;
+					/**ZONA DE TESTE***
+					if(i<cube_size/2){
+						//matrix_print(dynamic_matrix);
 
-					printf("Thread %d reached slice %d or %d\n", THREAD_ID, i+2, middle+1);
+					}
+					printf("%d\n", omp_get_num_threads());
+
+					*******************************/
+					//printf("Thread %d reached slice %d or %d\n", THREAD_ID, i+2, middle+1);
 
 		          	item *list_aux = list_init(), *aux = NULL;
 		          	int count;
@@ -159,13 +176,14 @@ void compute_generations(hashtable_s *hashtable){
 		    			dynamic_matrix[THREAD_SPACE(0)] = malloc(cube_size * cube_size * sizeof(char));
 		    			first_list[THREAD_ID] = dead_to_live[THREAD_SPACE(0)];
 		    			dead_to_live[THREAD_SPACE(0)] = NULL;
+						first_slice_finished[THREAD_ID] = 1;
 		    		}
 		    		else if(i == first_iter[THREAD_ID]+1){
 		    			second_slice[THREAD_ID] = dynamic_matrix[THREAD_SPACE(0)];
 		    			dynamic_matrix[THREAD_SPACE(0)] = malloc(cube_size * cube_size * sizeof(char));
 		    			second_list[THREAD_ID] = dead_to_live[THREAD_SPACE(0)];
 		    			dead_to_live[THREAD_SPACE(0)] = NULL;
-						danger_zone_finished[THREAD_ID] = 1;
+						second_slice_finished[THREAD_ID] = 1;
 		    		}
 
 		    		//dead_to_live lists shift
@@ -173,9 +191,10 @@ void compute_generations(hashtable_s *hashtable){
 		    		dead_to_live[THREAD_SPACE(1)] = dead_to_live[THREAD_SPACE(2)];
 		    		if(i == RIGHT_LIM - 3){
 						//waits for next thread to finish danger zone
-						while(!danger_zone_finished[NEXT_THREAD]);
+						while(!first_slice_finished[NEXT_THREAD]);
 		    			dead_to_live[THREAD_SPACE(2)] = first_list[NEXT_THREAD];
 		    		}else if(i == RIGHT_LIM - 2){
+						while(!second_slice_finished[NEXT_THREAD]);
 		    			dead_to_live[THREAD_SPACE(2)] = second_list[NEXT_THREAD];
 		    		}else{
 		    			dead_to_live[THREAD_SPACE(2)] = list_init();
@@ -197,14 +216,19 @@ void compute_generations(hashtable_s *hashtable){
 		    		middle++; //goes on in the hashtable
 		    	}
 			/*PARALLEL FOR LOOP FINISH********************************************/
-			for(i = 0; i < N_SLICES; i++)
-				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(i)]);
+			for(n = 0; n < N_SLICES; n++)
+				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(n)]);
 
-			printf("NEXT GENERATION!\n" );
+			/*printf("NEXT GENERATION!\n" );
+			fflush(stdout);*/
 	    } /*END OF PARALLEL SECTION**********************************************/
 	}
-	for(i = 0; i < N_SLICES*launched_threads; i++)
+	free(first_iter);
+	for(i = 0; i < N_SLICES*launched_threads; i++){
+		//printf("%p\n", &dynamic_matrix[i]);
+		//printf("%p\n", &dynamic_matrix[i]+1);
 		free(dynamic_matrix[i]);
+	}
 }
 
 void threads_1st_iter(int *w, int parts){
