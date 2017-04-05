@@ -30,7 +30,7 @@ item* list_push(item* root, item* other){
 
 //Creates an element and puts it in the beginning of the list
 item* list_append(item* root, data K){
-	item *new, *aux;
+	item *new;
 
 	new = (item*)malloc(sizeof(item));
 	if(new == NULL){

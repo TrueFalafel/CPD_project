@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./LinkedListLib/linked_list.h"
-#include "./HashTableLib/hashtable-omp.h"
+#include "./HashTableLib/hashtable.h"
 #include <string.h>
 #include <omp.h>
 #include <math.h>
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]){
 	/****************************************************************************/
 	compute_generations(hashtable);
 	hash_sort(hashtable);
-	hash_print(hashtable);
+	//hash_print(hashtable);
 	hash_free(hashtable);
 	//end = omp_get_wtime();
 	//printf("Execution time: %e s\n", end - start); // PRINT IN SCIENTIFIC NOTATION
@@ -87,6 +87,7 @@ void compute_generations(hashtable_s *hashtable){
 
 	for(i = 0; i < N_SLICES*launched_threads; i++)
 		dynamic_matrix[i] = calloc(cube_size * cube_size, sizeof(char));
+
 	/****************************************************************************/
 	while(n_generations--){
 		#pragma omp parallel
@@ -201,8 +202,10 @@ void compute_generations(hashtable_s *hashtable){
 				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(i)]);
 
 			printf("NEXT GENERATION!\n" );
+			fflush(stdout);
 	    } /*END OF PARALLEL SECTION**********************************************/
 	}
+	free(first_iter);
 	for(i = 0; i < N_SLICES*launched_threads; i++)
 		free(dynamic_matrix[i]);
 }
