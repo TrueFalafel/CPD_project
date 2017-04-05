@@ -117,8 +117,8 @@ void compute_generations(hashtable_s *hashtable){
 			first_slice_finished[THREAD_ID] = 0;
 			second_slice_finished[THREAD_ID] = 0;
 		    /*BEGIN PARALLEL FOR*****************************************************/
-			printf("GEN %d, thread %d\n", n_generations, THREAD_ID);
-			fflush(stdout);
+			/*printf("GEN %d, thread %d\n", n_generations, THREAD_ID);
+			fflush(stdout);*/
 			#pragma omp barrier
 		    #pragma omp for
 		        for(i = 0; i < cube_size; i++){
@@ -132,7 +132,7 @@ void compute_generations(hashtable_s *hashtable){
 					printf("%d\n", omp_get_num_threads());
 
 					*******************************/
-					printf("Thread %d reached slice %d or %d\n", THREAD_ID, i+2, middle+1);
+					//printf("Thread %d reached slice %d or %d\n", THREAD_ID, i+2, middle+1);
 
 		          	item *list_aux = list_init(), *aux = NULL;
 		          	int count;
@@ -219,8 +219,8 @@ void compute_generations(hashtable_s *hashtable){
 			for(n = 0; n < N_SLICES; n++)
 				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(n)]);
 
-			printf("NEXT GENERATION!\n" );
-			fflush(stdout);
+			/*printf("NEXT GENERATION!\n" );
+			fflush(stdout);*/
 	    } /*END OF PARALLEL SECTION**********************************************/
 	}
 	free(first_iter);
