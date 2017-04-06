@@ -89,9 +89,17 @@ void compute_generations(hashtable_s *hashtable){
 		dynamic_matrix[i] = calloc(cube_size * cube_size, sizeof(char));
 
 	/****************************************************************************/
-	while(n_generations--){
+
 		#pragma omp parallel
 		{
+			while(1){ // INSERTING WHILE INSIDE LOOP
+			if(!omp_get_thread_num())
+				n_generations--;
+			#pragma omp barrier
+			if(n_generations == -1)
+				break;
+			first_slice_finished[THREAD_ID] = 0;
+			second_slice_finished[THREAD_ID] = 0;
 			int n;
 			/*PRIVATE VARIABLES FOR THREADS******************************************/
 		  	for(n = 0; n < N_SLICES; n++){ //first 3 slice insertions
@@ -114,8 +122,8 @@ void compute_generations(hashtable_s *hashtable){
 		    /************************************************************************/
 			/*to keep other threads from reaching this thread first and second slice
 			before it has finished working with them*/
-			first_slice_finished[THREAD_ID] = 0;
-			second_slice_finished[THREAD_ID] = 0;
+//			first_slice_finished[THREAD_ID] = 0;
+//			second_slice_finished[THREAD_ID] = 0;
 		    /*BEGIN PARALLEL FOR*****************************************************/
 			/*printf("GEN %d, thread %d\n", n_generations, THREAD_ID);
 			fflush(stdout);*/
