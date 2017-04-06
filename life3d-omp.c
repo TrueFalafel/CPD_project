@@ -8,6 +8,7 @@
 
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
+#define CLEAN_SIZE_LIMIT 300
 
 #define MINDEX(i, j) (i + j*cube_size)
 #define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
@@ -24,6 +25,8 @@ int hashfunction (struct data k);
 void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count);
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
+void check_neighbors_shared(signed char **matrix, item **dead_to_live, item *node, int *count);
+void check_entry_shared(signed char *entry, item **dead_to_live, data K, int *count);
 void matrix_print(signed char ** matrix);
 void compute_generations(hashtable_s *hashtable);
 
@@ -83,9 +86,10 @@ void compute_generations(hashtable_s *hashtable){
 	first_iter = malloc(sizeof(int)*launched_threads);
 	threads_1st_iter(first_iter, launched_threads);
 	int i;
+	int threads_finished = 0, slices_cleaned = 0, thread_help = 0;
 	item *first_list[launched_threads], *second_list[launched_threads];
 	item *dead_to_live[N_SLICES*launched_threads];
-	signed char *dynamic_matrix[N_SLICES*launched_threads];
+	signed char *dynamic_matrix[N_SLICES*launched_threads], *cleaned_slice[launched_threads];
 	signed char *first_slice[launched_threads], *second_slice[launched_threads];
 	int first_slice_finished[launched_threads], second_slice_finished[launched_threads];
 
@@ -95,18 +99,19 @@ void compute_generations(hashtable_s *hashtable){
 	/**************************************************************************/
 
 	#pragma omp parallel
-	{
+	{	//printf("NUM THREADS: %d\n",omp_get_num_threads() );
 		while(1){ // INSERTING WHILE INSIDE LOOP
 			if(!omp_get_thread_num())
 				n_generations--;
-			#pragma omp barrier
-			if(n_generations == -1)
-				break;
 
 			/*to keep other threads from reaching this thread first and second slice
 			before it has finished working with them*/
 			first_slice_finished[THREAD_ID] = 0;
 			second_slice_finished[THREAD_ID] = 0;
+			#pragma omp barrier
+			if(n_generations == -1)
+				break;
+
 
 			int n;
 
@@ -126,7 +131,7 @@ void compute_generations(hashtable_s *hashtable){
 
 		    /*BEGIN PARALLEL FOR***********************************************/
 
-			#pragma omp barrier //Make sure everything is initialized
+
 		    #pragma omp for
 		        for(i = 0; i < cube_size; i++){
 		    		if(middle == cube_size) // IF LAST ITERATION SET MIDDLE = 0 (WRAP of x)
@@ -138,17 +143,44 @@ void compute_generations(hashtable_s *hashtable){
 		    		slices 1 and 2 are already filled too*/
 					if(i != first_iter[THREAD_ID] && i != RIGHT_LIM - 2 && i != RIGHT_LIM - 1)
 		    			insert_in_slice(dynamic_matrix[THREAD_SPACE(2)], hashtable, middle + 1);
+
+					int checks_shared=0;
+					if(threads_finished > 0 && thread_help == 0){
+						#pragma omp critical (threads_finished)
+						{
+							checks_shared = (thread_help == 0);
+							thread_help++;
+						}
+					}
 					while(hashtable->table[middle] != NULL){
 		            	count = 0;
 		    			aux = hash_first(hashtable, middle);
+						if(checks_shared){
+						#pragma omp task
+						{
+							check_neighbors_shared(dynamic_matrix + THREAD_SPACE(0),
+								dead_to_live + THREAD_SPACE(0), aux, &count);
+
+							//if cell stays alive goes to the temporary list
+				    		if(count >= 2 && count <= 4)
+				    			list_aux = list_push(list_aux, aux);
+				    		else //else it dies, so doesn't stay in the hash table
+				    			free(aux);
+						}
+						}else{
 		    			check_neighbors(dynamic_matrix + THREAD_SPACE(0),
 							dead_to_live + THREAD_SPACE(0), aux, &count);
-		    			//if cell stays alive goes to the temporary list
-		    			if(count >= 2 && count <= 4)
-		    				list_aux = list_push(list_aux, aux);
-		    			else //else it dies, so doesn't stay in the hash table
-		    				free(aux);
+
+						//if cell stays alive goes to the temporary list
+			    		if(count >= 2 && count <= 4)
+			    			list_aux = list_push(list_aux, aux);
+			    		else //else it dies, so doesn't stay in the hash table
+			    			free(aux);
+						}
+
 		    		}
+					//PODE ESTAR À ESPERA DE TASKS DE OUTROS EM VAO!
+					#pragma omp taskwait
 		    		//inserts just the live cells that stayed alive
 		    		hashtable->table[middle] = list_aux;
 					list_aux = NULL;
@@ -206,17 +238,43 @@ void compute_generations(hashtable_s *hashtable){
 		    			dynamic_matrix[THREAD_SPACE(2)] = second_slice[NEXT_THREAD];
 		    			free(matrix_tmp);
 		    		}else{
-		    			dynamic_matrix[THREAD_SPACE(2)] = matrix_tmp;
-		    			SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(2)]);
+						if(threads_finished > 0 && slices_cleaned > 0){
+							dynamic_matrix[THREAD_SPACE(2)] = cleaned_slice[slices_cleaned];
+							#pragma omp atomic
+							slices_cleaned --;
+							free(matrix_tmp);
+						}else{
+							dynamic_matrix[THREAD_SPACE(2)] = matrix_tmp;
+		    				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(2)]);
+						}
 		    		}
 		    		middle++; //goes on in the hashtable
-		    	}
-			/*PARALLEL FOR LOOP FINISH*****************************************/
+
+					if(i == RIGHT_LIM-1){
+						int condition;
+						#pragma omp critical (finished)
+						{
+							threads_finished++; //a thread finished!
+							condition = (threads_finished == 1);
+						}
+						if(condition && cube_size > CLEAN_SIZE_LIMIT){
+							while(1){
+								if(slices_cleaned < launched_threads){
+									cleaned_slice[slices_cleaned] = calloc(cube_size * cube_size, sizeof(char));
+									#pragma omp atomic
+									slices_cleaned ++;
+								}
+								if(threads_finished == launched_threads)
+									break;
+							}
+						}
+					}
+		    	}/*PARALLEL FOR LOOP FINISH*****************************************/
 			for(n = 0; n < N_SLICES; n++)
 				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(n)]);
 	    }
-		/*END OF PARALLEL SECTION*******************************************/
-	}
+
+	}/*END OF PARALLEL SECTION*******************************************/
 	free(first_iter);
 	for(i = 0; i < N_SLICES*launched_threads; i++){
 		free(dynamic_matrix[i]);
@@ -313,6 +371,54 @@ void check_entry(signed char *entry, item **dead_to_live, data K, int *count){
 		else if(*entry == 4)
 			*dead_to_live = list_remove(*dead_to_live, K);
 		else if(*entry > 6){
+			perror("Entry > 6\n");
+			exit(-1);
+		}
+	}else
+		(*count)++;
+}
+
+void check_neighbors_shared(signed char **matrix, item **dead_to_live, item *node, int *count){
+	int x = node->K.x;
+	int y = node->K.y;
+	int z = node->K.z;
+	data K = {.x = x, .y = y, .z = z};
+
+	// x coordinate neighbor search
+	K.x = (x != 0) ? x - 1 : cube_size - 1;
+	check_entry_shared(&matrix[0][MINDEX(y,z)], &dead_to_live[0], K, count);
+	K.x = (x != cube_size - 1) ? x + 1 : 0;
+	check_entry_shared(&matrix[2][MINDEX(y,z)], &dead_to_live[2], K, count);
+	K.x = x;
+
+	// y coordinate neighbor search
+	K.y = (y != 0) ? y - 1 : cube_size - 1;
+	check_entry_shared(&matrix[1][MINDEX(K.y,z)], &dead_to_live[1], K, count);
+	K.y = (y != cube_size-1) ? y + 1 : 0;
+	check_entry_shared(&matrix[1][MINDEX(K.y,z)], &dead_to_live[1], K, count);
+	K.y = y;
+
+	// z coordinate neighbor search
+	K.z = (z != 0) ? z - 1 : cube_size - 1;
+	check_entry_shared(&matrix[1][MINDEX(y,K.z)], &dead_to_live[1], K, count);
+
+	K.z = (z != cube_size-1) ? z + 1 : 0;
+	check_entry_shared(&matrix[1][MINDEX(y,K.z)], &dead_to_live[1], K, count);
+}
+
+void check_entry_shared(signed char *entry, item **dead_to_live, data K, int *count){
+	int check;
+
+	if(*entry != -1){
+		#pragma omp atomic
+		(*entry)++;
+		if(*entry == 2){
+			#pragma omp critical (dead_to_live)
+			*dead_to_live = list_append(*dead_to_live, K);
+		}else if(*entry == 4){
+			#pragma omp critical (dead_to_live)
+			*dead_to_live = list_remove(*dead_to_live, K);
+		}else if(*entry > 6){
 			perror("Entry > 6\n");
 			exit(-1);
 		}

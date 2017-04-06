@@ -5,7 +5,7 @@
 
 int main(){
     int size = 6;
-    int live = 8;
+    int live = 3*6*6;
 
     int cells[3][live];
     memset(cells, 0, 3*live);
