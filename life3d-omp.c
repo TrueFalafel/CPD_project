@@ -90,9 +90,9 @@ void compute_generations(hashtable_s *hashtable){
 
 	/****************************************************************************/
 
-		#pragma omp parallel
-		{
-			while(1){ // INSERTING WHILE INSIDE LOOP
+	#pragma omp parallel
+	{
+		while(1){ // INSERTING WHILE INSIDE LOOP
 			if(!omp_get_thread_num())
 				n_generations--;
 			#pragma omp barrier
