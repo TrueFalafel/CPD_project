@@ -163,6 +163,7 @@ void compute_generations(hashtable_s *hashtable){
 
 							//if cell stays alive goes to the temporary list
 				    		if(count >= 2 && count <= 4)
+								#pragma omp critical (list_aux)
 				    			list_aux = list_push(list_aux, aux);
 				    		else //else it dies, so doesn't stay in the hash table
 				    			free(aux);
