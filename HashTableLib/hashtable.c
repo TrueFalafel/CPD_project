@@ -54,12 +54,11 @@ void hash_print(hashtable_s *hashtable){
 	int i;
 
 	for(i=0; i < hashtable->size; i++){
-		//printf("Position %d:\n", i);
 		list_print(hashtable->table[i]);
 	}
 	return;
 }
-/*
+
 item *hash_search(hashtable_s *hashtable, data K){
 	item *aux;
 
@@ -67,7 +66,7 @@ item *hash_search(hashtable_s *hashtable, data K){
 
 	aux = list_search(hashtable->table[index], K);
 	return aux;
-}*/
+}
 
 void hash_remove(hashtable_s *hashtable, data K){
 	int index = get_index(hashtable, K);
@@ -96,7 +95,6 @@ void hash_sort(hashtable_s *hashtable){
 	int i;
 
 	for(i=0;i<size;i++){
-		//hashtable->table[i] = list_dering(hashtable->table[i]);
 		list_sort(&hashtable->table[i]);
 	}
 

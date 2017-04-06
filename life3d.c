@@ -7,32 +7,33 @@
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 
+#define MINDEX(i, j) (i + j*cube_size)
+#define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
+
 void usage();
 int hashfunction (struct data k);
-int mindex(int i, int j);
 void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
-void slice_clean(signed char * slice);
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count);
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
 void matrix_print(signed char ** matrix);
 
+//Global variables
 unsigned cube_size=0;
 
 int main(int argc, char *argv[])
 {
     //double end, start = omp_get_wtime();
 	int i=0, j=0;
+
     /*GET INPUT TEXT FILE, CHECK FOR ERRORS**************************************/
-    if(argc != 3)
-    {
+    if(argc != 3){
         printf("Incorrect number of arguments\n");
         usage();
         exit(1);
     }
 
     FILE *pf;
-    if(!(pf = fopen(argv[1], "r")))
-    {
+    if(!(pf = fopen(argv[1], "r"))){
         printf("File couldn't be found\n");
         usage();
         exit(2);
@@ -41,6 +42,7 @@ int main(int argc, char *argv[])
     /*GET CUBE SIZE -> FIRST LINE OF INPUT TEXT FILE & NUMBER OF GENERATIONS***/
     unsigned n_generations = atoi(argv[2]);
     fscanf(pf, "%d", &cube_size);
+
 	/* Matrix that runs through the cube*/
 	signed char *dynamic_matrix[N_SLICES];
 	for(i=0; i < N_SLICES; i++){
@@ -56,13 +58,10 @@ int main(int argc, char *argv[])
     while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
     	hash_insert( hashtable, k);
 	}
-
 	fclose(pf);
-    /****************************************************************************/
+    /**************************************************************************/
 
-	//hash_print(hashtable);
-
-	/****Cycle for generations****************************************************/
+	/****Cycle for generations*************************************************/
 	int n=0;
 	signed char * matrix_tmp=NULL;
 	signed char *first_slice, *second_slice;
@@ -81,7 +80,6 @@ int main(int argc, char *argv[])
 
 		int middle = 1; //keeps track of the hashlist correspondig to the middle slice
 		for( i=0; i < cube_size; i++){
-			//printf("%d\n", i);
 			item *list_aux = list_init(), *aux=NULL;
 
 			int count;
@@ -99,10 +97,10 @@ int main(int argc, char *argv[])
 				//if cell stays alive goes to the temporary list
 				if(count >= 2 && count <= 4)
 					list_aux = list_push(list_aux, aux);
-				else
+				else //else it dies, so doesn't stay in the hash table
 					free(aux);
-				//else it dies, so doesn't stay in the hash table
 			}
+
 			//inserts just the live cells that stayed alive
 			hashtable->table[middle] = list_aux;
 			list_aux = NULL;
@@ -120,17 +118,7 @@ int main(int argc, char *argv[])
 				dead_to_live[2]=NULL;
 			}
 
-
-			/*ZONA DE TESTE*
-
-			matrix_print(dynamic_matrix);
-			getchar();
-
-			********[END] ZONA DE TESTE********************/
-
-			/****************************
-			ATENÇÃO à PRIMEIRA e SEGUNDA SLICE
-			(isto tem de se mudar...)*/
+			//Save the first and the second slice and dead_to_live lists
 			if(i==0){
 				first_slice = dynamic_matrix[0];
 				dynamic_matrix[0] =(signed char *)malloc(cube_size * cube_size * sizeof(char));
@@ -166,7 +154,7 @@ int main(int argc, char *argv[])
 				free(matrix_tmp);
 			}else{
 				dynamic_matrix[2] = matrix_tmp;
-				slice_clean(dynamic_matrix[2]);
+				SLICE_CLEAN(dynamic_matrix[2]);
 			}
 
 			//goes on in the hashtable
@@ -175,7 +163,7 @@ int main(int argc, char *argv[])
 		}
 
 		for(i=0; i < N_SLICES; i++)
-			slice_clean(dynamic_matrix[i]);
+			SLICE_CLEAN(dynamic_matrix[i]);
 	}
 
 	for(i=0; i < N_SLICES; i++)
@@ -196,6 +184,7 @@ void usage(){
     printf("Usage: ./life3d <input file> <number of generations>\n");
 }
 
+//Indexing function of the hashtable
 int hashfunction (struct data k){
     return k.x;
 }
@@ -221,24 +210,16 @@ void print_data(data K){
 	printf("%d %d %d\n", K.x, K.y, K.z);
 }
 
-int mindex(int i, int j){
-	return i + j*cube_size;
-}
-
 void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
 	item *aux;
 	item *list_aux=NULL;
 
 	while(hashtable->table[entry]!=NULL){
 		aux = hash_first(hashtable, entry);
-		slice[mindex(aux->K.y, aux->K.z)] = -1;
+		slice[MINDEX(aux->K.y, aux->K.z)] = -1;
 		list_aux = list_push(list_aux, aux);
 	}
 	hashtable->table[entry] = list_aux;
-}
-
-void slice_clean(signed char * slice){
-	memset(slice, 0, cube_size*cube_size);
 }
 
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count){
@@ -247,46 +228,46 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 	int z = node->K.z;
 	data K = {.x = x, .y = y, .z = z};
 
-	// x coordenate neighbor search
+	// x coordinate neighbor search
 	if(x != 0)
 		K.x = x - 1;
 	else
 		K.x = cube_size - 1;
-	check_entry(&matrix[0][mindex(y,z)], &dead_to_live[0], K, count);
+	check_entry(&matrix[0][MINDEX(y,z)], &dead_to_live[0], K, count);
 	if(x != cube_size-1)
 		K.x = x + 1;
 	else
 		K.x = 0;
-	check_entry(&matrix[2][mindex(y,z)], &dead_to_live[2], K, count);
+	check_entry(&matrix[2][MINDEX(y,z)], &dead_to_live[2], K, count);
 	K.x = x;
 
-	// y coordenate neighbor search
+	// y coordinate neighbor search
 	if(y != 0)
 		K.y = y - 1;
 	else
 		K.y = cube_size-1;
-	check_entry(&matrix[1][mindex(K.y,z)], &dead_to_live[1], K, count);
+	check_entry(&matrix[1][MINDEX(K.y,z)], &dead_to_live[1], K, count);
 
 	if(y != cube_size-1)
 		K.y = y + 1;
 	else
 		K.y = 0;
-	check_entry(&matrix[1][mindex(K.y,z)], &dead_to_live[1], K, count);
+	check_entry(&matrix[1][MINDEX(K.y,z)], &dead_to_live[1], K, count);
 
 	K.y = y;
 
-	// z coordenate neighbor search
+	// z coordinate neighbor search
 	if(z != 0)
 		K.z = z - 1;
 	else
 		K.z = cube_size-1;
-	check_entry(&matrix[1][mindex(y,K.z)], &dead_to_live[1], K, count);
+	check_entry(&matrix[1][MINDEX(y,K.z)], &dead_to_live[1], K, count);
 
 	if(z != cube_size-1)
 		K.z = z + 1;
 	else
 		K.z = 0;
-	check_entry(&matrix[1][mindex(y,K.z)], &dead_to_live[1], K, count);
+	check_entry(&matrix[1][MINDEX(y,K.z)], &dead_to_live[1], K, count);
 
 }
 
