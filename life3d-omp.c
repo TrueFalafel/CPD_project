@@ -156,26 +156,29 @@ void compute_generations(hashtable_s *hashtable){
 		            	count = 0;
 		    			aux = hash_first(hashtable, middle);
 						if(checks_shared){
-						#pragma omp task
-						{
-							check_neighbors_shared(dynamic_matrix + THREAD_SPACE(0),
-								dead_to_live + THREAD_SPACE(0), aux, &count);
+							#pragma omp task shared(dead_to_live, dynamic_matrix)
+							{
+								check_neighbors_shared(dynamic_matrix + THREAD_SPACE(0),
+									dead_to_live + THREAD_SPACE(0), aux, &count);
 
-							//if cell stays alive goes to the temporary list
-				    		if(count >= 2 && count <= 4)
-								#pragma omp critical (list_aux)
-				    			list_aux = list_push(list_aux, aux);
-				    		else //else it dies, so doesn't stay in the hash table
-				    			free(aux);
-						}
+								//if cell stays alive goes to the temporary list
+					    		if(count >= 2 && count <= 4)
+									#pragma omp critical (list_aux)
+					    			list_aux = list_push(list_aux, aux);
+					    		else //else it dies, so doesn't stay in the hash table
+									#pragma omp critical (list_aux)
+					    			free(aux);
+							}
 						}else{
 		    			check_neighbors(dynamic_matrix + THREAD_SPACE(0),
 							dead_to_live + THREAD_SPACE(0), aux, &count);
 
 						//if cell stays alive goes to the temporary list
 			    		if(count >= 2 && count <= 4)
+							#pragma omp critical (list_aux)
 			    			list_aux = list_push(list_aux, aux);
 			    		else //else it dies, so doesn't stay in the hash table
+							#pragma omp critical (list_aux)
 			    			free(aux);
 						}
 
