@@ -8,9 +8,11 @@
 
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
-#define MINDEX(i, j) (i + j*cube_size)
 
+#define MINDEX(i, j) (i + j*cube_size)
 #define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
+
+//Multi-thread macros
 #define THREAD_ID (omp_get_thread_num())
 #define NEXT_THREAD (THREAD_ID == omp_get_num_threads()-1 ? 0 : THREAD_ID+1)
 #define THREAD_SPACE(j) ((N_SLICES) * THREAD_ID + (j)) // Domain in dynamic_matrix
@@ -19,24 +21,26 @@
 
 void usage();
 int hashfunction (struct data k);
-int mindex(int i, int j);
 void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
-void slice_clean(signed char * slice);
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count);
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
 void matrix_print(signed char ** matrix);
 void compute_generations(hashtable_s *hashtable);
+
+//Multi-thread functions
 void threads_1st_iter(int *, int);
 
+//Global variables
 unsigned cube_size, n_generations;
 
 int main(int argc, char *argv[]){
 	//double end, start = omp_get_wtime();
-	/*GET INPUT TEXT FILE, CHECK FOR ERRORS**************************************/
+
+	/*GET INPUT TEXT FILE, CHECK FOR ERRORS************************************/
 	if(argc != 3){
-	printf("Incorrect number of arguments\n");
-    usage();
-    exit(1);
+		printf("Incorrect number of arguments\n");
+		usage();
+		exit(1);
   	}
 
   	FILE *pf;
@@ -88,7 +92,7 @@ void compute_generations(hashtable_s *hashtable){
 	for(i = 0; i < N_SLICES*launched_threads; i++)
 		dynamic_matrix[i] = calloc(cube_size * cube_size, sizeof(char));
 
-	/****************************************************************************/
+	/**************************************************************************/
 
 	#pragma omp parallel
 	{
@@ -98,49 +102,35 @@ void compute_generations(hashtable_s *hashtable){
 			#pragma omp barrier
 			if(n_generations == -1)
 				break;
+
+			/*to keep other threads from reaching this thread first and second slice
+			before it has finished working with them*/
 			first_slice_finished[THREAD_ID] = 0;
 			second_slice_finished[THREAD_ID] = 0;
+
 			int n;
-			/*PRIVATE VARIABLES FOR THREADS******************************************/
+
 		  	for(n = 0; n < N_SLICES; n++){ //first 3 slice insertions
 		  		insert_in_slice(dynamic_matrix[THREAD_SPACE(n)], hashtable, first_iter[THREAD_ID] + n);
 			}
-			/*
-			for(i=k; k< N_SLICES; k++){
-				printf("%d\n", THREAD_SPACE(i));
-			}
-			fflush(stdout);
-			getchar();
-			*/
+
 			/*lists that takes all the possible dead candidates to become live
 		  	one for each slice*/
-		  	for(n = 0; n < N_SLICES; n++)   // INITIATE TO NULL
+		  	for(n = 0; n < N_SLICES; n++)   // INITIALIZE TO NULL
 		  		dead_to_live[THREAD_SPACE(n)] = list_init();
 
 			signed char *matrix_tmp = NULL;
 		  	int middle = first_iter[THREAD_ID] + 1; //keeps track of the hashlist correspondig to the middle slice
-		    /************************************************************************/
-			/*to keep other threads from reaching this thread first and second slice
-			before it has finished working with them*/
-//			first_slice_finished[THREAD_ID] = 0;
-//			second_slice_finished[THREAD_ID] = 0;
-		    /*BEGIN PARALLEL FOR*****************************************************/
-			/*printf("GEN %d, thread %d\n", n_generations, THREAD_ID);
-			fflush(stdout);*/
-			#pragma omp barrier
+		    /*******************************************************************/
+
+
+		    /*BEGIN PARALLEL FOR***********************************************/
+
+			#pragma omp barrier //Make sure everything is initialized
 		    #pragma omp for
 		        for(i = 0; i < cube_size; i++){
 		    		if(middle == cube_size) // IF LAST ITERATION SET MIDDLE = 0 (WRAP of x)
 		    			middle = 0;
-					/**ZONA DE TESTE***
-					if(i<cube_size/2){
-						//matrix_print(dynamic_matrix);
-
-					}
-					printf("%d\n", omp_get_num_threads());
-
-					*******************************/
-					//printf("Thread %d reached slice %d or %d\n", THREAD_ID, i+2, middle+1);
 
 		          	item *list_aux = list_init(), *aux = NULL;
 		          	int count;
@@ -151,15 +141,13 @@ void compute_generations(hashtable_s *hashtable){
 					while(hashtable->table[middle] != NULL){
 		            	count = 0;
 		    			aux = hash_first(hashtable, middle);
-						//#pragma omp critical (check_neighbors)
 		    			check_neighbors(dynamic_matrix + THREAD_SPACE(0),
 							dead_to_live + THREAD_SPACE(0), aux, &count);
 		    			//if cell stays alive goes to the temporary list
 		    			if(count >= 2 && count <= 4)
 		    				list_aux = list_push(list_aux, aux);
-		    			else
+		    			else //else it dies, so doesn't stay in the hash table
 		    				free(aux);
-		    			//else it dies, so doesn't stay in the hash table
 		    		}
 		    		//inserts just the live cells that stayed alive
 		    		hashtable->table[middle] = list_aux;
@@ -177,8 +165,8 @@ void compute_generations(hashtable_s *hashtable){
 		    			dead_to_live[THREAD_SPACE(0)] = NULL;
 		    			dead_to_live[THREAD_SPACE(1)] = NULL;
 		    			dead_to_live[THREAD_SPACE(2)] = NULL;
-						//break;
-		    		}/*T2 TEM DE CHEGAR AQUI ANTES DE O OUTRO T1 CHEGAR ÀS SUAS SLICES*/
+		    		}/*Thread i+1 has to be here before thread i reaches Thread i+1 first and second slices*/
+
 		    		else if(i == first_iter[THREAD_ID]){
 		    			first_slice[THREAD_ID] = dynamic_matrix[THREAD_SPACE(0)];
 		    			dynamic_matrix[THREAD_SPACE(0)] = malloc(cube_size * cube_size * sizeof(char));
@@ -223,18 +211,14 @@ void compute_generations(hashtable_s *hashtable){
 		    		}
 		    		middle++; //goes on in the hashtable
 		    	}
-			/*PARALLEL FOR LOOP FINISH********************************************/
+			/*PARALLEL FOR LOOP FINISH*****************************************/
 			for(n = 0; n < N_SLICES; n++)
 				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(n)]);
-
-			/*printf("NEXT GENERATION!\n" );
-			fflush(stdout);*/
-	    } /*END OF PARALLEL SECTION**********************************************/
+	    }
+		/*END OF PARALLEL SECTION*******************************************/
 	}
 	free(first_iter);
 	for(i = 0; i < N_SLICES*launched_threads; i++){
-		//printf("%p\n", &dynamic_matrix[i]);
-		//printf("%p\n", &dynamic_matrix[i]+1);
 		free(dynamic_matrix[i]);
 	}
 }
@@ -280,24 +264,16 @@ void print_data(data K){
 	printf("%d %d %d\n", K.x, K.y, K.z);
 }
 
-int mindex(int i, int j){
-	return i + j*cube_size;
-}
-
 void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
 	item *aux;
 	item *list_aux = NULL;
 
 	while(hashtable->table[entry]!=NULL){
 		aux = hash_first(hashtable, entry);
-		slice[mindex(aux->K.y, aux->K.z)] = -1;
+		slice[MINDEX(aux->K.y, aux->K.z)] = -1;
 		list_aux = list_push(list_aux, aux);
 	}
 	hashtable->table[entry] = list_aux;
-}
-
-void slice_clean(signed char * slice){
-	memset(slice, 0, cube_size*cube_size);
 }
 
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count){
@@ -306,21 +282,21 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 	int z = node->K.z;
 	data K = {.x = x, .y = y, .z = z};
 
-	// x coordenate neighbor search
+	// x coordinate neighbor search
 	K.x = (x != 0) ? x - 1 : cube_size - 1;
 	check_entry(&matrix[0][MINDEX(y,z)], &dead_to_live[0], K, count);
 	K.x = (x != cube_size - 1) ? x + 1 : 0;
 	check_entry(&matrix[2][MINDEX(y,z)], &dead_to_live[2], K, count);
 	K.x = x;
 
-	// y coordenate neighbor search
+	// y coordinate neighbor search
 	K.y = (y != 0) ? y - 1 : cube_size - 1;
 	check_entry(&matrix[1][MINDEX(K.y,z)], &dead_to_live[1], K, count);
 	K.y = (y != cube_size-1) ? y + 1 : 0;
 	check_entry(&matrix[1][MINDEX(K.y,z)], &dead_to_live[1], K, count);
 	K.y = y;
 
-	// z coordenate neighbor search
+	// z coordinate neighbor search
 	K.z = (z != 0) ? z - 1 : cube_size - 1;
 	check_entry(&matrix[1][MINDEX(y,K.z)], &dead_to_live[1], K, count);
 
