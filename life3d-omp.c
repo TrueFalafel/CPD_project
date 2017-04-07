@@ -104,7 +104,7 @@ void compute_generations(hashtable_s *hashtable){
 			if(!omp_get_thread_num())
 				n_generations--;
 
-			//int empty_slices=0;
+			int empty_slices=0;
 			/*to keep other threads from reaching this thread first and second slice
 			before it has finished working with them*/
 			first_slice_finished[THREAD_ID] = 0;
@@ -121,7 +121,7 @@ void compute_generations(hashtable_s *hashtable){
 
 		  	for(n = 0; n < N_SLICES; n++){ //first 3 slice insertions
 		  		int inserted = insert_in_slice(dynamic_matrix[THREAD_SPACE(n)], hashtable, first_iter[THREAD_ID] + n);
-			//	inserted ? empty_slices=0 : empty_slices++;
+				inserted ? empty_slices=0 : empty_slices++;
 			}
 
 			/*lists that takes all the possible dead candidates to become live
@@ -145,14 +145,14 @@ void compute_generations(hashtable_s *hashtable){
 		          	item *list_aux = list_init(), *aux = NULL;
 
 
-					/*int safe_slice = 0;
+					int safe_slice = 0;
 					if(empty_slices > 2)
-						safe_slice = 1;*/
+						safe_slice = 1;
 		            /*first 3 slices are already filled, and when it wraps around
 		    		slices 1 and 2 are already filled too*/
 					if(i != first_iter[THREAD_ID] && i != RIGHT_LIM - 2 && i != RIGHT_LIM - 1){
 		    			int inserted = insert_in_slice(dynamic_matrix[THREAD_SPACE(2)], hashtable, middle + 1);
-						//inserted ? empty_slices=0 : empty_slices++;
+						inserted ? empty_slices=0 : empty_slices++;
 					}
 
 					int checks_shared=0;
@@ -172,7 +172,7 @@ void compute_generations(hashtable_s *hashtable){
 							//printf("ENTROU check\n" );
 							//getchar();
 							int this_thread = THREAD_ID;
-							#pragma omp task shared(dead_to_live, dynamic_matrix, this_thread) private(count)
+							#pragma omp task shared(dead_to_live, dynamic_matrix, list_aux) firstprivate(count, this_thread)
 							{
 								//printf("Thread %d helping thread %d\n",THREAD_ID, this_thread);
 								//getchar();
@@ -275,7 +275,7 @@ void compute_generations(hashtable_s *hashtable){
 							free(matrix_tmp);
 						}else{*/
 							dynamic_matrix[THREAD_SPACE(2)] = matrix_tmp;
-						//	if(!safe_slice)
+							if(!safe_slice)
 		    					SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(2)]);
 						//}
 		    		}
