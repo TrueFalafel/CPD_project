@@ -153,13 +153,14 @@ void compute_generations(hashtable_s *hashtable){
 						}
 					}
 					while(hashtable->table[middle] != NULL){
-		            	count = 0;
+		            	count = 0; //PODE TAR AQUI?
 		    			aux = hash_first(hashtable, middle);
 						if(checks_shared){
-							#pragma omp task shared(dead_to_live, dynamic_matrix)
+							int this_thread = THREAD_ID;
+							#pragma omp task shared(dead_to_live, dynamic_matrix, this_thread)
 							{
-								check_neighbors_shared(dynamic_matrix + THREAD_SPACE(0),
-									dead_to_live + THREAD_SPACE(0), aux, &count);
+								check_neighbors_shared(dynamic_matrix + N_SLICES*this_thread,
+									dead_to_live + N_SLICES*this_thread, aux, &count);
 
 								//if cell stays alive goes to the temporary list
 					    		if(count >= 2 && count <= 4)
@@ -175,10 +176,10 @@ void compute_generations(hashtable_s *hashtable){
 
 						//if cell stays alive goes to the temporary list
 			    		if(count >= 2 && count <= 4)
-							#pragma omp critical (list_aux)
+							#pragma omp critical (list_aux)//WHY??
 			    			list_aux = list_push(list_aux, aux);
 			    		else //else it dies, so doesn't stay in the hash table
-							#pragma omp critical (list_aux)
+							#pragma omp critical (list_aux)//WHY??
 			    			free(aux);
 						}
 
@@ -242,8 +243,11 @@ void compute_generations(hashtable_s *hashtable){
 		    			dynamic_matrix[THREAD_SPACE(2)] = second_slice[NEXT_THREAD];
 		    			free(matrix_tmp);
 		    		}else{
+						#pragma omp critical (cleaned_slice)
 						if(threads_finished > 0 && slices_cleaned > 0){
 							dynamic_matrix[THREAD_SPACE(2)] = cleaned_slice[slices_cleaned];
+							matrix_print(dynamic_matrix[THREAD_SPACE(2)]);
+							getchar();
 							#pragma omp atomic
 							slices_cleaned --;
 							free(matrix_tmp);
@@ -412,7 +416,7 @@ void check_neighbors_shared(signed char **matrix, item **dead_to_live, item *nod
 
 void check_entry_shared(signed char *entry, item **dead_to_live, data K, int *count){
 	int check;
-
+//ISTO TEM DE TAR MAL
 	if(*entry != -1){
 		#pragma omp atomic
 		(*entry)++;
