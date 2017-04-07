@@ -12,7 +12,7 @@
 
 void usage();
 int hashfunction (struct data k);
-void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
+int insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count);
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
 void matrix_print(signed char ** matrix);
@@ -67,9 +67,12 @@ int main(int argc, char *argv[])
 	signed char *first_slice, *second_slice;
 	item *first_list, *second_list;
 	for(n=0 ; n < n_generations; n++){
+
+		int empty_slices = 0;
 		//first 3 slice insertions
 		for(i=0; i < N_SLICES; i++){
-			insert_in_slice(dynamic_matrix[i], hashtable, i);
+			int inserted = insert_in_slice(dynamic_matrix[i], hashtable, i);
+			inserted ? empty_slices=0 : empty_slices++;
 		}
 
 		/*lists that takes all the possible dead candidates to become live
@@ -86,10 +89,16 @@ int main(int argc, char *argv[])
 			//in the last iteration we should examine the first hash_list
 			if(middle == cube_size)
 				middle=0;
+
+			int safe_slice = 0;
+			if(empty_slices > 2)
+				safe_slice = 1;
 			/*first 3 slices are already filled, and when it wraps around
 			slices 1 and 2 are already filled too*/
-			if(i!=0 && i!=cube_size-2 && i!=cube_size-1)
-				insert_in_slice(dynamic_matrix[2], hashtable, middle+1);
+			if(i!=0 && i!=cube_size-2 && i!=cube_size-1){
+				int inserted = insert_in_slice(dynamic_matrix[2], hashtable, middle+1);
+				inserted ? empty_slices=0 : empty_slices++;
+			}
 			while(hashtable->table[middle] != NULL){
 				count = 0;
 				aux = hash_first(hashtable,middle);
@@ -154,7 +163,8 @@ int main(int argc, char *argv[])
 				free(matrix_tmp);
 			}else{
 				dynamic_matrix[2] = matrix_tmp;
-				SLICE_CLEAN(dynamic_matrix[2]);
+				if(!safe_slice)
+					SLICE_CLEAN(dynamic_matrix[2]);
 			}
 
 			//goes on in the hashtable
@@ -210,16 +220,20 @@ void print_data(data K){
 	printf("%d %d %d\n", K.x, K.y, K.z);
 }
 
-void insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
+int insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
 	item *aux;
 	item *list_aux=NULL;
+	int bool = 0;
 
 	while(hashtable->table[entry]!=NULL){
+		bool = 1;
 		aux = hash_first(hashtable, entry);
 		slice[MINDEX(aux->K.y, aux->K.z)] = -1;
 		list_aux = list_push(list_aux, aux);
 	}
 	hashtable->table[entry] = list_aux;
+
+	return bool;
 }
 
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count){
