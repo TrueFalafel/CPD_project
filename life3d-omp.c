@@ -217,6 +217,7 @@ void compute_generations(hashtable_s *hashtable){
 					//if being helped, waits for all its live cells to be processed
 					#pragma omp taskwait
 
+					#pragma omp critical (threads_finished)
                   	thread_help = 0;
 		    		//inserts just the live cells that stayed alive
 		    		hashtable->table[middle] = list_aux;
