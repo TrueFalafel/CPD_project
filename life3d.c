@@ -3,7 +3,6 @@
 #include "./LinkedListLib/linked_list.h"
 #include "./HashTableLib/hashtable.h"
 #include <string.h>
-//#include <omp.h>
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 
@@ -189,37 +188,41 @@ int main(int argc, char *argv[])
 /****************************END of MAIN******************************************/
 
 
-
+/***********************************************************************
+* usage function
+***********************************************************************/
 void usage(){
     printf("Usage: ./life3d <input file> <number of generations>\n");
 }
 
-//Indexing function of the hashtable
+/***********************************************************************
+* Hashtable indexing function: h(x,y,z) = x
+***********************************************************************/
 int hashfunction (struct data k){
     return k.x;
 }
 
-data set_data(int x, int y, int z){
-	data k;
-
-	k.x = x;
-	k.y = y;
-	k.z = z;
-
-	return k;
-}
-
+/***********************************************************************
+* Equal function for data K
+***********************************************************************/
 int equal_data(data K1, data K2){
 	if(K1.x == K2.x && K1.y == K2.y && K1.z == K2.z)
 		return 1;
 	else
 		return 0;
 }
-
+/***********************************************************************
+* Print function for data K
+***********************************************************************/
 void print_data(data K){
 	printf("%d %d %d\n", K.x, K.y, K.z);
 }
-
+/***********************************************************************
+*This function inserts all live cells from a given X index of the hashtable
+*to a slice.
+*Return 1 if the entry of the hashtable had live cells.
+*Return 0 if no insertion is made.
+***********************************************************************/
 int insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
 	item *aux;
 	item *list_aux=NULL;
@@ -235,7 +238,10 @@ int insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
 
 	return bool;
 }
-
+/***********************************************************************
+* Checks the 6 neighbors of one live cell and calls check_entry for each
+*of them
+***********************************************************************/
 void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count){
 	int x = node->K.x;
 	int y = node->K.y;
@@ -284,7 +290,13 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 	check_entry(&matrix[1][MINDEX(y,K.z)], &dead_to_live[1], K, count);
 
 }
-
+/***********************************************************************
+* Receives one cell
+* If it is death increases its entry, that keeps track of how many live
+*cells are neighbors of the received death cell.
+* If it is alive increases the count variable that keeps track of how
+*many live cells are neighbors of that live cell
+***********************************************************************/
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count){
 
 	if((*entry)!=-1){
@@ -301,7 +313,9 @@ void check_entry(signed char *entry, item **dead_to_live, data K, int *count){
 		(*count)++;
 	}
 }
-
+/***********************************************************************
+* Receives 2 elements of a list and sorts them in ascending order from x to z
+***********************************************************************/
 item* sort(item* list1, item* list2){
     item* result = NULL;
 
@@ -335,18 +349,4 @@ item* sort(item* list1, item* list2){
         }
     }
     return result;
-}
-
-void matrix_print(signed char ** matrix){
-	int i, j;
-
-	for(i=0; i<N_SLICES; i++){
-		printf("%d slice:", i);
-		for(j=0; j<(cube_size*cube_size); j++){
-			if(j%cube_size == 0)
-				printf("\n" );
-			printf("%d ", matrix[i][j]);
-		}
-		printf("\n\n");
-	}
 }
