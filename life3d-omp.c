@@ -167,7 +167,6 @@ void compute_generations(hashtable_s *hashtable){
 									#pragma omp critical (list_aux)
 					    			list_aux = list_push(list_aux, aux);
 					    		else //else it dies, so doesn't stay in the hash table
-									#pragma omp critical (list_aux)
 					    			free(aux);
 							}
 						}else{
@@ -176,10 +175,8 @@ void compute_generations(hashtable_s *hashtable){
 
 						//if cell stays alive goes to the temporary list
 			    		if(count >= 2 && count <= 4)
-							#pragma omp critical (list_aux)//WHY??
 			    			list_aux = list_push(list_aux, aux);
 			    		else //else it dies, so doesn't stay in the hash table
-							#pragma omp critical (list_aux)//WHY??
 			    			free(aux);
 						}
 
@@ -243,21 +240,29 @@ void compute_generations(hashtable_s *hashtable){
 		    			dynamic_matrix[THREAD_SPACE(2)] = second_slice[NEXT_THREAD];
 		    			free(matrix_tmp);
 		    		}else{
-						#pragma omp critical (cleaned_slice)
-						if(threads_finished > 0 && slices_cleaned > 0){
+						/*
+						int check_clean = 0;
+						if(threads_finished > 0){
+							#pragma omp critical (cleaned_slice)
+							{
+								check_clean = (slices_cleaned > 0);
+								slices_cleaned --;
+							}
+						}
+						if(check_clean){
 							dynamic_matrix[THREAD_SPACE(2)] = cleaned_slice[slices_cleaned];
-							matrix_print(dynamic_matrix[THREAD_SPACE(2)]);
-							getchar();
-							#pragma omp atomic
-							slices_cleaned --;
+							//matrix_print(&dynamic_matrix[THREAD_SPACE(0)]);
+							//getchar(); //SEG FAULT LOGO NO PRIMEIRO SLICE CLEAN PARALELO
+							//CLEANED SLICE TEM ENDEREÇOS NAO PERMITIDOS
 							free(matrix_tmp);
-						}else{
+						}else{*/
 							dynamic_matrix[THREAD_SPACE(2)] = matrix_tmp;
 		    				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(2)]);
-						}
+						//}
 		    		}
 		    		middle++; //goes on in the hashtable
 
+					/*
 					if(i == RIGHT_LIM-1){
 						int condition;
 						#pragma omp critical (finished)
@@ -267,7 +272,7 @@ void compute_generations(hashtable_s *hashtable){
 						}
 						if(condition && cube_size > CLEAN_SIZE_LIMIT){
 							while(1){
-								if(slices_cleaned < launched_threads){
+								if(slices_cleaned < 1){
 									cleaned_slice[slices_cleaned] = calloc(cube_size * cube_size, sizeof(char));
 									#pragma omp atomic
 									slices_cleaned ++;
@@ -275,8 +280,10 @@ void compute_generations(hashtable_s *hashtable){
 								if(threads_finished == launched_threads)
 									break;
 							}
+							while(slices_cleaned--)
+								free(cleaned_slice[slices_cleaned]);
 						}
-					}
+					}*/
 		    	}/*PARALLEL FOR LOOP FINISH*****************************************/
 			for(n = 0; n < N_SLICES; n++)
 				SLICE_CLEAN(dynamic_matrix[THREAD_SPACE(n)]);
@@ -420,15 +427,16 @@ void check_entry_shared(signed char *entry, item **dead_to_live, data K, int *co
 	if(*entry != -1){
 		#pragma omp atomic
 		(*entry)++;
-		if(*entry == 2){
-			#pragma omp critical (dead_to_live)
-			*dead_to_live = list_append(*dead_to_live, K);
-		}else if(*entry == 4){
-			#pragma omp critical (dead_to_live)
-			*dead_to_live = list_remove(*dead_to_live, K);
-		}else if(*entry > 6){
-			perror("Entry > 6\n");
-			exit(-1);
+		#pragma omp critical (check_entry)
+		{
+			if(*entry == 2){
+				*dead_to_live = list_append(*dead_to_live, K);
+			}else if(*entry == 4){
+				*dead_to_live = list_remove(*dead_to_live, K);
+			}else if(*entry > 6){
+				perror("Entry > 6\n");
+				exit(-1);
+			}
 		}
 	}else
 		(*count)++;

@@ -4,8 +4,8 @@
 #include <string.h>
 
 int main(){
-    int size = 6;
-    int live = 3*6*6;
+    int size = 500;
+    int live = 200000;
 
     int cells[3][live];
     memset(cells, 0, 3*live);
@@ -15,7 +15,7 @@ int main(){
 	int i,j,n;
     srand(time(NULL));
     for(i = 0; i < live; i++){
-        x = random()%size;
+		x = random()%size;
         y = random()%size;
         z = random()%size;
         found = 0;
@@ -40,9 +40,12 @@ int main(){
     }
 
 	char title[100];
-	sprintf(title,"InputFiles/s%de%d.in", size, live);
+	/*sprintf(title,"InputFiles/s%de%d.in", size, live);
     FILE* fd = fopen(title, "w");
-    fprintf(fd, "%d\n", size);
+    fprintf(fd, "%d\n", size);*/
+	sprintf(title,"InputFiles/s1000e%d.in", live);
+    FILE* fd = fopen(title, "w");
+    fprintf(fd, "%d\n", size*2);
     for( n = 0; n < live; n++){
         fprintf(fd, "%d %d %d\n", cells[0][n], cells[1][n], cells[2][n]);
     }
