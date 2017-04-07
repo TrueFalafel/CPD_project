@@ -1,7 +1,7 @@
-COMPFLAGS = gcc -Wall -g -ggdb -c -o
-COMPFLAGS_OPENMP = gcc -Wall -g -fopenmp -ggdb -c -o
-LINKFLAGS = gcc -Wall -g -o
-LINKFLAGS_OPENMP = gcc -Wall -g -fopenmp -o
+COMPFLAGS = gcc -Wall -c -o
+COMPFLAGS_OPENMP = gcc -Wall -fopenmp -c -o
+LINKFLAGS = gcc -Wall -o
+LINKFLAGS_OPENMP = gcc -Wall -fopenmp -o
 
 LL_LIB_PATH = ./LinkedListLib
 HT_LIB_PATH = ./HashTableLib
@@ -25,7 +25,7 @@ life3d.o: life3d.c $(LL_LIB_PATH)/linked_list.h $(HT_LIB_PATH)/hashtable.h
 #FAZER make hash PARA COMPILAR HASHTABLE#############################################
 hash: $(HT_LIB_PATH)/hashtable.o
 
-$(HT_LIB_PATH)/hastable.o: $(HT_LIB_PATH)/hashtable.c $(HT_LIB_PATH)/hashtable.h
+$(HT_LIB_PATH)/hashtable.o: $(HT_LIB_PATH)/hashtable.c $(HT_LIB_PATH)/hashtable.h
 	$(COMPFLAGS) $@ $<
 ################################################################################
 #FAZER make linked_list PARA COMPILAR LINKED LIST###############################
