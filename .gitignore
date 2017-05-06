@@ -1,0 +1,6 @@
+# Ignore these
+life3d
+life3d-omp
+life3d-mpi
+*.o
+*~
