@@ -1,7 +1,9 @@
 COMPFLAGS = gcc -Wall -c -o
 COMPFLAGS_OPENMP = gcc -Wall -fopenmp -c -o
+COMPFLAGS_MPI = mpicc -Wall -c -o
 LINKFLAGS = gcc -Wall -o
 LINKFLAGS_OPENMP = gcc -Wall -fopenmp -o
+LINKFLAGS_MPI = mpicc -Wall -o
 EXTRA_FLAGS = -lm
 
 LL_LIB_PATH = ./LinkedListLib
@@ -9,10 +11,10 @@ HT_LIB_PATH = ./HashTableLib
 
 #FAZER make PARA COMPILAR e LINKAR VERSAO PARALLEL##############################
 life3d-mpi: life3d-mpi.o $(LL_LIB_PATH)/linked_list.o $(HT_LIB_PATH)/hashtable.o
-	$(LINKFLAGS_OPENMP) $@ $^ $(EXTRA_FLAGS)
+	$(LINKFLAGS_MPI) $@ $^ $(EXTRA_FLAGS)
 
 life3d-mpi.o: life3d-mpi.c $(LL_LIB_PATH)/linked_list.h $(HT_LIB_PATH)/hashtable.h
-	$(COMPFLAGS_OPENMP) $@ $<
+	$(COMPFLAGS_MPI) $@ $<
 ################################################################################
 #FAZER make serial PARA COMPILAR E LINKAR VERSAO SERIAL#########################
 serial: life3d
