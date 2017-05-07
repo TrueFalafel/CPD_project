@@ -52,7 +52,7 @@ int main(int argc, char *argv[]){
 	hashtable = hash_create(cube_size, &hashfunction);
 	/*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
 	while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF)
-	hash_insert(hashtable, k);
+		hash_insert(hashtable, k);
 	fclose(pf);
 
 	/*INITIATE PROCESSES*******************************************************/
@@ -69,6 +69,7 @@ int main(int argc, char *argv[]){
 	disp[2] = offsetof(data, z);
 
 	MPI_Init(&argc, &argv);
+	//Definition of a new MPI type
 	MPI_Type_create_struct(3, blocklen, disp, type, &MPI_DATA);
 	MPI_Type_commit(&MPI_DATA);
 	/**************************************************************************/
@@ -86,6 +87,7 @@ int main(int argc, char *argv[]){
 
 		for(int i = old_p, j = 0; i != p; i--, j++)
 			ranks[j] = i - 1; // TAG RANKS TO NOT TO APPEAR IN NEW GROUP
+		//Creation of new communicator to exclude the idle processors
 		MPI_Comm_group(MPI_COMM_WORLD, &group_world);
 		MPI_Group_excl(group_world, old_p - p, ranks, &new_world);
 		MPI_Comm_create(MPI_COMM_WORLD, group_world, &new_comm);
@@ -99,6 +101,7 @@ int main(int argc, char *argv[]){
 				if(i != p - 1)
 					MPI_Send(chunk_index + i, 2, MPI_INT, i, TAG, new_comm);
 				else{
+					//Sending of chunck limits
 					int aux[2] = {chunk_index[i], chunk_index[i] + chunk_size(i, p, chunk_index)};
 					MPI_Send(aux, 2, MPI_INT, i, TAG, new_comm);
 				}
