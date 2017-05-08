@@ -145,8 +145,11 @@ item* lists_concatenate(item* list1, item* list2){
 
 int list_count_el(item *root){
 	int i; item *aux = root;
+	if(root == NULL)
+		return 0;
+		
 	for(i = 0; aux->next != NULL; i++)
-		;	
+		aux = aux->next;
 	return i;
 }
 
