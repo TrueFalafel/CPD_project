@@ -150,7 +150,7 @@ int list_count_el(item *root){
 	if(root == NULL)
 		return 0;
 
-	for(i = 0; aux->next != NULL; i++)
+	for(i = 0; aux != NULL; i++)
 		aux = aux->next;
 	return i;
 }

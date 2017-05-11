@@ -1,0 +1,7 @@
+list_size = 36 e incoming_lsize 38
+aqui?
+list_size = 38 e incoming_lsize 36
+aqui?
+--------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 14743 on node LYNX exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------

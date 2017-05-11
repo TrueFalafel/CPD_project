@@ -14,7 +14,7 @@
 #define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
 
 // SIMPLE DEBUG
-#define DEBUG do{printf("aqui?\n"); sleep(3);}while(0)
+#define DEBUG do{printf("aqui?\n"); sleep(3); fflush(stdout);}while(0)
 
 void usage();
 int hashfunction (struct data k);
@@ -91,12 +91,14 @@ int main(int argc, char *argv[]){
 
     int my_index, my_size; // PROCESS FIRST INDEX ITERATION AND NUMBER OF ITERATIONS
     if(id >= p){
+        free(ranks);
         MPI_Finalize();
         exit(0);
     }
     int chunk_index[p]; chunks_indexes(chunk_index, p);
     my_index = chunk_index[id];
     my_size = id + 1 != p ? chunk_index[id + 1] - chunk_index[id] : cube_size - chunk_index[id];
+    printf("my size = %d  chunk_index = %d\n", my_size, chunk_index[id]);
     // AFTER THIS ALL PROCESSES HAVE THEIR HASH SPACE
 	/****Cycle for generations*************************************************/
 	int i;
@@ -128,8 +130,6 @@ int main(int argc, char *argv[]){
 		int middle = my_index + 1; //keeps track of the hashlist correspondig to the middle slice
 		for(i = 0; i < my_size; i++){
 			item *list_aux = list_init(), *aux = NULL;
-            printf("middle = %d\n", middle);
-
 			int count;
 			//in the last iteration we should examine the first hash_list
 			middle %= cube_size; // set middle = 0 if middle = cube_size
@@ -167,25 +167,82 @@ int main(int argc, char *argv[]){
 				dead_to_live[0] = NULL;
 			}
 			if(i == my_size-1){
-				hashtable->table[my_size-1] = lists_concatenate(hashtable->table[my_size-1], dead_to_live[0]);
-				hashtable->table[0] = lists_concatenate(hashtable->table[0], dead_to_live[1]);
-				hashtable->table[1] = lists_concatenate(hashtable->table[1], dead_to_live[2]);
+				hashtable->table[(middle==0) ? cube_size-1 : middle - 1] = lists_concatenate(hashtable->table[(middle==0) ? cube_size-1 : middle - 1], dead_to_live[0]);
+				hashtable->table[middle%cube_size] = lists_concatenate(hashtable->table[middle%cube_size], dead_to_live[1]);
+				hashtable->table[(middle+1)%cube_size] = lists_concatenate(hashtable->table[(middle+1)%cube_size], dead_to_live[2]);
 				dead_to_live[0] = NULL;
 				dead_to_live[1] = NULL;
 				dead_to_live[2] = NULL;
-			}
+                if(p!=1){
+                    int lists_size[2] = {list_count_el(hashtable->table[middle%cube_size]), list_count_el(hashtable->table[(middle+1)%cube_size])};
+                    int incoming_lsizes[2];
+                    // SEND SIZE OF first_list AND GET SIZE OF THE INCOMING LIST
+                    MPI_Sendrecv(lists_size, 2, MPI_INT, id - 1 != -1 ? id - 1 : p - 1,
+                                TAG + 6, incoming_lsizes, 1, MPI_INT, (id + 1)%p, TAG + 6,
+                                new_world, &status);
+                    // CONVERT LIST TO VECTOR
+                    data *dsend = NULL;
+                    int total_size = lists_size[0] + lists_size[1];
+                    if(total_size){
+                        dsend = malloc((total_size )* sizeof(data));
+                        //for(int k = 0;  k!= list_size; k++)
+                        //    dsend[k] = list_first(&first_list)->K;
+                        int k = 0;
+                        while(hashtable->table[middle%cube_size] != NULL)
+                            dsend[k++] = hash_first(hashtable, middle%cube_size)->K;
+                        while (hashtable->table[(middle+1)%cube_size] != NULL)
+                            dsend[k++] = hash_first(hashtable, (middle+1)%cube_size)->K;
+                    }
+                    // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
+                    data *drecv = NULL;
+                    int total_inc_size = incoming_lsizes[0] + incoming_lsizes[1];
+                    if(total_inc_size){
+                        drecv = malloc((total_inc_size) * sizeof(data));
+
+                    }
+                    if(!(total_size) && !(total_inc_size))
+                        ; // SKIP
+                    else if((total_size) && !(total_inc_size))
+                        MPI_Send(dsend, total_size, MPI_DATA, id - 1 != -1 ? id - 1 : p - 1, TAG + 7, new_world); // SEND
+                    else if(!(total_size) && (total_inc_size)){
+                        MPI_Recv(drecv, total_inc_size, MPI_DATA, (id + 1)%p, TAG + 7, new_world, &status); // MPI_RECEIVE);
+                        // CONVERT VECTOR TO LIST
+                        int k = 0;
+                        hashtable->table[my_index] = NULL; //TODO free da lista em vez de meter a NULL
+                        for( k = 0; k != incoming_lsizes[0]; k++)
+                            hash_insert(hashtable, drecv[k]);
+
+                        hashtable->table[my_index+1] = NULL; //TODO free da lista em vez de meter a NULL
+                        for(; k != incoming_lsizes[1]; k++)
+                            hash_insert(hashtable, drecv[k]);
+                    }
+                    else{ // SEND AND RECEIVE first_list IN VECTOR FORM
+                        MPI_Sendrecv(dsend, total_size, MPI_DATA,
+                                id - 1 != -1 ? id - 1 : p - 1, TAG + 7, drecv,
+                                total_inc_size, MPI_DATA, (id + 1)%p, TAG + 7,
+                                new_world, &status);
+                        // CONVERT VECTOR TO LIST
+                        int k = 0;
+                        hashtable->table[my_index] = NULL; //TODO free da lista em vez de meter a NULL
+                        for( k = 0; k != incoming_lsizes[0]; k++)
+                            hash_insert(hashtable, drecv[k]);
+
+                        hashtable->table[my_index+1] = NULL; //TODO free da lista em vez de meter a NULL
+                        for(; k != incoming_lsizes[1]; k++)
+                            hash_insert(hashtable, drecv[k]);
+                    }
+                    if(dsend != NULL)
+                        free(dsend);
+                    if(drecv != NULL)
+                        free(drecv);
+                }
+            }
 
 			//Save the first and the second slice and dead_to_live lists
             // Pass the information to the next process
-            if(id == 1){
-                //list_print(dead_to_live[0]); sleep(3); //getchar();
-            }
             if(i==0){
 				first_slice = dynamic_matrix[0];
                 first_list = dead_to_live[0];
-                if(id == 1){
-                //list_print(first_list); sleep(3); //getchar();
-                }
                 dynamic_matrix[0] = malloc(cube_size * cube_size * sizeof(char));
                 dead_to_live[0] = NULL;
 
@@ -195,43 +252,68 @@ int main(int argc, char *argv[]){
                                         id - 1 != -1 ? id - 1 : p - 1 , TAG,
                                         (id + 1)%p, TAG, new_world, &status);
                     // GET SIZE OF first_list
-                    int list_size = list_count_el(first_list);
-                    int incoming_lsize;
+                    //int list_size = list_count_el(first_list);
+                    //int hash_list = list_count_el(hashtable->table[middle]);
+                    // SIZES OF FIRST LIST AND HASHTABLE LIST CORRESPONDING TO MIDDLE
+                    int lists_size[2] = {list_count_el(first_list), list_count_el(hashtable->table[middle])};
+                    int incoming_lsizes[2];
                     // SEND SIZE OF first_list AND GET SIZE OF THE INCOMING LIST
-                    MPI_Sendrecv(&list_size, 1, MPI_INT, id - 1 != -1 ? id - 1 : p - 1,
-                                TAG + 1, &incoming_lsize, 1, MPI_INT, (id + 1)%p, TAG + 1,
+                    MPI_Sendrecv(lists_size, 2, MPI_INT, id - 1 != -1 ? id - 1 : p - 1,
+                                TAG + 1, incoming_lsizes, 1, MPI_INT, (id + 1)%p, TAG + 1,
                                 new_world, &status);
                     // CONVERT LIST TO VECTOR
-                    data *dsend;
-                    if(list_size){
-                        dsend = malloc(list_size * sizeof(data));
-                        for(int k = 0;  k!= list_count_el(first_list); k++)
-                            dsend[k] = list_first(&first_list)->K;
+                    data *dsend = NULL;
+                    int total_size = lists_size[0] + lists_size[1];
+                    if(total_size){
+                        dsend = malloc((total_size )* sizeof(data));
+                        //for(int k = 0;  k!= list_size; k++)
+                        //    dsend[k] = list_first(&first_list)->K;
+                        int k = 0;
+                        while(first_list != NULL)
+                            dsend[k++] = list_first(&first_list)->K;
+                        while (hashtable->table[middle] != NULL)
+                            dsend[k++] = hash_first(hashtable, middle)->K;
                     }
                     // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
-                    data *drecv;
-                    if(incoming_lsize)
-                        drecv = malloc(incoming_lsize * sizeof(data));
+                    data *drecv = NULL;
+                    int total_inc_size = incoming_lsizes[0] + incoming_lsizes[1];
+                    if(total_inc_size){
+                        drecv = malloc((total_inc_size) * sizeof(data));
 
-                    if(!list_size && !incoming_lsize)
+                    }
+                    if(!(total_size) && !(total_inc_size))
                         ; // SKIP
-                    else if(list_size && !incoming_lsize)
-                        MPI_Send(dsend, list_size, MPI_DATA, id - 1 != -1 ? id - 1 : p - 1, TAG + 2, new_world); // SEND
-                    else if(!list_size && incoming_lsize){
-                        MPI_Recv(drecv, incoming_lsize, MPI_DATA, (id + 1)%p, TAG + 2, new_world, &status); // MPI_RECEIVE);
+                    else if((total_size) && !(total_inc_size))
+                        MPI_Send(dsend, total_size, MPI_DATA, id - 1 != -1 ? id - 1 : p - 1, TAG + 2, new_world); // SEND
+                    else if(!(total_size) && (total_inc_size)){
+                        MPI_Recv(drecv, total_inc_size, MPI_DATA, (id + 1)%p, TAG + 2, new_world, &status); // MPI_RECEIVE);
                         // CONVERT VECTOR TO LIST
-                        for(int k = 0; k != incoming_lsize; k++)
+                        int k = 0;
+                        for( k = 0; k != incoming_lsizes[0]; k++)
                             first_list = list_append(first_list, drecv[k]);
+
+                        hashtable->table[(my_size+1)%cube_size] = NULL; //TODO free da lista em vez de meter a NULL
+                        for(; k != incoming_lsizes[1]; k++)
+                            hash_insert(hashtable, drecv[k]);
                     }
                     else{ // SEND AND RECEIVE first_list IN VECTOR FORM
-                        MPI_Sendrecv(&dsend, list_size, MPI_DATA,
-                                id - 1 != -1 ? id - 1 : p - 1, TAG + 2, &drecv,
-                                incoming_lsize, MPI_DATA, (id + 1)%p, TAG + 2,
+                        MPI_Sendrecv(dsend, total_size, MPI_DATA,
+                                id - 1 != -1 ? id - 1 : p - 1, TAG + 2, drecv,
+                                total_inc_size, MPI_DATA, (id + 1)%p, TAG + 2,
                                 new_world, &status);
                         // CONVERT VECTOR TO LIST
-                        for(int k = 0; k != incoming_lsize; k++)
+                        int k = 0;
+                        for( k = 0; k != incoming_lsizes[0]; k++)
                             first_list = list_append(first_list, drecv[k]);
+
+                        hashtable->table[(my_size+1)%cube_size] = NULL; //TODO free da lista em vez de meter a NULL
+                        for(; k != incoming_lsizes[1]; k++)
+                            hash_insert(hashtable, drecv[k]);
                     }
+                    if(dsend != NULL)
+                        free(dsend);
+                    if(drecv != NULL)
+                        free(drecv);
                 }
 			}
 
@@ -240,12 +322,12 @@ int main(int argc, char *argv[]){
 				dynamic_matrix[0] = malloc(cube_size * cube_size * sizeof(char));
 				second_list = dead_to_live[0];
 				dead_to_live[0] = NULL;
-
                 if(p != 1){
                     // SEND AND RECEIVE first_slice
                     MPI_Sendrecv_replace(second_slice, cube_size * cube_size, MPI_CHAR,
                                         id - 1 != -1 ? id - 1 : p - 1 , TAG + 3,
                                         (id + 1)%p, TAG + 3, new_world, &status);
+
                     // GET SIZE OF first_list
                     int list_size = list_count_el(second_list);
                     int incoming_lsize;
@@ -254,14 +336,18 @@ int main(int argc, char *argv[]){
                                 TAG + 4, &incoming_lsize, 1, MPI_INT, (id + 1)%p, TAG + 4,
                                 new_world, &status);
                     // CONVERT LIST TO VECTOR
-                    data *dsend;
+                    data *dsend = NULL;
                     if(list_size){
                         dsend = malloc(list_size * sizeof(data));
-                        for(int k = 0;  k!= list_count_el(second_list); k++)
-                            dsend[k] = list_first(&second_list)->K;
+                    //    for(int k = 0;  k!= list_size; k++)
+                    //        dsend[k] = list_first(&second_list)->K;
+                    int k = 0;
+                    while(second_list != NULL)
+                         dsend[k++] = list_first(&second_list)->K;
                     }
+
                     // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
-                    data *drecv;
+                    data *drecv = NULL;
                     if(incoming_lsize)
                         drecv = malloc(incoming_lsize * sizeof(data));
 
@@ -276,17 +362,24 @@ int main(int argc, char *argv[]){
                             second_list = list_append(second_list, drecv[k]);
                     }
                     else{ // SEND AND RECEIVE first_list IN VECTOR FORM
-                        MPI_Sendrecv(&dsend, list_size, MPI_DATA,
-                                id - 1 != -1 ? id - 1 : p - 1, TAG + 5, &drecv,
+                        //printf("%p", , inco)
+                        MPI_Sendrecv(dsend, list_size, MPI_DATA,
+                                id - 1 != -1 ? id - 1 : p - 1, TAG + 5, drecv,
                                 incoming_lsize, MPI_DATA, (id + 1)%p, TAG + 5,
                                 new_world, &status);
                         // CONVERT VECTOR TO LIST
                         for(int k = 0; k != incoming_lsize; k++)
                             second_list = list_append(second_list, drecv[k]);
                     }
+                    //DEBUG;
+                    if(dsend != NULL)
+                        free(dsend);
+                    if(drecv != NULL)
+                        free(drecv);
+
                 }
             }
-            DEBUG;
+
 			//dead_to_live lists shift
 			dead_to_live[0] = dead_to_live[1];
 			dead_to_live[1] = dead_to_live[2];
@@ -328,9 +421,9 @@ int main(int argc, char *argv[]){
     if(!id){
         hash_sort(hashtable);
         hash_print(hashtable);
-        hash_free(hashtable);
     }
     MPI_Finalize();
+    hash_free(hashtable);
     exit(0);
 
 
