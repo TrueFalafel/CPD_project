@@ -1,0 +1,6240 @@
+desc: --time-unit=B --max-snapshots=1000
+cmd: ./life3d InputFiles/s500e300k.in 2000
+time_unit: B
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=3726904
+mem_heap_B=2539568
+mem_heap_extra_B=1187336
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=8500504
+mem_heap_B=5403728
+mem_heap_extra_B=3096776
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=13313672
+mem_heap_B=8424840
+mem_heap_extra_B=4780608
+mem_stacks_B=0
+heap_tree=peak
+n5: 8424840 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 7170816 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n1: 7170336 0x401D8F: hash_insert (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+   n0: 7170336 0x400A02: main (life3d.c:57)
+  n0: 480 in 1 place, below massif's threshold (1.00%)
+ n0: 750000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=4
+#-----------
+time=18362592
+mem_heap_B=5598816
+mem_heap_extra_B=2896592
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=25102592
+mem_heap_B=1834560
+mem_heap_extra_B=387088
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=29151896
+mem_heap_B=1462200
+mem_heap_extra_B=138848
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=35250264
+mem_heap_B=1460088
+mem_heap_extra_B=137440
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65568 0x401218: check_neighbors (life3d.c:255)
+    n0: 65568 0x400BAE: main (life3d.c:98)
+   n1: 36552 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36552 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 34968 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34968 0x400BAE: main (life3d.c:98)
+   n1: 33888 0x401404: check_neighbors (life3d.c:289)
+    n0: 33888 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=8
+#-----------
+time=39579288
+mem_heap_B=1211984
+mem_heap_extra_B=138696
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=46110488
+mem_heap_B=1461816
+mem_heap_extra_B=138592
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=49500552
+mem_heap_B=1461816
+mem_heap_extra_B=138592
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=56280680
+mem_heap_B=1461816
+mem_heap_extra_B=138592
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=63817352
+mem_heap_B=1211744
+mem_heap_extra_B=138536
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211744 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207720 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207720 0x40146D: check_entry (life3d.c:298)
+   n1: 67368 0x401218: check_neighbors (life3d.c:255)
+    n0: 67368 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x401404: check_neighbors (life3d.c:289)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34320 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34320 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=13
+#-----------
+time=68654840
+mem_heap_B=960088
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=72979040
+mem_heap_B=1460976
+mem_heap_extra_B=138032
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=78570744
+mem_heap_B=1209968
+mem_heap_extra_B=137352
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=87042584
+mem_heap_B=1211792
+mem_heap_extra_B=138568
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=90937864
+mem_heap_B=1211744
+mem_heap_extra_B=138536
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=96276288
+mem_heap_B=1459920
+mem_heap_extra_B=137328
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=101358064
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=108138192
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=114918320
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461744 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207720 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207720 0x40146D: check_entry (life3d.c:298)
+   n1: 67368 0x401218: check_neighbors (life3d.c:255)
+    n0: 67368 0x400BAE: main (life3d.c:98)
+   n1: 35856 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35856 0x400BAE: main (life3d.c:98)
+   n1: 35832 0x401404: check_neighbors (life3d.c:289)
+    n0: 35832 0x400BAE: main (life3d.c:98)
+   n1: 34440 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34440 0x400BAE: main (life3d.c:98)
+   n1: 34224 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34224 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=22
+#-----------
+time=121698448
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=126535936
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36408 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36408 0x400BAE: main (life3d.c:98)
+   n1: 35136 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35136 0x400BAE: main (life3d.c:98)
+   n1: 34824 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34824 0x400BAE: main (life3d.c:98)
+   n1: 33984 0x401404: check_neighbors (life3d.c:289)
+    n0: 33984 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=24
+#-----------
+time=133061776
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=139841904
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=146622032
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=153402160
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=160182288
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=166962416
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=173742544
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=180522672
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=187302800
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=194082928
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=200863056
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=207643184
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=214423312
+mem_heap_B=959968
+mem_heap_extra_B=137344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=222643824
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=229423952
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=236204080
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x401404: check_neighbors (life3d.c:289)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=40
+#-----------
+time=242984208
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=249764336
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=256544464
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=263324592
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=270104720
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x401404: check_neighbors (life3d.c:289)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=45
+#-----------
+time=276884848
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=283664976
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=290445104
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=297225232
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=304005360
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x401404: check_neighbors (life3d.c:289)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=50
+#-----------
+time=310785488
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=317565616
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=324345744
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=331125872
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=337906000
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x401404: check_neighbors (life3d.c:289)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=55
+#-----------
+time=344686128
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=351466256
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=358246384
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=362142064
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=368667904
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=375448032
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=382228160
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=389008288
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=395788416
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=402568544
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=65
+#-----------
+time=409348672
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=416128800
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=422908928
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=429689056
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=436469184
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=70
+#-----------
+time=443249312
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=71
+#-----------
+time=450029440
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=456809568
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=73
+#-----------
+time=463589696
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=74
+#-----------
+time=470369824
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=75
+#-----------
+time=477149952
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=76
+#-----------
+time=483930080
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=77
+#-----------
+time=490710208
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=78
+#-----------
+time=497490336
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=79
+#-----------
+time=504270464
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=80
+#-----------
+time=511050592
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=81
+#-----------
+time=517830720
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=82
+#-----------
+time=524610848
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=83
+#-----------
+time=531390976
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=84
+#-----------
+time=538171104
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=85
+#-----------
+time=544951232
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=86
+#-----------
+time=551731360
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=87
+#-----------
+time=558511488
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=88
+#-----------
+time=565291616
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=89
+#-----------
+time=572071744
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=90
+#-----------
+time=578851872
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=91
+#-----------
+time=585632000
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=92
+#-----------
+time=592412128
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=93
+#-----------
+time=599192256
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=94
+#-----------
+time=605972384
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=95
+#-----------
+time=612752512
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=96
+#-----------
+time=619532640
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=97
+#-----------
+time=626312768
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=98
+#-----------
+time=633092896
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=99
+#-----------
+time=639873024
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=100
+#-----------
+time=647848448
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=101
+#-----------
+time=654628576
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=102
+#-----------
+time=661408704
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460064 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206040 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206040 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36552 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36552 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n1: 33840 0x401404: check_neighbors (life3d.c:289)
+    n0: 33840 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=103
+#-----------
+time=668188832
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=104
+#-----------
+time=674968960
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=105
+#-----------
+time=681749088
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=106
+#-----------
+time=688529216
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=107
+#-----------
+time=695309344
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=108
+#-----------
+time=702089472
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=109
+#-----------
+time=708869600
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=110
+#-----------
+time=715649728
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=111
+#-----------
+time=722429856
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=112
+#-----------
+time=729209984
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460064 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206040 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206040 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36552 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36552 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n1: 33840 0x401404: check_neighbors (life3d.c:289)
+    n0: 33840 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=113
+#-----------
+time=735990112
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=114
+#-----------
+time=742770240
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=115
+#-----------
+time=749550368
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=116
+#-----------
+time=756330496
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=117
+#-----------
+time=763110624
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=118
+#-----------
+time=769890752
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=119
+#-----------
+time=776670880
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=120
+#-----------
+time=783451008
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=121
+#-----------
+time=790231136
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=122
+#-----------
+time=797011264
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460064 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206040 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206040 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36552 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36552 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n1: 33840 0x401404: check_neighbors (life3d.c:289)
+    n0: 33840 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=123
+#-----------
+time=803791392
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=124
+#-----------
+time=810571520
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=125
+#-----------
+time=817351648
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=126
+#-----------
+time=824131776
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=127
+#-----------
+time=830911904
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=128
+#-----------
+time=837692032
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=129
+#-----------
+time=844472160
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=130
+#-----------
+time=851252288
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=131
+#-----------
+time=858032416
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=132
+#-----------
+time=864812544
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460064 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206040 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206040 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36552 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36552 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n1: 33840 0x401404: check_neighbors (life3d.c:289)
+    n0: 33840 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=133
+#-----------
+time=871592672
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=134
+#-----------
+time=878372800
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=135
+#-----------
+time=885152928
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=136
+#-----------
+time=891933056
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=137
+#-----------
+time=898713184
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=138
+#-----------
+time=905493312
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=139
+#-----------
+time=912273440
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=140
+#-----------
+time=919053568
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=141
+#-----------
+time=925833696
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=142
+#-----------
+time=932613824
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460064 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206040 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206040 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36552 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36552 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n1: 33840 0x401404: check_neighbors (life3d.c:289)
+    n0: 33840 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=143
+#-----------
+time=939393952
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=144
+#-----------
+time=946174080
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=145
+#-----------
+time=952954208
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=146
+#-----------
+time=959734336
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=147
+#-----------
+time=966514464
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=148
+#-----------
+time=973294592
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=149
+#-----------
+time=980074720
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=150
+#-----------
+time=986854848
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=151
+#-----------
+time=993634976
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=152
+#-----------
+time=1000415104
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460064 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206040 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206040 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36552 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36552 0x400BAE: main (life3d.c:98)
+   n1: 35088 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35088 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n1: 33840 0x401404: check_neighbors (life3d.c:289)
+    n0: 33840 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=153
+#-----------
+time=1007195232
+mem_heap_B=1460064
+mem_heap_extra_B=137424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=154
+#-----------
+time=1010837024
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=155
+#-----------
+time=1019308864
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=156
+#-----------
+time=1025153824
+mem_heap_B=1459920
+mem_heap_extra_B=137328
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=157
+#-----------
+time=1029479056
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=158
+#-----------
+time=1035073088
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=159
+#-----------
+time=1043544928
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=160
+#-----------
+time=1046429376
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=161
+#-----------
+time=1052023408
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36528 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36528 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 34944 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34944 0x400BAE: main (life3d.c:98)
+   n1: 33864 0x401404: check_neighbors (life3d.c:289)
+    n0: 33864 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=162
+#-----------
+time=1060495248
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=163
+#-----------
+time=1063379696
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=164
+#-----------
+time=1068973728
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=165
+#-----------
+time=1077445568
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=166
+#-----------
+time=1080330016
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 36048 0x401404: check_neighbors (life3d.c:289)
+    n0: 36048 0x400BAE: main (life3d.c:98)
+   n1: 35832 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35832 0x400BAE: main (life3d.c:98)
+   n1: 34248 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34248 0x400BAE: main (life3d.c:98)
+   n1: 34224 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34224 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=167
+#-----------
+time=1085924048
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=168
+#-----------
+time=1094395888
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207888 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207888 0x40146D: check_entry (life3d.c:298)
+   n1: 67536 0x401218: check_neighbors (life3d.c:255)
+    n0: 67536 0x400BAE: main (life3d.c:98)
+   n1: 35976 0x401404: check_neighbors (life3d.c:289)
+    n0: 35976 0x400BAE: main (life3d.c:98)
+   n1: 35760 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35760 0x400BAE: main (life3d.c:98)
+   n1: 34320 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34320 0x400BAE: main (life3d.c:98)
+   n1: 34296 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34296 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=169
+#-----------
+time=1097280336
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=170
+#-----------
+time=1102874368
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=171
+#-----------
+time=1111346208
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=172
+#-----------
+time=1114230656
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=173
+#-----------
+time=1119824688
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=174
+#-----------
+time=1128296528
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=175
+#-----------
+time=1131180976
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=176
+#-----------
+time=1136775008
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36408 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36408 0x400BAE: main (life3d.c:98)
+   n1: 35136 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35136 0x400BAE: main (life3d.c:98)
+   n1: 34824 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34824 0x400BAE: main (life3d.c:98)
+   n1: 33984 0x401404: check_neighbors (life3d.c:289)
+    n0: 33984 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=177
+#-----------
+time=1145246848
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=178
+#-----------
+time=1148131296
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=179
+#-----------
+time=1153725328
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=180
+#-----------
+time=1162197168
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=181
+#-----------
+time=1165081616
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x401404: check_neighbors (life3d.c:289)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=182
+#-----------
+time=1170675648
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=183
+#-----------
+time=1179147488
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207888 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207888 0x40146D: check_entry (life3d.c:298)
+   n1: 67536 0x401218: check_neighbors (life3d.c:255)
+    n0: 67536 0x400BAE: main (life3d.c:98)
+   n1: 35880 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35880 0x400BAE: main (life3d.c:98)
+   n1: 35856 0x401404: check_neighbors (life3d.c:289)
+    n0: 35856 0x400BAE: main (life3d.c:98)
+   n1: 34416 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34416 0x400BAE: main (life3d.c:98)
+   n1: 34200 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34200 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=184
+#-----------
+time=1182031936
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=185
+#-----------
+time=1187625968
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=186
+#-----------
+time=1196097808
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=187
+#-----------
+time=1198982256
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=188
+#-----------
+time=1204576288
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=189
+#-----------
+time=1213048128
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=190
+#-----------
+time=1215932576
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=191
+#-----------
+time=1221526608
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36528 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36528 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 34944 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34944 0x400BAE: main (life3d.c:98)
+   n1: 33864 0x401404: check_neighbors (life3d.c:289)
+    n0: 33864 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=192
+#-----------
+time=1229998448
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=193
+#-----------
+time=1232882896
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=194
+#-----------
+time=1238476928
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=195
+#-----------
+time=1246948768
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=196
+#-----------
+time=1249833216
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 36048 0x401404: check_neighbors (life3d.c:289)
+    n0: 36048 0x400BAE: main (life3d.c:98)
+   n1: 35832 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35832 0x400BAE: main (life3d.c:98)
+   n1: 34248 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34248 0x400BAE: main (life3d.c:98)
+   n1: 34224 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34224 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=197
+#-----------
+time=1255427248
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=198
+#-----------
+time=1263899088
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207888 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207888 0x40146D: check_entry (life3d.c:298)
+   n1: 67536 0x401218: check_neighbors (life3d.c:255)
+    n0: 67536 0x400BAE: main (life3d.c:98)
+   n1: 35976 0x401404: check_neighbors (life3d.c:289)
+    n0: 35976 0x400BAE: main (life3d.c:98)
+   n1: 35760 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35760 0x400BAE: main (life3d.c:98)
+   n1: 34320 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34320 0x400BAE: main (life3d.c:98)
+   n1: 34296 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34296 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=199
+#-----------
+time=1266783536
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=200
+#-----------
+time=1272377568
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=201
+#-----------
+time=1280849408
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=202
+#-----------
+time=1283733856
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=203
+#-----------
+time=1289327888
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=204
+#-----------
+time=1297799728
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=205
+#-----------
+time=1300684176
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=206
+#-----------
+time=1306278208
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36408 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36408 0x400BAE: main (life3d.c:98)
+   n1: 35136 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35136 0x400BAE: main (life3d.c:98)
+   n1: 34824 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34824 0x400BAE: main (life3d.c:98)
+   n1: 33984 0x401404: check_neighbors (life3d.c:289)
+    n0: 33984 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=207
+#-----------
+time=1314750048
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=208
+#-----------
+time=1317634496
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=209
+#-----------
+time=1323228528
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=210
+#-----------
+time=1331700368
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=211
+#-----------
+time=1334584816
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x401404: check_neighbors (life3d.c:289)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=212
+#-----------
+time=1340178848
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=213
+#-----------
+time=1348650688
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207888 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207888 0x40146D: check_entry (life3d.c:298)
+   n1: 67536 0x401218: check_neighbors (life3d.c:255)
+    n0: 67536 0x400BAE: main (life3d.c:98)
+   n1: 35880 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35880 0x400BAE: main (life3d.c:98)
+   n1: 35856 0x401404: check_neighbors (life3d.c:289)
+    n0: 35856 0x400BAE: main (life3d.c:98)
+   n1: 34416 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34416 0x400BAE: main (life3d.c:98)
+   n1: 34200 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34200 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=214
+#-----------
+time=1351535136
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=215
+#-----------
+time=1357129168
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=216
+#-----------
+time=1365601008
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=217
+#-----------
+time=1368485456
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=218
+#-----------
+time=1374079488
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=219
+#-----------
+time=1382551328
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=220
+#-----------
+time=1385435776
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=221
+#-----------
+time=1391029808
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36528 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36528 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 34944 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34944 0x400BAE: main (life3d.c:98)
+   n1: 33864 0x401404: check_neighbors (life3d.c:289)
+    n0: 33864 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=222
+#-----------
+time=1399501648
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=223
+#-----------
+time=1402386096
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=224
+#-----------
+time=1407980128
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=225
+#-----------
+time=1416451968
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=226
+#-----------
+time=1419336416
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 36048 0x401404: check_neighbors (life3d.c:289)
+    n0: 36048 0x400BAE: main (life3d.c:98)
+   n1: 35832 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35832 0x400BAE: main (life3d.c:98)
+   n1: 34248 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34248 0x400BAE: main (life3d.c:98)
+   n1: 34224 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34224 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=227
+#-----------
+time=1424930448
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=228
+#-----------
+time=1433402288
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207888 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207888 0x40146D: check_entry (life3d.c:298)
+   n1: 67536 0x401218: check_neighbors (life3d.c:255)
+    n0: 67536 0x400BAE: main (life3d.c:98)
+   n1: 35976 0x401404: check_neighbors (life3d.c:289)
+    n0: 35976 0x400BAE: main (life3d.c:98)
+   n1: 35760 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35760 0x400BAE: main (life3d.c:98)
+   n1: 34320 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34320 0x400BAE: main (life3d.c:98)
+   n1: 34296 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34296 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=229
+#-----------
+time=1436286736
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=230
+#-----------
+time=1441880768
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=231
+#-----------
+time=1450352608
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=232
+#-----------
+time=1453237056
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=233
+#-----------
+time=1458831088
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=234
+#-----------
+time=1467302928
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=235
+#-----------
+time=1470187376
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=236
+#-----------
+time=1475781408
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36408 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36408 0x400BAE: main (life3d.c:98)
+   n1: 35136 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35136 0x400BAE: main (life3d.c:98)
+   n1: 34824 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34824 0x400BAE: main (life3d.c:98)
+   n1: 33984 0x401404: check_neighbors (life3d.c:289)
+    n0: 33984 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=237
+#-----------
+time=1484253248
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=238
+#-----------
+time=1487137696
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=239
+#-----------
+time=1492731728
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=240
+#-----------
+time=1501203568
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=241
+#-----------
+time=1504088016
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x401404: check_neighbors (life3d.c:289)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=242
+#-----------
+time=1509682048
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=243
+#-----------
+time=1518153888
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207888 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207888 0x40146D: check_entry (life3d.c:298)
+   n1: 67536 0x401218: check_neighbors (life3d.c:255)
+    n0: 67536 0x400BAE: main (life3d.c:98)
+   n1: 35880 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35880 0x400BAE: main (life3d.c:98)
+   n1: 35856 0x401404: check_neighbors (life3d.c:289)
+    n0: 35856 0x400BAE: main (life3d.c:98)
+   n1: 34416 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34416 0x400BAE: main (life3d.c:98)
+   n1: 34200 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34200 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=244
+#-----------
+time=1521038336
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=245
+#-----------
+time=1526632368
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=246
+#-----------
+time=1535104208
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=247
+#-----------
+time=1537988656
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=248
+#-----------
+time=1543582688
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=249
+#-----------
+time=1552054528
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=250
+#-----------
+time=1554938976
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=251
+#-----------
+time=1560533008
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36528 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36528 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 34944 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34944 0x400BAE: main (life3d.c:98)
+   n1: 33864 0x401404: check_neighbors (life3d.c:289)
+    n0: 33864 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=252
+#-----------
+time=1569004848
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=253
+#-----------
+time=1571889296
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=254
+#-----------
+time=1577483328
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=255
+#-----------
+time=1585955168
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=256
+#-----------
+time=1588839616
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 36048 0x401404: check_neighbors (life3d.c:289)
+    n0: 36048 0x400BAE: main (life3d.c:98)
+   n1: 35832 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35832 0x400BAE: main (life3d.c:98)
+   n1: 34248 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34248 0x400BAE: main (life3d.c:98)
+   n1: 34224 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34224 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=257
+#-----------
+time=1594433648
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=258
+#-----------
+time=1602905488
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207888 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207888 0x40146D: check_entry (life3d.c:298)
+   n1: 67536 0x401218: check_neighbors (life3d.c:255)
+    n0: 67536 0x400BAE: main (life3d.c:98)
+   n1: 35976 0x401404: check_neighbors (life3d.c:289)
+    n0: 35976 0x400BAE: main (life3d.c:98)
+   n1: 35760 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35760 0x400BAE: main (life3d.c:98)
+   n1: 34320 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34320 0x400BAE: main (life3d.c:98)
+   n1: 34296 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34296 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=259
+#-----------
+time=1605789936
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=260
+#-----------
+time=1611383968
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=261
+#-----------
+time=1619855808
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=262
+#-----------
+time=1622740256
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=263
+#-----------
+time=1628334288
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=264
+#-----------
+time=1636806128
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=265
+#-----------
+time=1639690576
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=266
+#-----------
+time=1645284608
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36408 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36408 0x400BAE: main (life3d.c:98)
+   n1: 35136 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35136 0x400BAE: main (life3d.c:98)
+   n1: 34824 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34824 0x400BAE: main (life3d.c:98)
+   n1: 33984 0x401404: check_neighbors (life3d.c:289)
+    n0: 33984 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=267
+#-----------
+time=1648169056
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=268
+#-----------
+time=1653756448
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=269
+#-----------
+time=1656640896
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=270
+#-----------
+time=1662234928
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=271
+#-----------
+time=1665119376
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=272
+#-----------
+time=1670706768
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=273
+#-----------
+time=1673591216
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207792 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207792 0x40146D: check_entry (life3d.c:298)
+   n1: 67440 0x401218: check_neighbors (life3d.c:255)
+    n0: 67440 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35928 0x401404: check_neighbors (life3d.c:289)
+    n0: 35928 0x400BAE: main (life3d.c:98)
+   n1: 34344 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34344 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=274
+#-----------
+time=1679185248
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=275
+#-----------
+time=1682069696
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=276
+#-----------
+time=1687657088
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1211912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207888 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207888 0x40146D: check_entry (life3d.c:298)
+   n1: 67536 0x401218: check_neighbors (life3d.c:255)
+    n0: 67536 0x400BAE: main (life3d.c:98)
+   n1: 35880 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35880 0x400BAE: main (life3d.c:98)
+   n1: 35856 0x401404: check_neighbors (life3d.c:289)
+    n0: 35856 0x400BAE: main (life3d.c:98)
+   n1: 34416 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34416 0x400BAE: main (life3d.c:98)
+   n1: 34200 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34200 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=277
+#-----------
+time=1690541536
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=278
+#-----------
+time=1696135568
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=279
+#-----------
+time=1699020016
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=280
+#-----------
+time=1704607408
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=281
+#-----------
+time=1707491856
+mem_heap_B=1211816
+mem_heap_extra_B=138584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=282
+#-----------
+time=1713085888
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=283
+#-----------
+time=1715970336
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1209992 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 205968 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 205968 0x40146D: check_entry (life3d.c:298)
+   n1: 65616 0x401218: check_neighbors (life3d.c:255)
+    n0: 65616 0x400BAE: main (life3d.c:98)
+   n1: 36600 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36600 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 34944 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34944 0x400BAE: main (life3d.c:98)
+   n1: 33792 0x401404: check_neighbors (life3d.c:289)
+    n0: 33792 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=284
+#-----------
+time=1721557728
+mem_heap_B=1211912
+mem_heap_extra_B=138648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=285
+#-----------
+time=1728588784
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=286
+#-----------
+time=1733855840
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=287
+#-----------
+time=1739195576
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=288
+#-----------
+time=1744531632
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=289
+#-----------
+time=1752504512
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=290
+#-----------
+time=1757837608
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460856 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206832 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206832 0x40146D: check_entry (life3d.c:298)
+   n1: 66480 0x401218: check_neighbors (life3d.c:255)
+    n0: 66480 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x401404: check_neighbors (life3d.c:289)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 35616 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35616 0x400BAE: main (life3d.c:98)
+   n1: 34704 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34704 0x400BAE: main (life3d.c:98)
+   n1: 34296 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34296 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=291
+#-----------
+time=1765879488
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=292
+#-----------
+time=1771146544
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=293
+#-----------
+time=1776486280
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=294
+#-----------
+time=1781822336
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=295
+#-----------
+time=1789795216
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=296
+#-----------
+time=1795128312
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=297
+#-----------
+time=1803170192
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=298
+#-----------
+time=1808437248
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=299
+#-----------
+time=1813776984
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=300
+#-----------
+time=1819113040
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=301
+#-----------
+time=1827085920
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=302
+#-----------
+time=1832419016
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=303
+#-----------
+time=1840460896
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=304
+#-----------
+time=1845727952
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=305
+#-----------
+time=1851067688
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=306
+#-----------
+time=1856403744
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=307
+#-----------
+time=1864376624
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461600 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207576 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207576 0x40146D: check_entry (life3d.c:298)
+   n1: 67248 0x401218: check_neighbors (life3d.c:255)
+    n0: 67248 0x400BAE: main (life3d.c:98)
+   n1: 35328 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35328 0x400BAE: main (life3d.c:98)
+   n1: 35232 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35232 0x400BAE: main (life3d.c:98)
+   n1: 34968 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34968 0x400BAE: main (life3d.c:98)
+   n1: 34800 0x401404: check_neighbors (life3d.c:289)
+    n0: 34800 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=308
+#-----------
+time=1869709720
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=309
+#-----------
+time=1877751600
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=310
+#-----------
+time=1883018656
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=311
+#-----------
+time=1888358392
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=312
+#-----------
+time=1893694448
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=313
+#-----------
+time=1901667328
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=314
+#-----------
+time=1907000424
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=315
+#-----------
+time=1915042304
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=316
+#-----------
+time=1920309360
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=317
+#-----------
+time=1925649096
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=318
+#-----------
+time=1930985152
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=319
+#-----------
+time=1938958032
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=320
+#-----------
+time=1944291128
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460856 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206832 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206832 0x40146D: check_entry (life3d.c:298)
+   n1: 66480 0x401218: check_neighbors (life3d.c:255)
+    n0: 66480 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 35712 0x401404: check_neighbors (life3d.c:289)
+    n0: 35712 0x400BAE: main (life3d.c:98)
+   n1: 34728 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34728 0x400BAE: main (life3d.c:98)
+   n1: 34176 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34176 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=321
+#-----------
+time=1952333008
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=322
+#-----------
+time=1957600064
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=323
+#-----------
+time=1962939800
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=324
+#-----------
+time=1968275856
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=325
+#-----------
+time=1976248736
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=326
+#-----------
+time=1981581832
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=327
+#-----------
+time=1989623712
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=328
+#-----------
+time=1994890768
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=329
+#-----------
+time=2000230504
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=330
+#-----------
+time=2005566560
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=331
+#-----------
+time=2013539440
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=332
+#-----------
+time=2018872536
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=333
+#-----------
+time=2026914416
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=334
+#-----------
+time=2032181472
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=335
+#-----------
+time=2037521208
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=336
+#-----------
+time=2042857264
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=337
+#-----------
+time=2050830144
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461600 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207576 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207576 0x40146D: check_entry (life3d.c:298)
+   n1: 67248 0x401218: check_neighbors (life3d.c:255)
+    n0: 67248 0x400BAE: main (life3d.c:98)
+   n1: 35352 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35352 0x400BAE: main (life3d.c:98)
+   n1: 35208 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35208 0x400BAE: main (life3d.c:98)
+   n1: 34920 0x401404: check_neighbors (life3d.c:289)
+    n0: 34920 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=338
+#-----------
+time=2056163240
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=339
+#-----------
+time=2064205120
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=340
+#-----------
+time=2069472176
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=341
+#-----------
+time=2074811912
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=342
+#-----------
+time=2080147968
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=343
+#-----------
+time=2088120848
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=344
+#-----------
+time=2093453944
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=345
+#-----------
+time=2101495824
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=346
+#-----------
+time=2106762880
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=347
+#-----------
+time=2112102616
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=348
+#-----------
+time=2117438672
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=349
+#-----------
+time=2125411552
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=350
+#-----------
+time=2130744648
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460856 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206832 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206832 0x40146D: check_entry (life3d.c:298)
+   n1: 66480 0x401218: check_neighbors (life3d.c:255)
+    n0: 66480 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x401404: check_neighbors (life3d.c:289)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 35616 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35616 0x400BAE: main (life3d.c:98)
+   n1: 34704 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34704 0x400BAE: main (life3d.c:98)
+   n1: 34296 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34296 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=351
+#-----------
+time=2138786528
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=352
+#-----------
+time=2144053584
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=353
+#-----------
+time=2149393320
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=354
+#-----------
+time=2154729376
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=355
+#-----------
+time=2162702256
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=356
+#-----------
+time=2168035352
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=357
+#-----------
+time=2176077232
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=358
+#-----------
+time=2181344288
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=359
+#-----------
+time=2186684024
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=360
+#-----------
+time=2192020080
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=361
+#-----------
+time=2199992960
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=362
+#-----------
+time=2205326056
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=363
+#-----------
+time=2213367936
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=364
+#-----------
+time=2218634992
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=365
+#-----------
+time=2223974728
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=366
+#-----------
+time=2229310784
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=367
+#-----------
+time=2237283664
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461600 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207576 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207576 0x40146D: check_entry (life3d.c:298)
+   n1: 67248 0x401218: check_neighbors (life3d.c:255)
+    n0: 67248 0x400BAE: main (life3d.c:98)
+   n1: 35328 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35328 0x400BAE: main (life3d.c:98)
+   n1: 35232 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35232 0x400BAE: main (life3d.c:98)
+   n1: 34968 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34968 0x400BAE: main (life3d.c:98)
+   n1: 34800 0x401404: check_neighbors (life3d.c:289)
+    n0: 34800 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=368
+#-----------
+time=2242616760
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=369
+#-----------
+time=2250658640
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=370
+#-----------
+time=2255925696
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=371
+#-----------
+time=2261265432
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=372
+#-----------
+time=2266601488
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=373
+#-----------
+time=2274574368
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=374
+#-----------
+time=2279907464
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=375
+#-----------
+time=2287949344
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=376
+#-----------
+time=2293216400
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=377
+#-----------
+time=2298556136
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=378
+#-----------
+time=2303892192
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=379
+#-----------
+time=2311865072
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=380
+#-----------
+time=2317198168
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460856 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206832 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206832 0x40146D: check_entry (life3d.c:298)
+   n1: 66480 0x401218: check_neighbors (life3d.c:255)
+    n0: 66480 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 35712 0x401404: check_neighbors (life3d.c:289)
+    n0: 35712 0x400BAE: main (life3d.c:98)
+   n1: 34728 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34728 0x400BAE: main (life3d.c:98)
+   n1: 34176 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34176 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=381
+#-----------
+time=2325240048
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=382
+#-----------
+time=2330507104
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=383
+#-----------
+time=2335846840
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=384
+#-----------
+time=2341182896
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=385
+#-----------
+time=2349155776
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=386
+#-----------
+time=2354488872
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=387
+#-----------
+time=2362530752
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=388
+#-----------
+time=2367797808
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=389
+#-----------
+time=2373137544
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=390
+#-----------
+time=2378473600
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=391
+#-----------
+time=2386446480
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=392
+#-----------
+time=2391779576
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=393
+#-----------
+time=2399821456
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=394
+#-----------
+time=2405088512
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=395
+#-----------
+time=2410428248
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=396
+#-----------
+time=2415764304
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=397
+#-----------
+time=2423737184
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461600 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207576 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207576 0x40146D: check_entry (life3d.c:298)
+   n1: 67248 0x401218: check_neighbors (life3d.c:255)
+    n0: 67248 0x400BAE: main (life3d.c:98)
+   n1: 35352 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35352 0x400BAE: main (life3d.c:98)
+   n1: 35208 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35208 0x400BAE: main (life3d.c:98)
+   n1: 34920 0x401404: check_neighbors (life3d.c:289)
+    n0: 34920 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=398
+#-----------
+time=2429070280
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=399
+#-----------
+time=2437112160
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=400
+#-----------
+time=2442379216
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=401
+#-----------
+time=2447718952
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=402
+#-----------
+time=2453055008
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=403
+#-----------
+time=2461027888
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=404
+#-----------
+time=2466360984
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=405
+#-----------
+time=2474402864
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=406
+#-----------
+time=2479669920
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=407
+#-----------
+time=2485009656
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=408
+#-----------
+time=2490345712
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=409
+#-----------
+time=2498318592
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=410
+#-----------
+time=2503651688
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460856 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206832 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206832 0x40146D: check_entry (life3d.c:298)
+   n1: 66480 0x401218: check_neighbors (life3d.c:255)
+    n0: 66480 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x401404: check_neighbors (life3d.c:289)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 35616 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35616 0x400BAE: main (life3d.c:98)
+   n1: 34704 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34704 0x400BAE: main (life3d.c:98)
+   n1: 34296 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34296 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=411
+#-----------
+time=2511693568
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=412
+#-----------
+time=2516960624
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=413
+#-----------
+time=2522300360
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=414
+#-----------
+time=2527636416
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=415
+#-----------
+time=2535609296
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=416
+#-----------
+time=2540942392
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=417
+#-----------
+time=2548984272
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=418
+#-----------
+time=2554251328
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=419
+#-----------
+time=2559591064
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=420
+#-----------
+time=2564927120
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=421
+#-----------
+time=2572900000
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=422
+#-----------
+time=2578233096
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=423
+#-----------
+time=2586274976
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=424
+#-----------
+time=2591542032
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=425
+#-----------
+time=2596881768
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=426
+#-----------
+time=2602217824
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=427
+#-----------
+time=2610190704
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461600 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207576 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207576 0x40146D: check_entry (life3d.c:298)
+   n1: 67248 0x401218: check_neighbors (life3d.c:255)
+    n0: 67248 0x400BAE: main (life3d.c:98)
+   n1: 35328 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35328 0x400BAE: main (life3d.c:98)
+   n1: 35232 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35232 0x400BAE: main (life3d.c:98)
+   n1: 34968 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34968 0x400BAE: main (life3d.c:98)
+   n1: 34800 0x401404: check_neighbors (life3d.c:289)
+    n0: 34800 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=428
+#-----------
+time=2615523800
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=429
+#-----------
+time=2623565680
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=430
+#-----------
+time=2628832736
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=431
+#-----------
+time=2634172472
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=432
+#-----------
+time=2639508528
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=433
+#-----------
+time=2647481408
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=434
+#-----------
+time=2652814504
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=435
+#-----------
+time=2660856384
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=436
+#-----------
+time=2666123440
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=437
+#-----------
+time=2671463176
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=438
+#-----------
+time=2676799232
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=439
+#-----------
+time=2684772112
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=440
+#-----------
+time=2690105208
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460856 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206832 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206832 0x40146D: check_entry (life3d.c:298)
+   n1: 66480 0x401218: check_neighbors (life3d.c:255)
+    n0: 66480 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 35712 0x401404: check_neighbors (life3d.c:289)
+    n0: 35712 0x400BAE: main (life3d.c:98)
+   n1: 34728 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34728 0x400BAE: main (life3d.c:98)
+   n1: 34176 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34176 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=441
+#-----------
+time=2698147088
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=442
+#-----------
+time=2703414144
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=443
+#-----------
+time=2708753880
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=444
+#-----------
+time=2714089936
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=445
+#-----------
+time=2722062816
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=446
+#-----------
+time=2727395912
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=447
+#-----------
+time=2735437792
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=448
+#-----------
+time=2740704848
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=449
+#-----------
+time=2746044584
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=450
+#-----------
+time=2751380640
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=451
+#-----------
+time=2759353520
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=452
+#-----------
+time=2764686616
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=453
+#-----------
+time=2772728496
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=454
+#-----------
+time=2777995552
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=455
+#-----------
+time=2783335288
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=456
+#-----------
+time=2788671344
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=457
+#-----------
+time=2796644224
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461600 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207576 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207576 0x40146D: check_entry (life3d.c:298)
+   n1: 67248 0x401218: check_neighbors (life3d.c:255)
+    n0: 67248 0x400BAE: main (life3d.c:98)
+   n1: 35352 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35352 0x400BAE: main (life3d.c:98)
+   n1: 35208 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35208 0x400BAE: main (life3d.c:98)
+   n1: 34920 0x401404: check_neighbors (life3d.c:289)
+    n0: 34920 0x400BAE: main (life3d.c:98)
+   n1: 34848 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34848 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=458
+#-----------
+time=2801977320
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=459
+#-----------
+time=2810019200
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=460
+#-----------
+time=2815286256
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=461
+#-----------
+time=2820625992
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=462
+#-----------
+time=2825962048
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=463
+#-----------
+time=2833934928
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=464
+#-----------
+time=2839268024
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=465
+#-----------
+time=2847309904
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=466
+#-----------
+time=2852576960
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=467
+#-----------
+time=2857916696
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=468
+#-----------
+time=2863252752
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=469
+#-----------
+time=2871225632
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=470
+#-----------
+time=2876558728
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460856 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206832 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206832 0x40146D: check_entry (life3d.c:298)
+   n1: 66480 0x401218: check_neighbors (life3d.c:255)
+    n0: 66480 0x400BAE: main (life3d.c:98)
+   n1: 35736 0x401404: check_neighbors (life3d.c:289)
+    n0: 35736 0x400BAE: main (life3d.c:98)
+   n1: 35616 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35616 0x400BAE: main (life3d.c:98)
+   n1: 34704 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34704 0x400BAE: main (life3d.c:98)
+   n1: 34296 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34296 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=471
+#-----------
+time=2884600608
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=472
+#-----------
+time=2889867664
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=473
+#-----------
+time=2895207400
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=474
+#-----------
+time=2900543456
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=475
+#-----------
+time=2908516336
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=476
+#-----------
+time=2913849432
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=477
+#-----------
+time=2921891312
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=478
+#-----------
+time=2927158368
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=479
+#-----------
+time=2932498104
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=480
+#-----------
+time=2937834160
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=481
+#-----------
+time=2945807040
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=482
+#-----------
+time=2951140136
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=483
+#-----------
+time=2959182016
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=484
+#-----------
+time=2964449072
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=485
+#-----------
+time=2969788808
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=486
+#-----------
+time=2975124864
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=487
+#-----------
+time=2983097744
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461600 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207576 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207576 0x40146D: check_entry (life3d.c:298)
+   n1: 67248 0x401218: check_neighbors (life3d.c:255)
+    n0: 67248 0x400BAE: main (life3d.c:98)
+   n1: 35328 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35328 0x400BAE: main (life3d.c:98)
+   n1: 35232 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35232 0x400BAE: main (life3d.c:98)
+   n1: 34968 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34968 0x400BAE: main (life3d.c:98)
+   n1: 34800 0x401404: check_neighbors (life3d.c:289)
+    n0: 34800 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=488
+#-----------
+time=2988430840
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=489
+#-----------
+time=2996472720
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=490
+#-----------
+time=3001739776
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=491
+#-----------
+time=3007079512
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=492
+#-----------
+time=3012415568
+mem_heap_B=1461792
+mem_heap_extra_B=138576
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=493
+#-----------
+time=3020388448
+mem_heap_B=1461600
+mem_heap_extra_B=138448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=494
+#-----------
+time=3025721544
+mem_heap_B=1460856
+mem_heap_extra_B=137952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=495
+#-----------
+time=3033763424
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=496
+#-----------
+time=3039030480
+mem_heap_B=1460400
+mem_heap_extra_B=137648
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=497
+#-----------
+time=3044370216
+mem_heap_B=1461000
+mem_heap_extra_B=138048
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=498
+#-----------
+time=3052412096
+mem_heap_B=1459920
+mem_heap_extra_B=137328
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=499
+#-----------
+time=3060378720
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=500
+#-----------
+time=3063263168
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461936 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207912 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207912 0x40146D: check_entry (life3d.c:298)
+   n1: 67560 0x401218: check_neighbors (life3d.c:255)
+    n0: 67560 0x400BAE: main (life3d.c:98)
+   n1: 36024 0x401404: check_neighbors (life3d.c:289)
+    n0: 36024 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 34248 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34248 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=501
+#-----------
+time=3066147632
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=502
+#-----------
+time=3069111488
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=503
+#-----------
+time=3071995936
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=504
+#-----------
+time=3074880392
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=505
+#-----------
+time=3077834256
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=506
+#-----------
+time=3080719104
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=507
+#-----------
+time=3083603552
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=508
+#-----------
+time=3086488016
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=509
+#-----------
+time=3089451872
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=510
+#-----------
+time=3092336320
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1209992 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 205968 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 205968 0x40146D: check_entry (life3d.c:298)
+   n1: 65616 0x401218: check_neighbors (life3d.c:255)
+    n0: 65616 0x400BAE: main (life3d.c:98)
+   n1: 36600 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36600 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 34944 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34944 0x400BAE: main (life3d.c:98)
+   n1: 33792 0x401404: check_neighbors (life3d.c:289)
+    n0: 33792 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=511
+#-----------
+time=3095220776
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=512
+#-----------
+time=3098174640
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=513
+#-----------
+time=3101059488
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=514
+#-----------
+time=3103943936
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=515
+#-----------
+time=3106828400
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=516
+#-----------
+time=3109792256
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=517
+#-----------
+time=3112676704
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=518
+#-----------
+time=3115561160
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=519
+#-----------
+time=3118515024
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=520
+#-----------
+time=3121399872
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=detailed
+n4: 961792 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207768 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207768 0x40146D: check_entry (life3d.c:298)
+   n1: 67416 0x401218: check_neighbors (life3d.c:255)
+    n0: 67416 0x400BAE: main (life3d.c:98)
+   n1: 36024 0x401404: check_neighbors (life3d.c:289)
+    n0: 36024 0x400BAE: main (life3d.c:98)
+   n1: 35760 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35760 0x400BAE: main (life3d.c:98)
+   n1: 34320 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34320 0x400BAE: main (life3d.c:98)
+   n1: 34248 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34248 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 5 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=521
+#-----------
+time=3124284320
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=522
+#-----------
+time=3127168784
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=523
+#-----------
+time=3130132640
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=524
+#-----------
+time=3133017088
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=525
+#-----------
+time=3135901544
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=526
+#-----------
+time=3138855408
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=527
+#-----------
+time=3141740256
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=528
+#-----------
+time=3144624704
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=529
+#-----------
+time=3147509168
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=530
+#-----------
+time=3150473024
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36408 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36408 0x400BAE: main (life3d.c:98)
+   n1: 35136 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35136 0x400BAE: main (life3d.c:98)
+   n1: 34824 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34824 0x400BAE: main (life3d.c:98)
+   n1: 33984 0x401404: check_neighbors (life3d.c:289)
+    n0: 33984 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=531
+#-----------
+time=3153357472
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=532
+#-----------
+time=3156241928
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=533
+#-----------
+time=3159195792
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=534
+#-----------
+time=3162080640
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=535
+#-----------
+time=3164965088
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=536
+#-----------
+time=3167849552
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=537
+#-----------
+time=3170813408
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=538
+#-----------
+time=3173697856
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=539
+#-----------
+time=3176582312
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=540
+#-----------
+time=3179536176
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461744 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207720 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207720 0x40146D: check_entry (life3d.c:298)
+   n1: 67368 0x401218: check_neighbors (life3d.c:255)
+    n0: 67368 0x400BAE: main (life3d.c:98)
+   n1: 35856 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35856 0x400BAE: main (life3d.c:98)
+   n1: 35832 0x401404: check_neighbors (life3d.c:289)
+    n0: 35832 0x400BAE: main (life3d.c:98)
+   n1: 34440 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34440 0x400BAE: main (life3d.c:98)
+   n1: 34224 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34224 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=541
+#-----------
+time=3182421024
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=542
+#-----------
+time=3185305472
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=543
+#-----------
+time=3188189936
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=544
+#-----------
+time=3191153792
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=545
+#-----------
+time=3194038240
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=546
+#-----------
+time=3196922696
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=547
+#-----------
+time=3199876560
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=548
+#-----------
+time=3202761408
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=549
+#-----------
+time=3205645856
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=550
+#-----------
+time=3208530320
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460352 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206328 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206328 0x40146D: check_entry (life3d.c:298)
+   n1: 65952 0x401218: check_neighbors (life3d.c:255)
+    n0: 65952 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35568 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35568 0x400BAE: main (life3d.c:98)
+   n1: 34968 0x401404: check_neighbors (life3d.c:289)
+    n0: 34968 0x400BAE: main (life3d.c:98)
+   n1: 33888 0x40133F: check_neighbors (life3d.c:274)
+    n0: 33888 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=551
+#-----------
+time=3211494176
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=552
+#-----------
+time=3214378624
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=553
+#-----------
+time=3217263080
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=554
+#-----------
+time=3220216944
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=555
+#-----------
+time=3223101792
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=556
+#-----------
+time=3225986240
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=557
+#-----------
+time=3228870704
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=558
+#-----------
+time=3231834560
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=559
+#-----------
+time=3234719008
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=560
+#-----------
+time=3237603464
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461048 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207024 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207024 0x40146D: check_entry (life3d.c:298)
+   n1: 66672 0x401218: check_neighbors (life3d.c:255)
+    n0: 66672 0x400BAE: main (life3d.c:98)
+   n1: 36120 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36120 0x400BAE: main (life3d.c:98)
+   n1: 35232 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35232 0x400BAE: main (life3d.c:98)
+   n1: 34896 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34896 0x400BAE: main (life3d.c:98)
+   n1: 34104 0x401404: check_neighbors (life3d.c:289)
+    n0: 34104 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=561
+#-----------
+time=3240557328
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=562
+#-----------
+time=3243442176
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=563
+#-----------
+time=3246326624
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=564
+#-----------
+time=3249211088
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=565
+#-----------
+time=3252174944
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=566
+#-----------
+time=3255059392
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=567
+#-----------
+time=3257943848
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=568
+#-----------
+time=3260897712
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=569
+#-----------
+time=3263782560
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=570
+#-----------
+time=3266667008
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461936 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207912 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207912 0x40146D: check_entry (life3d.c:298)
+   n1: 67560 0x401218: check_neighbors (life3d.c:255)
+    n0: 67560 0x400BAE: main (life3d.c:98)
+   n1: 36024 0x401404: check_neighbors (life3d.c:289)
+    n0: 36024 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 34248 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34248 0x400BAE: main (life3d.c:98)
+   n1: 34128 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34128 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=571
+#-----------
+time=3269551472
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=572
+#-----------
+time=3272515328
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=573
+#-----------
+time=3275399776
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=574
+#-----------
+time=3278284232
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=575
+#-----------
+time=3281238096
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=576
+#-----------
+time=3284122944
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=577
+#-----------
+time=3287007392
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=578
+#-----------
+time=3289891856
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=579
+#-----------
+time=3292855712
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=580
+#-----------
+time=3295740160
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1209992 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 205968 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 205968 0x40146D: check_entry (life3d.c:298)
+   n1: 65616 0x401218: check_neighbors (life3d.c:255)
+    n0: 65616 0x400BAE: main (life3d.c:98)
+   n1: 36600 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36600 0x400BAE: main (life3d.c:98)
+   n1: 35016 0x40133F: check_neighbors (life3d.c:274)
+    n0: 35016 0x400BAE: main (life3d.c:98)
+   n1: 34944 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 34944 0x400BAE: main (life3d.c:98)
+   n1: 33792 0x401404: check_neighbors (life3d.c:289)
+    n0: 33792 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=581
+#-----------
+time=3298624616
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=582
+#-----------
+time=3301578480
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=583
+#-----------
+time=3304463328
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=584
+#-----------
+time=3307347776
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=585
+#-----------
+time=3310232240
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=586
+#-----------
+time=3313196096
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=587
+#-----------
+time=3316080544
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=588
+#-----------
+time=3318965000
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=589
+#-----------
+time=3321918864
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=590
+#-----------
+time=3324803712
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=detailed
+n4: 961792 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 207768 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207768 0x40146D: check_entry (life3d.c:298)
+   n1: 67416 0x401218: check_neighbors (life3d.c:255)
+    n0: 67416 0x400BAE: main (life3d.c:98)
+   n1: 36024 0x401404: check_neighbors (life3d.c:289)
+    n0: 36024 0x400BAE: main (life3d.c:98)
+   n1: 35760 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35760 0x400BAE: main (life3d.c:98)
+   n1: 34320 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34320 0x400BAE: main (life3d.c:98)
+   n1: 34248 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34248 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 5 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=591
+#-----------
+time=3327688160
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=592
+#-----------
+time=3330572624
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=593
+#-----------
+time=3333536480
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=594
+#-----------
+time=3336420928
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=595
+#-----------
+time=3339305384
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=596
+#-----------
+time=3342259248
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=597
+#-----------
+time=3345144096
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=598
+#-----------
+time=3348028544
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=599
+#-----------
+time=3350913008
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=600
+#-----------
+time=3353876864
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1210088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n0: 250000 0x400DF7: main (life3d.c:142)
+ n2: 206064 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206064 0x40146D: check_entry (life3d.c:298)
+   n1: 65712 0x401218: check_neighbors (life3d.c:255)
+    n0: 65712 0x400BAE: main (life3d.c:98)
+   n1: 36408 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 36408 0x400BAE: main (life3d.c:98)
+   n1: 35136 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35136 0x400BAE: main (life3d.c:98)
+   n1: 34824 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34824 0x400BAE: main (life3d.c:98)
+   n1: 33984 0x401404: check_neighbors (life3d.c:289)
+    n0: 33984 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=601
+#-----------
+time=3356761312
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=602
+#-----------
+time=3359645768
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=603
+#-----------
+time=3362599632
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=604
+#-----------
+time=3365484480
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=605
+#-----------
+time=3368368928
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=606
+#-----------
+time=3371253392
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=607
+#-----------
+time=3374217248
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=608
+#-----------
+time=3377101696
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=609
+#-----------
+time=3379986152
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=610
+#-----------
+time=3382940016
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1461744 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 207720 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 207720 0x40146D: check_entry (life3d.c:298)
+   n1: 67368 0x401218: check_neighbors (life3d.c:255)
+    n0: 67368 0x400BAE: main (life3d.c:98)
+   n1: 35856 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35856 0x400BAE: main (life3d.c:98)
+   n1: 35832 0x401404: check_neighbors (life3d.c:289)
+    n0: 35832 0x400BAE: main (life3d.c:98)
+   n1: 34440 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 34440 0x400BAE: main (life3d.c:98)
+   n1: 34224 0x40133F: check_neighbors (life3d.c:274)
+    n0: 34224 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=611
+#-----------
+time=3385824864
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=612
+#-----------
+time=3388709312
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=613
+#-----------
+time=3391593776
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=614
+#-----------
+time=3394557632
+mem_heap_B=1210088
+mem_heap_extra_B=137432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=615
+#-----------
+time=3397442080
+mem_heap_B=1209992
+mem_heap_extra_B=137368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=616
+#-----------
+time=3400326536
+mem_heap_B=1461048
+mem_heap_extra_B=138080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=617
+#-----------
+time=3403280400
+mem_heap_B=1461744
+mem_heap_extra_B=138544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=618
+#-----------
+time=3406165248
+mem_heap_B=961792
+mem_heap_extra_B=138560
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=619
+#-----------
+time=3409049696
+mem_heap_B=1461936
+mem_heap_extra_B=138672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=620
+#-----------
+time=3411934160
+mem_heap_B=1460352
+mem_heap_extra_B=137616
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1460352 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 500000 0x4009B4: main (life3d.c:47)
+ n0: 500000 0x400DF7: main (life3d.c:142)
+ n0: 250000 0x400DB3: main (life3d.c:136)
+ n2: 206328 0x4017DC: list_append (in /home/guerra/Desktop/CPD/Projeto/CPD_project/life3d)
+  n6: 206328 0x40146D: check_entry (life3d.c:298)
+   n1: 65952 0x401218: check_neighbors (life3d.c:255)
+    n0: 65952 0x400BAE: main (life3d.c:98)
+   n1: 35952 0x4012DD: check_neighbors (life3d.c:268)
+    n0: 35952 0x400BAE: main (life3d.c:98)
+   n1: 35568 0x4013A2: check_neighbors (life3d.c:283)
+    n0: 35568 0x400BAE: main (life3d.c:98)
+   n1: 34968 0x401404: check_neighbors (life3d.c:289)
+    n0: 34968 0x400BAE: main (life3d.c:98)
+   n1: 33888 0x40133F: check_neighbors (life3d.c:274)
+    n0: 33888 0x400BAE: main (life3d.c:98)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 4024 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=621
+#-----------
+time=3414896816
+mem_heap_B=710520
+mem_heap_extra_B=137704
+mem_stacks_B=0
+heap_tree=empty

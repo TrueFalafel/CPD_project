@@ -1,0 +1,2 @@
+#!/bin/bash
+scp life3d life3d-omp ist178799@sigma.tecnico.ulisboa.pt:
