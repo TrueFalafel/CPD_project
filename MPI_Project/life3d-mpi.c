@@ -418,15 +418,17 @@ int main(int argc, char *argv[]){
     /*END PROCESSES AND PRINT HASH TABLE***************************************/
     for(i = 0; i < N_SLICES; i++)
         free(dynamic_matrix[i]);
-    if(!id){
-        hash_sort(hashtable);
-        hash_print(hashtable);
+    // All processes sort their own chunk
+    hash_sort_chunk(hashtable, my_index, my_size);
+    // All processes print their own chunk iteratively
+    for(i = 0; i < p; i++){
+            if(id == i)
+                hash_print_chunk(hashtable, my_index, my_size);
+            MPI_Barrier(new_world);
     }
     MPI_Finalize();
     hash_free(hashtable);
     exit(0);
-
-
 }
 /****************************END of MAIN****************************************/
 
