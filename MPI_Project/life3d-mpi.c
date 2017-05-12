@@ -257,7 +257,7 @@ int main(int argc, char *argv[]){
                     // SIZES OF FIRST LIST AND HASHTABLE LIST CORRESPONDING TO MIDDLE
                     int lists_size[2] = {list_count_el(first_list), list_count_el(hashtable->table[middle])};
                     int incoming_lsizes[2];
-                    // SEND SIZE OF first_list AND GET SIZE OF THE INCOMING LIST
+                    // SEND SIZE OF THE LISTS AND GET SIZE OF THE INCOMING LISTS
                     MPI_Sendrecv(lists_size, 2, MPI_INT, id - 1 != -1 ? id - 1 : p - 1,
                                 TAG + 1, incoming_lsizes, 1, MPI_INT, (id + 1)%p, TAG + 1,
                                 new_world, &status);
@@ -277,10 +277,9 @@ int main(int argc, char *argv[]){
                     // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
                     data *drecv = NULL;
                     int total_inc_size = incoming_lsizes[0] + incoming_lsizes[1];
-                    if(total_inc_size){
-                        drecv = malloc((total_inc_size) * sizeof(data));
+                    if(total_inc_size)
+                        drecv = malloc(total_inc_size * sizeof(data));
 
-                    }
                     if(!(total_size) && !(total_inc_size))
                         ; // SKIP
                     else if((total_size) && !(total_inc_size))
@@ -288,8 +287,8 @@ int main(int argc, char *argv[]){
                     else if(!(total_size) && (total_inc_size)){
                         MPI_Recv(drecv, total_inc_size, MPI_DATA, (id + 1)%p, TAG + 2, new_world, &status); // MPI_RECEIVE);
                         // CONVERT VECTOR TO LIST
-                        int k = 0;
-                        for( k = 0; k != incoming_lsizes[0]; k++)
+                        int k;
+                        for(k = 0; k != incoming_lsizes[0]; k++)
                             first_list = list_append(first_list, drecv[k]);
 
                         hashtable->table[(my_size+1)%cube_size] = NULL; //TODO free da lista em vez de meter a NULL
@@ -302,8 +301,8 @@ int main(int argc, char *argv[]){
                                 total_inc_size, MPI_DATA, (id + 1)%p, TAG + 2,
                                 new_world, &status);
                         // CONVERT VECTOR TO LIST
-                        int k = 0;
-                        for( k = 0; k != incoming_lsizes[0]; k++)
+                        int k;
+                        for(k = 0; k != incoming_lsizes[0]; k++)
                             first_list = list_append(first_list, drecv[k]);
 
                         hashtable->table[(my_size+1)%cube_size] = NULL; //TODO free da lista em vez de meter a NULL
