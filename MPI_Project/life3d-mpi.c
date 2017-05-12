@@ -98,7 +98,6 @@ int main(int argc, char *argv[]){
     int chunk_index[p]; chunks_indexes(chunk_index, p);
     my_index = chunk_index[id];
     my_size = id + 1 != p ? chunk_index[id + 1] - chunk_index[id] : cube_size - chunk_index[id];
-    printf("my size = %d  chunk_index = %d\n", my_size, chunk_index[id]);
     // AFTER THIS ALL PROCESSES HAVE THEIR HASH SPACE
 	/****Cycle for generations*************************************************/
 	int i;
@@ -178,7 +177,7 @@ int main(int argc, char *argv[]){
                     int incoming_lsizes[2];
                     // SEND SIZE OF first_list AND GET SIZE OF THE INCOMING LIST
                     MPI_Sendrecv(lists_size, 2, MPI_INT, id - 1 != -1 ? id - 1 : p - 1,
-                                TAG + 6, incoming_lsizes, 1, MPI_INT, (id + 1)%p, TAG + 6,
+                                TAG + 6, incoming_lsizes, 2, MPI_INT, (id + 1)%p, TAG + 6,
                                 new_world, &status);
                     // CONVERT LIST TO VECTOR
                     data *dsend = NULL;
@@ -196,10 +195,9 @@ int main(int argc, char *argv[]){
                     // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
                     data *drecv = NULL;
                     int total_inc_size = incoming_lsizes[0] + incoming_lsizes[1];
-                    if(total_inc_size){
+                    if(total_inc_size)
                         drecv = malloc((total_inc_size) * sizeof(data));
 
-                    }
                     if(!(total_size) && !(total_inc_size))
                         ; // SKIP
                     else if((total_size) && !(total_inc_size))
@@ -207,13 +205,13 @@ int main(int argc, char *argv[]){
                     else if(!(total_size) && (total_inc_size)){
                         MPI_Recv(drecv, total_inc_size, MPI_DATA, (id + 1)%p, TAG + 7, new_world, &status); // MPI_RECEIVE);
                         // CONVERT VECTOR TO LIST
-                        int k = 0;
+                        int k;
                         hashtable->table[my_index] = NULL; //TODO free da lista em vez de meter a NULL
-                        for( k = 0; k != incoming_lsizes[0]; k++)
+                        for(k = 0; k != incoming_lsizes[0]; k++)
                             hash_insert(hashtable, drecv[k]);
 
                         hashtable->table[my_index+1] = NULL; //TODO free da lista em vez de meter a NULL
-                        for(; k != incoming_lsizes[1]; k++)
+                        for(; k != total_inc_size; k++)
                             hash_insert(hashtable, drecv[k]);
                     }
                     else{ // SEND AND RECEIVE first_list IN VECTOR FORM
@@ -222,13 +220,13 @@ int main(int argc, char *argv[]){
                                 total_inc_size, MPI_DATA, (id + 1)%p, TAG + 7,
                                 new_world, &status);
                         // CONVERT VECTOR TO LIST
-                        int k = 0;
+                        int k;
                         hashtable->table[my_index] = NULL; //TODO free da lista em vez de meter a NULL
-                        for( k = 0; k != incoming_lsizes[0]; k++)
+                        for(k = 0; k != incoming_lsizes[0]; k++)
                             hash_insert(hashtable, drecv[k]);
 
                         hashtable->table[my_index+1] = NULL; //TODO free da lista em vez de meter a NULL
-                        for(; k != incoming_lsizes[1]; k++)
+                        for(; k != total_inc_size; k++)
                             hash_insert(hashtable, drecv[k]);
                     }
                     if(dsend != NULL)
@@ -259,7 +257,7 @@ int main(int argc, char *argv[]){
                     int incoming_lsizes[2];
                     // SEND SIZE OF THE LISTS AND GET SIZE OF THE INCOMING LISTS
                     MPI_Sendrecv(lists_size, 2, MPI_INT, id - 1 != -1 ? id - 1 : p - 1,
-                                TAG + 1, incoming_lsizes, 1, MPI_INT, (id + 1)%p, TAG + 1,
+                                TAG + 1, incoming_lsizes, 2, MPI_INT, (id + 1)%p, TAG + 1,
                                 new_world, &status);
                     // CONVERT LIST TO VECTOR
                     data *dsend = NULL;
@@ -292,7 +290,7 @@ int main(int argc, char *argv[]){
                             first_list = list_append(first_list, drecv[k]);
 
                         hashtable->table[(my_size+1)%cube_size] = NULL; //TODO free da lista em vez de meter a NULL
-                        for(; k != incoming_lsizes[1]; k++)
+                        for(; k != total_inc_size; k++)
                             hash_insert(hashtable, drecv[k]);
                     }
                     else{ // SEND AND RECEIVE first_list IN VECTOR FORM
@@ -306,7 +304,7 @@ int main(int argc, char *argv[]){
                             first_list = list_append(first_list, drecv[k]);
 
                         hashtable->table[(my_size+1)%cube_size] = NULL; //TODO free da lista em vez de meter a NULL
-                        for(; k != incoming_lsizes[1]; k++)
+                        for(; k != total_inc_size; k++)
                             hash_insert(hashtable, drecv[k]);
                     }
                     if(dsend != NULL)
