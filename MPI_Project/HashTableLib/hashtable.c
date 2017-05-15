@@ -63,6 +63,12 @@ void hash_print(hashtable_s *hashtable){
 	return;
 }
 
+void hash_print_chunk(hashtable_s *hashtable, int begin, int size){
+	for(int i = begin; i < begin + size; i++)
+		list_print(hashtable->table[i]);
+	return;
+}
+
 //Searches for data K in the hashtable
 item *hash_search(hashtable_s *hashtable, data K){
 	item *aux;
@@ -108,4 +114,10 @@ void hash_sort(hashtable_s *hashtable){
 		list_sort(&hashtable->table[i]);
 	}
 
+}
+
+//Sorts a chunk in hashtable
+void hash_sort_chunk(hashtable_s *hashtable, int begin, int size){
+	for(int i = begin; i < begin + size; i++)
+		list_sort(&hashtable->table[i]);
 }

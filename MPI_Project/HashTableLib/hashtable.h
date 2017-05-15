@@ -22,6 +22,8 @@ void hash_insert(hashtable_s *hashtable, data K);
 
 void hash_print(hashtable_s *hashtable);
 
+void hash_print_chunk(hashtable_s *hashtable, int begin, int size);
+
 //item *hash_search(hashtable_s *hashtable, data K);
 
 void hash_remove(hashtable_s *hashtable, data K);
@@ -31,5 +33,7 @@ item* hash_first(hashtable_s *hashtable, int entry);
 void hash_free(hashtable_s *hashtable);
 
 void hash_sort(hashtable_s *hashtable);
+
+void hash_sort_chunk(hashtable_s *hashtable, int begin, int size);
 
 #endif //_HASHTABLE_LIB_H_
