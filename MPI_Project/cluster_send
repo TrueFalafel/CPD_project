@@ -1,0 +1,2 @@
+#!/bin/bash
+scp life3d life3d-mpi InputFiles/ OutputFiles/ ist178799@cluster.rnl.tecnico.ulisboa.pt:

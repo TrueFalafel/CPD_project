@@ -20,6 +20,8 @@
 #define DEBUG_middle printf("middle = %d\n", middle)
 #define DEBUG_cell(cell) (printf("cell = [%d, %d, %d]\n", cell.x, cell.y, cell.z))
 #define DEBUG_gen printf("generation = %d\n", n_generations)
+#define DEBUG_sizes printf("%d: incoming_lsize = %d , list_size = %d\n", id, incoming_lsize, list_size);
+
 
 void usage();
 int hashfunction (struct data k);
@@ -119,7 +121,7 @@ int main(int argc, char *argv[]){
 
     while(n_generations--){
 		//DEBUG_gen;
-        MPI_Barrier(new_world); //REQUIRED??
+        MPI_Barrier(new_world); //REQUIRED!!
 		int empty_slices = 0;
 		//first 3 slice insertions
 		for(i = 0; i < N_SLICES; i++)
@@ -146,14 +148,15 @@ int main(int argc, char *argv[]){
 			/*first 3 slices are already filled, and when it wraps around
 			slices 1 and 2 are already filled too*/
 			if(i)
-                insert_in_slice(dynamic_matrix[2], hashtable, middle+1) ? empty_slices = 0 : empty_slices++;
+                insert_in_slice(dynamic_matrix[2], hashtable, (middle+1)%cube_size) ? empty_slices = 0 : empty_slices++;
 
             // Loop that sees what cells stay alive, and increments the dead cells
 			while(hashtable->table[middle] != NULL){
 				count = 0;
 				aux = hash_first(hashtable, middle);
 				if(list_search(hashtable->table[middle],aux->K)){
-					printf("REPETED LIVE CELL!\n" );
+					printf("REPEATED LIVE CELL!\n" );
+					DEBUG_cell(aux->K);
 					DEBUG_middle;
 				}
 				//checks neighbors of the live cell in aux
@@ -172,7 +175,7 @@ int main(int argc, char *argv[]){
             if(i>1){
 	           hashtable->table[WRAP(middle - 1)] = lists_concatenate(hashtable->table[WRAP(middle - 1)], dead_to_live[0]);
                dead_to_live[0] = list_init();
-           }
+        	}
           // if(id == 3)
             //    list_print(hashtable->table[WRAP(middle - 1)]);
 
@@ -250,6 +253,23 @@ int main(int argc, char *argv[]){
                     for(int k = 0; k != incoming_lsize; k++)
                         hash_insert(hashtable, drecv[k]);
                 }
+				/*if(id==0){
+					printf("--%d--\n",id );
+					list_sort(&hashtable->table[0]);
+					list_print(hashtable->table[0]);
+					printf("*******************\n" );
+					fflush(stdout);
+					//sleep(5);
+				}
+				MPI_Barrier(new_world);
+				if(id==p-1){
+					printf("--%d--\n",id );
+					list_sort(&hashtable->table[0]);
+					list_print(hashtable->table[0]);
+					printf("*******************\n" );
+					fflush(stdout);
+					//sleep(5);
+				}*/
                 if(dsend != NULL)
                     free(dsend);
                 if(drecv != NULL)
@@ -268,8 +288,10 @@ int main(int argc, char *argv[]){
     hash_sort_chunk(hashtable, my_index, my_size);
     // All processes print their own chunk iteratively
     for(i = 0; i < p; i++){
-        if(id == i)
+        if(id == i){
             hash_print_chunk(hashtable, my_index, my_size);
+			fflush(stdout);
+		}
         MPI_Barrier(new_world);
     }
     MPI_Finalize();
@@ -442,7 +464,7 @@ item* sort(item* list1, item* list2){
             result = list2;
             result->next = sort(list1, list2->next);
         }else{
-            if(list1->K.z < list2->K.z){
+            if(list1->K.z <= list2->K.z){
                 result = list1;
                 result->next = sort(list1->next, list2);
             }else if((list1->K.z > list2->K.z)){
