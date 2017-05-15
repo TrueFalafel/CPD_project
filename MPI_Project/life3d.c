@@ -3,6 +3,7 @@
 #include "./LinkedListLib/linked_list.h"
 #include "./HashTableLib/hashtable.h"
 #include <string.h>
+#include <unistd.h>
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 
@@ -116,7 +117,6 @@ void compute_generations(hashtable_s *hashtable){
 				else //else it dies, so doesn't stay in the hash table
 					free(aux);
 			}
-
 			//inserts just the live cells that stayed alive
 			hashtable->table[middle] = list_aux;
 			list_aux = NULL;

@@ -124,8 +124,6 @@ void list_print(item* root){
 		print_data(k);
 		aux = aux->next;
 	}
-	if(root == NULL)
-		printf("Lista vazia\n");
 	return;
 }
 
