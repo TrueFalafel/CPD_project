@@ -187,56 +187,58 @@ int main(int argc, char *argv[]){
         //if(id == 3)
         //    printf("middle = %d\n", middle);
     //    exit(0);
-        int send_idx[2] = {middle - 3, middle - 2};
-        int recv_idx[2] = {my_index, my_index + 1};
-        int dest[2] = {(id + 1)%p, (id + 1)%p };
-        int source[2] = {id - 1 != -1 ? id - 1 : p - 1, id - 1 != -1 ? id - 1 : p - 1};
-        for(int v = 0; v != sizeof send_idx/sizeof *send_idx; v++){
-            int incoming_lsize, list_size = list_count_el(hashtable->table[send_idx[v]]);
-            // SEND SIZE OF HASHLIST AND GET SIZE OF THE INCOMING HASHLIST
-            MPI_Sendrecv(&list_size, 1, MPI_INT, dest[v], TAG + v,
-                    &incoming_lsize, 1, MPI_INT, source[v], TAG + v,
-                    new_world, &status);
-            // CONVERT LIST TO VECTOR
-            data *dsend = NULL;
-            if(list_size){
-                dsend = malloc(list_size * sizeof(data));
-                int k = 0;
-                while(hashtable->table[send_idx[v]] != NULL)
-                    dsend[k++] = hash_first(hashtable, send_idx[v])->K;
-                while(k--)
-                    hash_insert(hashtable, dsend[k]);
-            }
+        if(p > 1){
+            int send_idx[3] = {middle - 3, middle - 2, my_index + 2};
+            int recv_idx[3] = {my_index, my_index + 1, middle - 1};
+            int dest[3] = {(id + 1)%p, (id + 1)%p, id - 1 != -1 ? id - 1 : p - 1};
+            int source[3] = {id - 1 != -1 ? id - 1 : p - 1, id - 1 != -1 ? id - 1 : p - 1, (id + 1)%p};
+            for(int v = 0; v != sizeof send_idx/sizeof *send_idx; v++){
+                int incoming_lsize, list_size = list_count_el(hashtable->table[send_idx[v]]);
+                // SEND SIZE OF HASHLIST AND GET SIZE OF THE INCOMING HASHLIST
+                MPI_Sendrecv(&list_size, 1, MPI_INT, dest[v], TAG + v,
+                        &incoming_lsize, 1, MPI_INT, source[v], TAG + v,
+                        new_world, &status);
+                // CONVERT LIST TO VECTOR
+                data *dsend = NULL;
+                if(list_size){
+                    dsend = malloc(list_size * sizeof(data));
+                    int k = 0;
+                    while(hashtable->table[send_idx[v]] != NULL)
+                        dsend[k++] = hash_first(hashtable, send_idx[v])->K;
+                    while(k--)
+                        hash_insert(hashtable, dsend[k]);
+                }
 
-            // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
-            data *drecv = NULL;
-            if(incoming_lsize)
-                drecv = malloc(incoming_lsize * sizeof(data));
+                // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
+                data *drecv = NULL;
+                if(incoming_lsize)
+                    drecv = malloc(incoming_lsize * sizeof(data));
 
-            if(!list_size && !incoming_lsize)
-                ; // SKIP
-            else if(list_size && !incoming_lsize)
-                MPI_Send(dsend, list_size, MPI_DATA, dest[v], TAG + v + 1, new_world); // SEND
-            else if(!list_size && incoming_lsize){
-                MPI_Recv(drecv, incoming_lsize, MPI_DATA, source[v], TAG + v + 1, new_world, &status); // RECEIVE
-                // CONVERT VECTOR TO HASHLIST
-                hashtable->table[recv_idx[v]] = NULL; //TODO free da lista em vez de meter a NULL
-                for(int k = 0; k != incoming_lsize; k++)
-                    hash_insert(hashtable, drecv[k]);
+                if(!list_size && !incoming_lsize)
+                    ; // SKIP
+                else if(list_size && !incoming_lsize)
+                    MPI_Send(dsend, list_size, MPI_DATA, dest[v], TAG + v + 1, new_world); // SEND
+                else if(!list_size && incoming_lsize){
+                    MPI_Recv(drecv, incoming_lsize, MPI_DATA, source[v], TAG + v + 1, new_world, &status); // RECEIVE
+                    // CONVERT VECTOR TO HASHLIST
+                    hashtable->table[recv_idx[v]] = NULL; //TODO free da lista em vez de meter a NULL
+                    for(int k = 0; k != incoming_lsize; k++)
+                        hash_insert(hashtable, drecv[k]);
+                }
+                else{
+                    MPI_Sendrecv(dsend, list_size, MPI_DATA, dest[v], TAG + v +1,
+                                drecv, incoming_lsize, MPI_DATA, source[v], TAG + v+ 1,
+                                new_world, &status);
+                    // CONVERT VECTOR TO HASHLIST
+                    hashtable->table[recv_idx[v]] = NULL; //TODO free da lista em vez de meter a NULL
+                    for(int k = 0; k != incoming_lsize; k++)
+                        hash_insert(hashtable, drecv[k]);
+                }
+                if(dsend != NULL)
+                    free(dsend);
+                if(drecv != NULL)
+                    free(drecv);
             }
-            else{
-                MPI_Sendrecv(dsend, list_size, MPI_DATA, dest[v], TAG + v +1,
-                            drecv, incoming_lsize, MPI_DATA, source[v], TAG + v+ 1,
-                            new_world, &status);
-                // CONVERT VECTOR TO HASHLIST
-                hashtable->table[recv_idx[v]] = NULL; //TODO free da lista em vez de meter a NULL
-                for(int k = 0; k != incoming_lsize; k++)
-                    hash_insert(hashtable, drecv[k]);
-            }
-            if(dsend != NULL)
-                free(dsend);
-            if(drecv != NULL)
-                free(drecv);
         }
 /******INFO SENT***************************************************************/
 		for(i = 0; i < N_SLICES; i++)
