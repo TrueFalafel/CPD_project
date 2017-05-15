@@ -13,8 +13,13 @@
 #define MINDEX(i, j) (i + j*cube_size)
 #define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
 #define WRAP(i) (i != -1 ? i : cube_size - 1)
-// SIMPLE DEBUG
+#define NEXT_P(id) ((id+1)%p)
+#define PREV_P(id) (id - 1 != -1 ? id - 1 : p - 1)
+// SIMPLE DEBUGS
 #define DEBUG do{printf("aqui?\n"); sleep(3); fflush(stdout);}while(0)
+#define DEBUG_middle printf("middle = %d\n", middle)
+#define DEBUG_cell(cell) (printf("cell = [%d, %d, %d]\n", cell.x, cell.y, cell.z))
+#define DEBUG_gen printf("generation = %d\n", n_generations)
 
 void usage();
 int hashfunction (struct data k);
@@ -49,6 +54,7 @@ int main(int argc, char *argv[]){
     data k;
     hashtable = hash_create(cube_size, &hashfunction);
 	/*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
+	// TODO todos lerem o ficheiro, cada um guardar so o que deve
 	while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF)
     	hash_insert(hashtable, k);
 	fclose(pf);
@@ -112,6 +118,7 @@ int main(int argc, char *argv[]){
 		dynamic_matrix[i] = calloc(cube_size * cube_size, sizeof(char));
 
     while(n_generations--){
+		//DEBUG_gen;
         MPI_Barrier(new_world); //REQUIRED??
 		int empty_slices = 0;
 		//first 3 slice insertions
@@ -145,6 +152,10 @@ int main(int argc, char *argv[]){
 			while(hashtable->table[middle] != NULL){
 				count = 0;
 				aux = hash_first(hashtable, middle);
+				if(list_search(hashtable->table[middle],aux->K)){
+					printf("REPETED LIVE CELL!\n" );
+					DEBUG_middle;
+				}
 				//checks neighbors of the live cell in aux
 				check_neighbors(dynamic_matrix, dead_to_live, aux, &count);
 				//if cell stays alive goes to the temporary list
@@ -190,10 +201,12 @@ int main(int argc, char *argv[]){
         if(p > 1){
             int send_idx[3] = {middle - 3, middle - 2, my_index + 2};
             int recv_idx[3] = {my_index, my_index + 1, middle - 1};
-            int dest[3] = {(id + 1)%p, (id + 1)%p, id - 1 != -1 ? id - 1 : p - 1};
-            int source[3] = {id - 1 != -1 ? id - 1 : p - 1, id - 1 != -1 ? id - 1 : p - 1, (id + 1)%p};
+			//Destinies: next, next, previous processors
+            int dest[3] = {NEXT_P(id), NEXT_P(id), PREV_P(id)};
+			//Sources: previous, previous, next processors
+            int source[3] = {PREV_P(id), PREV_P(id), NEXT_P(id)};
             for(int v = 0; v != sizeof send_idx/sizeof *send_idx; v++){
-                int incoming_lsize, list_size = list_count_el(hashtable->table[send_idx[v]]);
+                int incoming_lsize=0, list_size = list_count_el(hashtable->table[send_idx[v]]);
                 // SEND SIZE OF HASHLIST AND GET SIZE OF THE INCOMING HASHLIST
                 MPI_Sendrecv(&list_size, 1, MPI_INT, dest[v], TAG + v,
                         &incoming_lsize, 1, MPI_INT, source[v], TAG + v,
@@ -203,9 +216,11 @@ int main(int argc, char *argv[]){
                 if(list_size){
                     dsend = malloc(list_size * sizeof(data));
                     int k = 0;
+					//Vectorizes the hashlist
                     while(hashtable->table[send_idx[v]] != NULL)
                         dsend[k++] = hash_first(hashtable, send_idx[v])->K;
-                    while(k--)
+					//Refills the hashlist
+					while(k--)
                         hash_insert(hashtable, dsend[k]);
                 }
 
@@ -214,6 +229,7 @@ int main(int argc, char *argv[]){
                 if(incoming_lsize)
                     drecv = malloc(incoming_lsize * sizeof(data));
 
+				//Decides whether it just sends, just receives or sends and receives
                 if(!list_size && !incoming_lsize)
                     ; // SKIP
                 else if(list_size && !incoming_lsize)
@@ -240,9 +256,10 @@ int main(int argc, char *argv[]){
                     free(drecv);
             }
         }
-/******INFO SENT***************************************************************/
+		/******INFO SENT********************************/
 		for(i = 0; i < N_SLICES; i++)
 			SLICE_CLEAN(dynamic_matrix[i]);
+		/*********END GENERATION**********************/
 	}
     /*END PROCESSES AND PRINT HASH TABLE***************************************/
     for(i = 0; i < N_SLICES; i++)
@@ -391,7 +408,8 @@ void check_entry(signed char *entry, item **dead_to_live, data K, int *count){
 		if((*entry) == 4)
 			(*dead_to_live) = list_remove((*dead_to_live), K);
 		if((*entry) > 6){
-			perror("Entry > 6\n");
+			printf("Entry > 6\n");
+			DEBUG_cell(K);
 			exit(-1);
 		}
 	}else{
@@ -434,4 +452,10 @@ item* sort(item* list1, item* list2){
         }
     }
     return result;
+}
+
+data set_data(int x, int y, int z){
+	data K;
+	K.x = x; K.y = y; K.z = z;
+	return K;
 }

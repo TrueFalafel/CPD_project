@@ -28,7 +28,7 @@ item* list_append(item* root, data K);
 
 item* list_remove(item* root, data K);
 
-item* list_search(item* root, data K);
+int list_search(item* root, data K);
 
 void list_free(item* root);
 

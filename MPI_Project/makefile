@@ -1,6 +1,6 @@
-COMPFLAGS = gcc -Wall -c -o
+COMPFLAGS = gcc -std=c99 -Wall -c -o
 COMPFLAGS_OPENMP = gcc -Wall -fopenmp -c -o
-COMPFLAGS_MPI = mpicc -Wall -c -o
+COMPFLAGS_MPI = mpicc -std=c99 -Wall -c -o
 LINKFLAGS = gcc -Wall -o
 LINKFLAGS_OPENMP = gcc -Wall -fopenmp -o
 LINKFLAGS_MPI = mpicc -Wall -o

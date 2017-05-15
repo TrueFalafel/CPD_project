@@ -75,28 +75,28 @@ item* list_remove(item* root, data K){
 }
 
 //Search for item with data K in the list
-item* list_search(item* root, data K){
+int list_search(item* root, data K){
 	item *aux;
 
 	if(root == NULL){
-		printf("Search cancelled, empty list, returning NULL\n");
-		return NULL;
+		//printf("Search cancelled, empty list, returning NULL\n");
+		return 0;
 	}
 
 	aux = root;
 	while(!equal_data(aux->K, K)){
 		if(aux->next == NULL){
-			printf("No data K found in search!\n");
-			return NULL;
+			//printf("No data K found in search!\n");
+			return 0;
 		}
 		aux = aux->next;
 	}
 
 	if(aux == NULL){
-		printf("Element not found, returning NULL\n");
-		return NULL;
+		//printf("Element not found, returning NULL\n");
+		return 0;
 	}else{
-		return aux;
+		return 1;
 	}
 
 }
