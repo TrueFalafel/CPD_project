@@ -47,6 +47,7 @@ void hash_insert(hashtable_s *hashtable, data K){
 
 	if(index > hashtable->size-1){
 		perror("Hashtable index out of bounds\n");
+		printf("K.x = %d\n", K.x);
 		exit(-1);
 	}
 	hashtable->table[index] = list_append(hashtable->table[index], K);
