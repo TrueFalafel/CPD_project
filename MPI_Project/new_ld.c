@@ -91,7 +91,7 @@ int main(int argc, char *argv[]){
 
     hashtable_s *hashtable;
     data k;
-    hashtable = hash_create(my_size+3, &hashfunction);
+    hashtable = hash_create(my_size+2, &hashfunction);
 	/*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
 	// TODO todos lerem o ficheiro, cada um guardar so o que deve
 	while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
@@ -99,7 +99,11 @@ int main(int argc, char *argv[]){
             k = my_hash_index(k, my_index, my_size);
             hash_insert(hashtable, k);
         }
-        else if(id == p-1 && hashtable->hash_function(k) == 0){
+        else if(id == p-1 && hashtable->hash_function(k) == 0){//last proc needs slice 0
+            k = my_hash_index(k, my_index, my_size);
+            hash_insert(hashtable, k);
+        }
+        else if(id == 0 && hashtable->hash_function(k) == cube_size-1){//first proc needs slice cube_size-1
             k = my_hash_index(k, my_index, my_size);
             hash_insert(hashtable, k);
         }
@@ -203,10 +207,10 @@ int main(int argc, char *argv[]){
           // if(id == 3)
             //    list_print(hashtable->table[WRAP(middle - 1)]);
 
-            if(middle == 1)
-                d_t_l[0] = dead_to_live[1];
-            else if(middle == my_size)
-                d_t_l[1] = dead_to_live[1];
+            if(middle == 2)
+                d_t_l[0] = dead_to_live[0];
+            else if(middle == my_size+1)
+                d_t_l[1] = dead_to_live[0];
 
             //dead_to_live lists shift
             dead_to_live[0] = dead_to_live[1];
@@ -231,72 +235,74 @@ int main(int argc, char *argv[]){
         //    printf("middle = %d\n", middle);
     //    exit(0);
         if(p > 1){
-            int send_idx[2] = {1, my_size};
-            int recv_idx[2] = {0, my_size+1};
-			//Destinies: next, previous processors
-            int dest[2] = {NEXT_P(id), PREV_P(id)};
-			//Sources: previous, next processors
-            int source[2] = {PREV_P(id), NEXT_P(id)};
-            for(int v = 0; v != sizeof send_idx/sizeof *send_idx; v++){
-                int incoming_lsize[2]={0,0}
+            //int send_idx[2] = {1, my_size};
+            //int recv_idx[2] = {0, my_size+1};
+            int n_coms = 2;
+			//Destinies: previous, next processors
+            int dest[2] = {PREV_P(id), NEXT_P(id)};
+			//Sources: next, previous processors
+            int source[2] = {NEXT_P(id), PREV_P(id)};
+
+            for(int v = 0; v != n_coms; v++){
+                int incoming_lsize[2]={0,0};
                 int list_size[2];
-                list_size[0] = list_count_el(d_t_l[v]);
-                list_size[1] = list_count_el(l_t_d[v]);
+                list_size[0] = list_count_el(l_t_d[v]);
+                list_size[1] = list_count_el(d_t_l[v]);
+                int total_send_size = list_size[0] + list_size[1];
                 // SEND SIZE OF LISTS
                 MPI_Sendrecv(&list_size, 2, MPI_INT, dest[v], TAG + v,
                         &incoming_lsize, 2, MPI_INT, source[v], TAG + v,
                         new_world, &status);
+
                 // CONVERT LIST TO VECTOR
-                /***************************************************************
-                *VETORIZAR listas
-                *ENVIAR LISTAS
-                *FAZER IFS DOS TAMANHOS(VER life3d-mpi_not_so_old.c)
-                *TODO vetorizar listas e enviá-las
-                ***************************************************************/
-                data *dsend = NULL;
-                if(list_size){
-                    dsend = malloc(list_size * sizeof(data));
-                    int k = 0;
-					//Vectorizes the hashlist
+                data *dsend;
+                if(total_send_size){
+                    dsend = malloc(total_send_size * sizeof(data));
+
+					//Vectorizes the list
                     data K;
-                    item *list = lists_concatenate(l_t_d+)
-                    while(hashtable->table[send_idx[v]] != NULL){
-                        K = hash_first(hashtable, send_idx[v])->K;
+                    item *list = lists_concatenate(l_t_d[v], d_t_l[v]);
+                    int k = 0;
+                    while(list != NULL){
+                        K = list_first(&list)->K;
                         K = hash_index_revert(K, my_index);
                         dsend[k++] = K;
                     }
-					//Refills the hashlist
-					while(k--){
-                        K = my_hash_index(dsend[k], my_index, my_size);
-                        hash_insert(hashtable, K);
-                    }
                 }
+
                 // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
                 data *drecv = NULL;
-                if(incoming_lsize)
-                    drecv = malloc(incoming_lsize * sizeof(data));
+                int total_recv_size = incoming_lsize[0] + incoming_lsize[1];
+                if(total_recv_size)
+                    drecv = malloc(total_recv_size * sizeof(data));
 
 				//Decides whether it just sends, just receives or sends and receives
-                if(!list_size && !incoming_lsize)
+                if(!total_send_size && !total_recv_size)
                     ; // SKIP
-                else if(list_size && !incoming_lsize)
-                    MPI_Send(dsend, list_size, MPI_DATA, dest[v], TAG + v + 1, new_world); // SEND
-                else if(!list_size && incoming_lsize){
-                    MPI_Recv(drecv, incoming_lsize, MPI_DATA, source[v], TAG + v + 1, new_world, &status); // RECEIVE
-                    // CONVERT VECTOR TO HASHLIST
-                    hashtable->table[recv_idx[v]] = NULL; //TODO free da lista em vez de meter a NULL
-                    for(int k = 0; k != incoming_lsize; k++){
+                else if(total_send_size && !total_recv_size)
+                    MPI_Send(dsend, total_send_size, MPI_DATA, dest[v], TAG + v + 1, new_world); // SEND
+                else if(!total_send_size && total_recv_size){
+                    MPI_Recv(drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 1, new_world, &status); // RECEIVE
+
+                    for(int k = 0; k < incoming_lsize[0]; k++){ //Remove l_t_d from hashtable
+                        drecv[k] = my_hash_index(drecv[k], my_index, my_size);
+                        hash_remove(hashtable, drecv[k]);
+                    }
+                    for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Inser d_t_l in hashtable
                         drecv[k] = my_hash_index(drecv[k], my_index, my_size);
                         hash_insert(hashtable, drecv[k]);
                     }
                 }
                 else{
-                    MPI_Sendrecv(dsend, list_size, MPI_DATA, dest[v], TAG + v +1,
-                                drecv, incoming_lsize, MPI_DATA, source[v], TAG + v+ 1,
+                    MPI_Sendrecv(dsend, total_send_size, MPI_DATA, dest[v], TAG + v + 1,
+                                drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 1,
                                 new_world, &status);
-                    // CONVERT VECTOR TO HASHLIST
-                    hashtable->table[recv_idx[v]] = NULL; //TODO free da lista em vez de meter a NULL
-                    for(int k = 0; k != incoming_lsize; k++){
+                    hash_print(hashtable);
+                    for(int k = 0; k < incoming_lsize[0]; k++){ //Remove l_t_d from hashtable
+                        drecv[k] = my_hash_index(drecv[k], my_index, my_size);
+                        hash_remove(hashtable, drecv[k]);
+                    }
+                    for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Insert d_t_l in hashtable
                         drecv[k] = my_hash_index(drecv[k], my_index, my_size);
                         hash_insert(hashtable, drecv[k]);
                     }
@@ -366,11 +372,13 @@ void chunks_indexes(int *w, int n_chunks){
 ***********************************************************************/
 data my_hash_index(data K, int my_index, int my_size){
     data Y = K;
-    if(K.x < my_index){
-        Y.x = my_size + K.x;
-    }else{
-        Y.x -= my_index;
-    }
+
+    if(K.x == WRAP(my_index-1))//last slice of prev proc
+        Y.x = 0;
+    else if(K.x == (my_index + my_size)%cube_size) //first slice of next proc
+        Y.x = my_size + 1;
+    else
+        Y.x = K.x - my_index + 1;
     return Y;
 }
 
@@ -379,7 +387,10 @@ data my_hash_index(data K, int my_index, int my_size){
 ***********************************************************************/
 data hash_index_revert(data K, int my_index){
     data Y = K;
-    Y.x = (Y.x + my_index)%cube_size;
+    Y.x = (Y.x + my_index-1)%cube_size;
+
+    if(Y.x == -1) //first thread has slice 19 in hastable[0]
+        Y.x = 19;
 
     return Y;
 }

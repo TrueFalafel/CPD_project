@@ -34,7 +34,7 @@ O_OUT6 = OutputFiles/s500e300k.2000_our.out
 life3d-mpi: life3d-mpi.o $(LL_LIB_PATH)/linked_list.o $(HT_LIB_PATH)/hashtable.o
 	$(LINKFLAGS_MPI) $@ $^ $(EXTRA_FLAGS)
 
-life3d-mpi.o: new_ver.c $(LL_LIB_PATH)/linked_list.h $(HT_LIB_PATH)/hashtable.h
+life3d-mpi.o: new_ld.c $(LL_LIB_PATH)/linked_list.h $(HT_LIB_PATH)/hashtable.h
 	$(COMPFLAGS_MPI) $@ $<
 ################################################################################
 #FAZER make serial PARA COMPILAR E LINKAR VERSAO SERIAL#########################
