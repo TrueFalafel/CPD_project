@@ -10,11 +10,13 @@
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 #define TAG 1
+#define MAX_SIZE 10000000
 #define MINDEX(i, j) (i + j*cube_size)
 #define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
 #define WRAP(i) (i != -1 ? i : cube_size - 1)
 #define NEXT_P(id) ((id+1)%p)
 #define PREV_P(id) (id - 1 != -1 ? id - 1 : p - 1)
+
 // SIMPLE DEBUGS
 #define DEBUG do{printf("aqui?\n"); sleep(3); fflush(stdout);}while(0)
 #define DEBUG_middle printf("middle = %d\n", middle)
@@ -91,35 +93,7 @@ int main(int argc, char *argv[]){
     my_size = id + 1 != p ? chunk_index[id + 1] - chunk_index[id] : cube_size - chunk_index[id];
     // AFTER THIS ALL PROCESSES HAVE THEIR HASH SPACE
 
-    hashtable_s *hashtable;
-    data k;
-    hashtable = hash_create(my_size+2, &hashfunction);
-	/*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
-	// TODO todos lerem o ficheiro, cada um guardar so o que deve
-	while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
-        if(hashtable->hash_function(k) >= my_index-1 && hashtable->hash_function(k) < (my_index+my_size+1)){
-            k = my_hash_index(k, my_index, my_size);
-            hash_insert(hashtable, k);
-        }
-        else if(id == p-1 && hashtable->hash_function(k) == 0){//last proc needs slice 0
-            k = my_hash_index(k, my_index, my_size);
-            hash_insert(hashtable, k);
-        }
-        else if(id == 0 && hashtable->hash_function(k) == cube_size-1){//first proc needs slice cube_size-1
-            k = my_hash_index(k, my_index, my_size);
-            hash_insert(hashtable, k);
-        }
-    }
-	/*if(id==p-1){
-		list_sort(&hashtable->table[6]);
-		list_print(hashtable->table[6]);
-		printf("============\n" );
-		fflush(stdout);
-	}*/
-
-	fclose(pf);
-
-	/*INITIATE PROCESSES*******************************************************/
+    /*INITIATE PROCESSES*******************************************************/
     MPI_Status status;
     /*CREATE DATA STRUCT*******************************************************/
     MPI_Datatype MPI_DATA;
@@ -132,6 +106,92 @@ int main(int argc, char *argv[]){
 
     MPI_Type_create_struct(3, blocklen, disp, type, &MPI_DATA);
     MPI_Type_commit(&MPI_DATA);
+
+    hashtable_s *hashtable;
+    hashtable = hash_create(my_size+2, &hashfunction);
+	/*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
+	//Check number of lines ia a file
+    int dummy = 0, lines = 0;
+    char mult;
+    sscanf(argv[1], "%*[^0123456789]%d%*[^0123456789]%d%c", &dummy, &lines, &mult);
+    if(mult == 'k' || mult == 'K')
+        lines = lines * 1000;
+    if(mult == 'm' || mult == 'M')
+        lines = lines * 1000000;
+    if(mult == 'g' || mult == 'G')
+        lines = lines * 1000000000;
+
+    int buffer_size = lines;
+    if(lines > MAX_SIZE)
+        buffer_size = ceil(lines/2);
+    if(lines > 2*MAX_SIZE)
+        buffer_size = ceil(lines/4);
+
+    int stored = 0;
+    int sent = 0;
+    data *buffer = malloc(buffer_size * sizeof(data));
+    data k;
+    while(1){
+        if(id == 0){
+            while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
+                buffer[stored++] = k;
+                if(stored == buffer_size){
+                    break;
+                }
+            }
+            for(int i = stored; i < buffer_size; i++)
+                buffer[i] = set_data(-1, -1, -1);
+        }
+
+        MPI_Bcast(buffer, buffer_size, MPI_DATA, 0, new_world);
+
+        //Store info in hashtable
+        data final = {-1,-1,-1}; //check end
+        int idx;
+        for(idx = 0; idx < buffer_size && !equal_data(buffer[idx], final); idx++){
+            if(hashtable->hash_function(buffer[idx]) >= my_index-1 && hashtable->hash_function(buffer[idx]) < (my_index+my_size+1)){
+                buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
+                hash_insert(hashtable, buffer[idx]);
+            }
+            else if(id == p-1 && hashtable->hash_function(buffer[idx]) == 0){//last proc needs slice 0
+                buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
+                hash_insert(hashtable, buffer[idx]);
+            }
+            else if(id == 0 && hashtable->hash_function(buffer[idx]) == cube_size-1){//first proc needs slice cube_size-1
+                buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
+                hash_insert(hashtable, buffer[idx]);
+            }
+        }
+
+        if(sent*buffer_size + idx == lines){
+            printf("proc %d says: im out!\n", id);
+            break;
+        }
+        sent++;
+        stored = 0;
+    }
+	/*while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
+        if(hashtable->hash_function(k) >= my_index-1 && hashtable->hash_function(k) < (my_index+my_size+1)){
+            k = my_hash_index(k, my_index, my_size);
+            hash_insert(hashtable, k);
+        }
+        else if(id == p-1 && hashtable->hash_function(k) == 0){//last proc needs slice 0
+            k = my_hash_index(k, my_index, my_size);
+            hash_insert(hashtable, k);
+        }
+        else if(id == 0 && hashtable->hash_function(k) == cube_size-1){//first proc needs slice cube_size-1
+            k = my_hash_index(k, my_index, my_size);
+            hash_insert(hashtable, k);
+        }
+    }*/
+	/*if(id==p-1){
+		list_sort(&hashtable->table[6]);
+		list_print(hashtable->table[6]);
+		printf("============\n" );
+		fflush(stdout);
+	}*/
+
+	fclose(pf);
 
 	/****Cycle for generations*************************************************/
 	int i;
@@ -403,15 +463,25 @@ int main(int argc, char *argv[]){
         free(dynamic_matrix[i]);
     // All processes sort their own chunk
     hash_sort_chunk(hashtable, 1, my_size);
+    hash_revert(hashtable, my_index);
+    hash_print(hashtable);
+
+    //Mandar hash para um proc
+    for(int proc = 1; proc < p; p++){
+        if(id == proc){
+            MPI_Send
+        }
+    }
+
     // All processes print their own chunk iteratively
-    for(i = 0; i < p; i++){
+    /*for(i = 0; i < p; i++){
         if(id == i){
             hash_revert(hashtable, my_index);
             hash_print_chunk(hashtable, 1, my_size);
 			fflush(stdout);
 		}
         MPI_Barrier(new_world);
-    }
+    }*/
     MPI_Finalize();
     hash_free(hashtable);
     exit(0);
