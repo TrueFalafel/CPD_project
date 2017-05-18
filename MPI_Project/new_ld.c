@@ -322,7 +322,7 @@ int main(int argc, char *argv[]){
 					fflush(stdout);
 				}*/
 
-                data *dsend;
+                data *dsend = NULL;
                 if(total_send_size){
                     dsend = malloc(total_send_size * sizeof(data));
 
@@ -374,9 +374,9 @@ int main(int argc, char *argv[]){
                 if(!total_send_size && !total_recv_size)
                     ; // SKIP
                 else if(total_send_size && !total_recv_size)
-                    MPI_Send(dsend, total_send_size, MPI_DATA, dest[v], TAG + v + 1, new_world); // SEND
+                    MPI_Send(dsend, total_send_size, MPI_DATA, dest[v], TAG + v + 2, new_world); // SEND
                 else if(!total_send_size && total_recv_size){
-                    MPI_Recv(drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 1, new_world, &status); // RECEIVE
+                    MPI_Recv(drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 2, new_world, &status); // RECEIVE
 				//	if(id==1)
 				//	printf("==================[LtoD]\n");
                     for(int k = 0; k < incoming_lsize[0]; k++){ //Remove l_t_d from hashtable
@@ -400,8 +400,8 @@ int main(int argc, char *argv[]){
                     }
                 }
                 else{
-                    MPI_Sendrecv(dsend, total_send_size, MPI_DATA, dest[v], TAG + v + 1,
-                                drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 1,
+                    MPI_Sendrecv(dsend, total_send_size, MPI_DATA, dest[v], TAG + v + 2,
+                                drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 2,
                                 new_world, &status);
                     //hash_print(hashtable);
 					/*if(id == p-1)
