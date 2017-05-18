@@ -297,7 +297,7 @@ int main(int argc, char *argv[]){
 
 					//Vectorizes the list
                     //data K;
-                    item *list = lists_concatenate(l_t_d[v], d_t_l[v]);
+                    item* list = lists_concatenate(l_t_d[v], d_t_l[v]);
                     int k = 0;
                     while(list != NULL){
                         dsend[k++] = list_first(&list)->K;
@@ -329,14 +329,10 @@ int main(int argc, char *argv[]){
                         //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
 						//DEBUG_gen;
                         if(drecv[k].x == 1)
-							drecv[k].x = my_size+1; //TODO com chuncks de diferentes tamanhos
+							drecv[k].x = my_size+1;
 						else
 							drecv[k].x = 0;
-                        //hash_remove(hashtable, drecv[k]);
-                        if(v == 0)
-                            hashtable->table[my_size+1] = list_remove(hashtable->table[my_size+1], drecv[k]);
-                        else
-                            hashtable->table[0] = list_remove(hashtable->table[0], drecv[k]);
+                        hash_remove(hashtable, drecv[k]);
                     }
                     for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Insert d_t_l in hashtable
                         //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
@@ -344,11 +340,7 @@ int main(int argc, char *argv[]){
 							drecv[k].x = my_size+1;
 						else
 							drecv[k].x = 0;
-                        //hash_insert(hashtable, drecv[k]);
-                        if(v == 0)
-                            hashtable->table[my_size+1] = list_append(hashtable->table[my_size+1], drecv[k]);
-                        else
-                            hashtable->table[0] = list_append(hashtable->table[0], drecv[k]);
+                        hash_insert(hashtable, drecv[k]);
                     }
                 }
                 else{
@@ -366,12 +358,8 @@ int main(int argc, char *argv[]){
                         if(drecv[k].x == 1)
 							drecv[k].x = my_size+1;
 						else
-							drecv[k].x = 0;
-                        //hash_remove(hashtable, drecv[k]);
-                        if(v == 0)
-                            hashtable->table[my_size+1] = list_remove(hashtable->table[my_size+1], drecv[k]);
-                        else
-                            hashtable->table[0] = list_remove(hashtable->table[0], drecv[k]);
+                            drecv[k].x = 0;
+                        hash_remove(hashtable, drecv[k]);
                     }
                     for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Insert d_t_l in hashtable
                         //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
@@ -379,11 +367,7 @@ int main(int argc, char *argv[]){
 							drecv[k].x = my_size+1;
 						else
 							drecv[k].x = 0;
-                        //hash_insert(hashtable, drecv[k]);
-                        if(v == 0)
-                            hashtable->table[my_size+1] = list_append(hashtable->table[my_size+1], drecv[k]);
-                        else
-                            hashtable->table[0] = list_append(hashtable->table[0], drecv[k]);
+                        hash_insert(hashtable, drecv[k]);
                     }
                 }
 				/*if(id==0){
@@ -532,7 +516,7 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 	data K = {.x = x, .y = y, .z = z};
 
 	// x coordinate neighbor search
-	if(x != 0)
+	/*if(x != 0)
 		K.x = x - 1;
 	else
 		K.x = cube_size - 1;
@@ -542,7 +526,18 @@ void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int 
 	else
 		K.x = 0;
 	check_entry(&matrix[2][MINDEX(y,z)], &dead_to_live[2], K, count);
-	K.x = x;
+	K.x = x;*/
+
+    //CHANGED
+    if(x >= 2){
+        K.x = x - 1;
+        check_entry(&matrix[0][MINDEX(y,z)], &dead_to_live[0], K, count);
+    }
+    if(x <= 5){ //TODO vai ter de receber my_size
+        K.x = x + 1;
+        check_entry(&matrix[2][MINDEX(y,z)], &dead_to_live[2], K, count);
+    }
+    K.x = x;
 
 	// y coordinate neighbor search
 	if(y != 0)
