@@ -22,6 +22,7 @@
 #define DEBUG_gen printf("generation = %d\n", n_generations)
 #define DEBUG_sizes printf("%d: incoming_lsize = %d , list_size = %d\n", id, incoming_lsize, list_size);
 #define DEBUG_dtl(i) printf("ltd = %p dtl = %p\n", l_t_d[i], d_t_l[i])
+#define DEBUG_id printf("proc id = %d\n", id)
 
 void usage();
 int hashfunction (struct data k);
@@ -190,6 +191,7 @@ int main(int argc, char *argv[]){
 				aux = hash_first(hashtable, middle);
 				if(list_search(hashtable->table[middle],aux->K)){
 					printf("REPEATED LIVE CELL!\n" );
+                    DEBUG_id;
 					DEBUG_cell(aux->K);
 					DEBUG_middle;
 				}
@@ -223,7 +225,7 @@ int main(int argc, char *argv[]){
                 d_t_l[1] = dead_to_live[0];
 
             //insert dead cells that become live in hashtable
-            if(i > 1){ //CHANGED to i > 1
+            if(i > 1){
 	           hashtable->table[middle - 1] = lists_concatenate(hashtable->table[middle - 1], dead_to_live[0]);
                dead_to_live[0] = list_init();
         	}
@@ -294,17 +296,12 @@ int main(int argc, char *argv[]){
                     dsend = malloc(total_send_size * sizeof(data));
 
 					//Vectorizes the list
-                    data K;
+                    //data K;
                     item *list = lists_concatenate(l_t_d[v], d_t_l[v]);
                     int k = 0;
                     while(list != NULL){
-                        K = list_first(&list)->K;
-						//TODO nao fazer revert, mudar K.x - 1 e K.x + 1
-						if(K.x == 1)
-							K.x = my_size+1; //TODO com chuncks de diferentes tamanhos
-						else
-							K.x = 0;
-                        dsend[k++] = K;
+                        dsend[k++] = list_first(&list)->K;
+                        //K = hash_index_revert(K, my_index);
                     }
 					/*if(id==0){
 						for(int j=0; j < list_size[0]; j++)
@@ -331,11 +328,27 @@ int main(int argc, char *argv[]){
                     for(int k = 0; k < incoming_lsize[0]; k++){ //Remove l_t_d from hashtable
                         //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
 						//DEBUG_gen;
-                        hash_remove(hashtable, drecv[k]);
+                        if(drecv[k].x == 1)
+							drecv[k].x = my_size+1; //TODO com chuncks de diferentes tamanhos
+						else
+							drecv[k].x = 0;
+                        //hash_remove(hashtable, drecv[k]);
+                        if(v == 0)
+                            hashtable->table[my_size+1] = list_remove(hashtable->table[my_size+1], drecv[k]);
+                        else
+                            hashtable->table[0] = list_remove(hashtable->table[0], drecv[k]);
                     }
-                    for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Inser d_t_l in hashtable
+                    for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Insert d_t_l in hashtable
                         //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
-                        hash_insert(hashtable, drecv[k]);
+                        if(drecv[k].x == 1)
+							drecv[k].x = my_size+1;
+						else
+							drecv[k].x = 0;
+                        //hash_insert(hashtable, drecv[k]);
+                        if(v == 0)
+                            hashtable->table[my_size+1] = list_append(hashtable->table[my_size+1], drecv[k]);
+                        else
+                            hashtable->table[0] = list_append(hashtable->table[0], drecv[k]);
                     }
                 }
                 else{
@@ -350,11 +363,27 @@ int main(int argc, char *argv[]){
 						//DEBUG_gen;
 						/*if(id==p-1)
 							print_data(drecv[k]);*/
-                        hash_remove(hashtable, drecv[k]);
+                        if(drecv[k].x == 1)
+							drecv[k].x = my_size+1;
+						else
+							drecv[k].x = 0;
+                        //hash_remove(hashtable, drecv[k]);
+                        if(v == 0)
+                            hashtable->table[my_size+1] = list_remove(hashtable->table[my_size+1], drecv[k]);
+                        else
+                            hashtable->table[0] = list_remove(hashtable->table[0], drecv[k]);
                     }
                     for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Insert d_t_l in hashtable
                         //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
-                        hash_insert(hashtable, drecv[k]);
+                        if(drecv[k].x == 1)
+							drecv[k].x = my_size+1;
+						else
+							drecv[k].x = 0;
+                        //hash_insert(hashtable, drecv[k]);
+                        if(v == 0)
+                            hashtable->table[my_size+1] = list_append(hashtable->table[my_size+1], drecv[k]);
+                        else
+                            hashtable->table[0] = list_append(hashtable->table[0], drecv[k]);
                     }
                 }
 				/*if(id==0){
