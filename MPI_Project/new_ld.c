@@ -164,7 +164,6 @@ int main(int argc, char *argv[]){
         }
 
         if(sent*buffer_size + idx == lines){
-            printf("proc %d says: im out!\n", id);
             break;
         }
         sent++;
@@ -558,7 +557,9 @@ int main(int argc, char *argv[]){
     hash_revert(hashtable, my_index);
 
     if(id == 0){
-        hash_print(hashtable);
+        for(int j = 1; j < my_size + 1; j++){
+            list_print(hashtable->table[j]);
+        }
         int tsize;
         data *hrecv = NULL;
         for(int j = 1; j < p; j++){
