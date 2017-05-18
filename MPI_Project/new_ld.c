@@ -178,7 +178,7 @@ int main(int argc, char *argv[]){
 			printf("==============\n");
 
 		}*/
-		if(id==0) DEBUG_gen;
+		//if(id==0) DEBUG_gen;
 		for(i = 0; i < my_size + 2; i++){
 			item *list_aux = list_init(), *aux = NULL;
 			int count;
@@ -333,7 +333,12 @@ int main(int argc, char *argv[]){
                     int k = 0;
                     while(aux != NULL){
                         dsend[k++] = aux->K;
-						aux = aux->next;
+						if(k == list_size[0]){
+							item* splitter = aux;
+							aux = aux->next;
+							splitter->next = NULL;
+						}else
+							aux = aux->next;
                         //K = hash_index_revert(K, my_index);
                     }
 					/*if(id==0){
@@ -461,10 +466,14 @@ int main(int argc, char *argv[]){
 					fflush(stdout);
 					//sleep(5);
 				}*/
-                if(dsend != NULL)
+                if(dsend != NULL){
+					if(l_t_d[v] != NULL)
+						list_free(l_t_d[v]);
                     free(dsend);
-                if(drecv != NULL)
+				}
+                if(drecv != NULL){
                     free(drecv);
+				}
             }
 			/*MPI_Barrier(new_world);
 			if(id==0){
