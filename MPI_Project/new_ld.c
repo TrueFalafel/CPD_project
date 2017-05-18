@@ -109,6 +109,13 @@ int main(int argc, char *argv[]){
             hash_insert(hashtable, k);
         }
     }
+	/*if(id==p-1){
+		list_sort(&hashtable->table[6]);
+		list_print(hashtable->table[6]);
+		printf("============\n" );
+		fflush(stdout);
+	}*/
+
 	fclose(pf);
 
 	/*INITIATE PROCESSES*******************************************************/
@@ -142,12 +149,12 @@ int main(int argc, char *argv[]){
     //first and last live to dead lists
     item *l_t_d[2];
 
-	for(int i=0; i < 2; i++){
-		l_t_d[i] = list_init();
-		d_t_l[i] = list_init();
-	}
-
     while(n_generations--){
+		//TODO fazer free das l_t_d
+		for(int i=0; i < 2; i++){
+			l_t_d[i] = list_init();
+			d_t_l[i] = list_init();
+		}
 		//DEBUG_gen;
         MPI_Barrier(new_world); //REQUIRED!!
 		int empty_slices = 0;
@@ -196,11 +203,11 @@ int main(int argc, char *argv[]){
 					list_aux = list_push(list_aux, aux);
 				}else{ //else it dies, so doesn't stay in the hash table
                     //in the first and last slices, the live_to_dead should be kept
-                    if(middle == 1)
+                    if(middle == 1){
                         l_t_d[0] = list_push(l_t_d[0], aux);
-                    else if(middle == my_size)
+                    }else if(middle == my_size){
                         l_t_d[1] = list_push(l_t_d[1], aux);
-                    else
+                    }else
                         free(aux);
                 }
 			}//CHECK GOOD 1
@@ -240,6 +247,10 @@ int main(int argc, char *argv[]){
             //if(id == 3)
         //        printf("middle = %d\n", middle);
 		}
+	/*	f(id==0){
+			printf("==============\n" );
+			list_print(l_t_d[0]);
+		}*/
         /*SEND HASH_LIST[middle - 1] to (id + 1)%p*****************************/
         /*RECEIVE HASH_LIST[middle] from (id + 1)%p or dead_to_live ? *********/
         //if(id == 3)
@@ -261,10 +272,9 @@ int main(int argc, char *argv[]){
 				//DEBUG PRINTS
 				/*DEBUG_dtl(v);
 				if(id==0){
-					//hash_print(hashtable);
 					list_print(l_t_d[v]);
 					printf("==============\n");
-					list_print(hashtable->table[3]);
+					list_print(d_t_l[v]);
 					fflush(stdout);
 				}
 				sleep(5);*/
@@ -289,9 +299,19 @@ int main(int argc, char *argv[]){
                     int k = 0;
                     while(list != NULL){
                         K = list_first(&list)->K;
-                        K = hash_index_revert(K, my_index);
+						//TODO nao fazer revert, mudar K.x - 1 e K.x + 1
+						if(K.x == 1)
+							K.x = my_size+1; //TODO com chuncks de diferentes tamanhos
+						else
+							K.x = 0;
                         dsend[k++] = K;
                     }
+					/*if(id==0){
+						for(int j=0; j < list_size[0]; j++)
+							print_data(dsend[j]);
+						printf("=============\n" );
+						fflush(stdout);
+					}*/
                 }
 
                 // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
@@ -309,12 +329,12 @@ int main(int argc, char *argv[]){
                     MPI_Recv(drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 1, new_world, &status); // RECEIVE
 
                     for(int k = 0; k < incoming_lsize[0]; k++){ //Remove l_t_d from hashtable
-                        drecv[k] = my_hash_index(drecv[k], my_index, my_size);
-						DEBUG_gen;
+                        //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
+						//DEBUG_gen;
                         hash_remove(hashtable, drecv[k]);
                     }
                     for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Inser d_t_l in hashtable
-                        drecv[k] = my_hash_index(drecv[k], my_index, my_size);
+                        //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
                         hash_insert(hashtable, drecv[k]);
                     }
                 }
@@ -323,13 +343,17 @@ int main(int argc, char *argv[]){
                                 drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 1,
                                 new_world, &status);
                     //hash_print(hashtable);
+					/*if(id == p-1)
+						printf("=============[Receiving]\n" );*/
                     for(int k = 0; k < incoming_lsize[0]; k++){ //Remove l_t_d from hashtable
-                        drecv[k] = my_hash_index(drecv[k], my_index, my_size);
-						DEBUG_gen;
+                        //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
+						//DEBUG_gen;
+						/*if(id==p-1)
+							print_data(drecv[k]);*/
                         hash_remove(hashtable, drecv[k]);
                     }
                     for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Insert d_t_l in hashtable
-                        drecv[k] = my_hash_index(drecv[k], my_index, my_size);
+                        //drecv[k] = my_hash_index(drecv[k], my_index, my_size);
                         hash_insert(hashtable, drecv[k]);
                     }
                 }
@@ -413,10 +437,7 @@ data my_hash_index(data K, int my_index, int my_size){
 ***********************************************************************/
 data hash_index_revert(data K, int my_index){
     data Y = K;
-    Y.x = (Y.x + my_index-1)%cube_size;
-
-    if(Y.x == -1) //first thread has slice 19 in hastable[0]
-        Y.x = 19;
+    Y.x = WRAP((Y.x + my_index-1)%cube_size);
 
     return Y;
 }

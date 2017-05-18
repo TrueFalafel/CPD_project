@@ -62,6 +62,7 @@ item* list_remove(item* root, data K){
 	}else{
 		while(!equal_data(aux_seg->K, K)){
 			if(aux_seg->next == NULL){
+				printf("[%d %d %d]\n", K.x, K.y, K.z);
 				perror("No data K found in remove!\n");
 				exit(-1);
 			}
