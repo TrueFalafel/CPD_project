@@ -458,19 +458,43 @@ int main(int argc, char *argv[]){
 			SLICE_CLEAN(dynamic_matrix[i]);
 		/*********END GENERATION**********************/
 	}
+    MPI_Barrier(new_world);
     /*END PROCESSES AND PRINT HASH TABLE***************************************/
     for(i = 0; i < N_SLICES; i++)
         free(dynamic_matrix[i]);
     // All processes sort their own chunk
     hash_sort_chunk(hashtable, 1, my_size);
     hash_revert(hashtable, my_index);
-    hash_print(hashtable);
 
-    //Mandar hash para um proc
-    for(int proc = 1; proc < p; p++){
-        if(id == proc){
-            MPI_Send
+    if(id == 0){
+        hash_print(hashtable);
+        int tsize;
+        data *hrecv = NULL;
+        for(int j = 1; j < p; j++){
+            MPI_Recv(&tsize, 1, MPI_INT, j, TAG + j, new_world, &status);
+            if(tsize){
+                hrecv = malloc(tsize * sizeof(data));
+                MPI_Recv(hrecv, tsize, MPI_DATA, j, TAG + j + 1, new_world, &status);
+                for(int n = 0; n < tsize; n++)
+                    print_data(hrecv[n]);
+            }
         }
+        fflush(stdout);
+    }else{
+        int hsize = 0;
+        data *hsend = NULL;
+        for(int j = 1; j < my_size+1; j++){
+            hsize += list_count_el(hashtable->table[j]);
+        }
+        hsend = malloc(hsize * sizeof(data));
+        for(int j = 1, l = 0; j < my_size+1; j++){
+            while(hashtable->table[j] != NULL){
+                hsend[l++] = hash_first(hashtable, j)->K;
+            }
+        }
+        MPI_Send(&hsize, 1, MPI_INT, 0, TAG + id, new_world);
+        if(hsize)
+            MPI_Send(hsend, hsize, MPI_DATA, 0, TAG + id + 1, new_world);
     }
 
     // All processes print their own chunk iteratively
