@@ -206,3 +206,20 @@ void list_split(item* head, item** first_half, item** second_half){
 		slow->next = NULL;
 	}
 }
+
+item *list_copy_and_change(item *list, int my_size){
+	item *aux = list;
+	item *new_list = list_init();
+	while(aux != NULL){
+		item* new = malloc(sizeof(item));
+		new->K = set_data(aux->K.x, aux->K.y, aux->K.z);
+		if(new->K.x == 1){
+			new->K.x = my_size + 1;
+		}else if(new->K.x == my_size){
+			new->K.x = 0;
+		}
+		new_list = list_push(new_list, new);
+		aux = aux->next;
+	}
+	return new_list;
+}

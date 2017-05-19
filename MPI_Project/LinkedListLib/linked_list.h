@@ -42,6 +42,8 @@ void list_split(item* head, item** first_half, item** second_half);
 
 int list_count_el(item *root);
 
+item *list_copy_and_change(item *list, int my_size);
+
 /***** funções abstratas (falta implementação)***/
 data set_data(int x, int y, int z);
 
