@@ -100,12 +100,13 @@ int main(int argc, char *argv[]){
     MPI_Datatype type[3] = {MPI_INT, MPI_INT, MPI_INT};
     int blocklen[3] = {1, 1, 1};
     MPI_Aint disp[3];
+    // Get the offsets from the given field to the start of the struct
     disp[0] = offsetof(data, x);
     disp[1] = offsetof(data, y);
     disp[2] = offsetof(data, z);
 
-    MPI_Type_create_struct(3, blocklen, disp, type, &MPI_DATA);
-    MPI_Type_commit(&MPI_DATA);
+    MPI_Type_create_struct(3, blocklen, disp, type, &MPI_DATA); // Create struct datatype that contains X Y and Z indexes
+    MPI_Type_commit(&MPI_DATA); // Commit new datatype
 
     hashtable_s *hashtable;
     hashtable = hash_create(my_size+2, &hashfunction);
