@@ -6,31 +6,26 @@
 #include <math.h>
 #include <mpi.h>
 #include <unistd.h>
-#include <time.h>
 
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 #define TAG 1
-#define MAX_SIZE 5000000
 #define MINDEX(i, j) (i + j*cube_size)
 #define SLICE_CLEAN(slice) (memset(slice, 0, cube_size*cube_size))
 #define WRAP(i) (i != -1 ? i : cube_size - 1)
 #define NEXT_P(id) ((id+1)%p)
 #define PREV_P(id) (id - 1 != -1 ? id - 1 : p - 1)
-
 // SIMPLE DEBUGS
 #define DEBUG do{printf("aqui?\n"); sleep(3); fflush(stdout);}while(0)
 #define DEBUG_middle printf("middle = %d\n", middle)
 #define DEBUG_cell(cell) (printf("cell = [%d, %d, %d]\n", cell.x, cell.y, cell.z))
 #define DEBUG_gen printf("generation = %d\n", n_generations)
 #define DEBUG_sizes printf("%d: incoming_lsize = %d , list_size = %d\n", id, incoming_lsize, list_size);
-#define DEBUG_dtl(i) printf("ltd = %p dtl = %p\n", l_t_d[i], d_t_l[i])
-#define DEBUG_id printf("proc id = %d\n", id)
 
 void usage();
 int hashfunction (struct data k);
 int insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry);
-void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count, int my_size);
+void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count);
 void check_entry(signed char *entry, item **dead_to_live, data K, int *count);
 void compute_generations(hashtable_s *hashtable);
 void chunks_indexes(int *, int);
@@ -99,7 +94,41 @@ int main(int argc, char *argv[]){
     my_size = id + 1 != p ? chunk_index[id + 1] - chunk_index[id] : cube_size - chunk_index[id];
     // AFTER THIS ALL PROCESSES HAVE THEIR HASH SPACE
 
-    /*INITIATE PROCESSES*******************************************************/
+    hashtable_s *hashtable;
+    data k;
+    hashtable = hash_create(my_size+3, &hashfunction);
+	/*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
+	// TODO todos lerem o ficheiro, cada um guardar so o que deve
+	while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){
+        if(hashtable->hash_function(k) >= my_index && hashtable->hash_function(k) < (my_index+my_size+3)){
+            k = my_hash_index(k, my_index, my_size);
+            hash_insert(hashtable, k);
+        }
+        else if(id == p-1 && hashtable->hash_function(k) >= 0 && hashtable->hash_function(k) <= 2){
+            k = my_hash_index(k, my_index, my_size);
+            hash_insert(hashtable, k);
+        }
+    }
+    /*if(id==3){
+        hash_print(hashtable);
+    }
+    for(int middle =0; middle < my_size+3; middle++){
+        while(hashtable->table[middle] != NULL){
+            item* aux = hash_first(hashtable, middle);
+            if(list_search(hashtable->table[middle],aux->K)){
+                printf("REPEATED LIVE CELL!\n" );
+                printf("ID: %d\n", id);
+                DEBUG_cell(aux->K);
+                DEBUG_middle;
+            }
+
+        }
+    }
+    MPI_Barrier(new_world);
+    exit(1);*/
+	fclose(pf);
+
+	/*INITIATE PROCESSES*******************************************************/
     MPI_Status status;
     /*CREATE DATA STRUCT*******************************************************/
     MPI_Datatype MPI_DATA;
@@ -113,90 +142,11 @@ int main(int argc, char *argv[]){
     MPI_Type_create_struct(3, blocklen, disp, type, &MPI_DATA);
     MPI_Type_commit(&MPI_DATA);
 
-    hashtable_s *hashtable;
-    hashtable = hash_create(my_size+2, &hashfunction);
-	/*GET ALL LIVE CELLS IN THE BEGINNING**************************************/
-	//Check number of lines ia a file = second integer in file's name
-    int dummy = 0, lines = 0;
-    char mult;
-    sscanf(argv[1], "%*[^0123456789]%d%*[^0123456789]%d%c", &dummy, &lines, &mult);
-    //cell multiplier
-    if(mult == 'k' || mult == 'K')
-        lines = lines * 1000;
-    if(mult == 'm' || mult == 'M')
-        lines = lines * 1000000;
-    if(mult == 'g' || mult == 'G')
-        lines = lines * 1000000000;
-
-    //Reduce buffer_size to prevent memory overflowing
-    int buffer_size = lines;
-    if(lines > MAX_SIZE)
-        buffer_size = ceil(lines/2);
-    if(lines > 2*MAX_SIZE)
-        buffer_size = ceil(lines/4);
-
-    int stored = 0;
-    int sent = 0;
-    data *buffer = malloc(buffer_size * sizeof(data));
-    data k;
-    while(1){
-        if(id == 0){
-            while(fscanf(pf, "%d %d %d", &k.x, &k.y, &k.z) != EOF){//read file
-                buffer[stored++] = k;
-                if(stored == buffer_size){
-                    break;
-                }
-            }
-            for(int i = stored; i < buffer_size; i++)
-                buffer[i] = set_data(-1, -1, -1);
-        }
-        //Broadcast of the buffer
-        MPI_Bcast(buffer, buffer_size, MPI_DATA, 0, new_world);
-
-        //Store info in hashtable
-        data final = {-1,-1,-1}; //check end
-        int idx;
-        for(idx = 0; idx < buffer_size && !equal_data(buffer[idx], final); idx++){
-            if(p > 1){ //for more then one machine
-                if(hashtable->hash_function(buffer[idx]) >= my_index-1 && hashtable->hash_function(buffer[idx]) < (my_index+my_size+1)){
-                    buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
-                    hash_insert(hashtable, buffer[idx]);
-                }
-                else if(id == p-1 && hashtable->hash_function(buffer[idx]) == 0){//last proc needs slice 0
-                    buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
-                    hash_insert(hashtable, buffer[idx]);
-                }
-                else if(id == 0 && hashtable->hash_function(buffer[idx]) == cube_size-1){//first proc needs slice cube_size-1
-                    buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
-                    hash_insert(hashtable, buffer[idx]);
-                }
-            }else{ //for one machine
-                if(hashtable->hash_function(buffer[idx]) >= my_index-1 && hashtable->hash_function(buffer[idx]) < (my_index+my_size+1)){
-                    buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
-                    hash_insert(hashtable, buffer[idx]);
-                }
-                if(hashtable->hash_function(buffer[idx]) == my_size-1){ //put x=my_size-1 in slice my_size
-                    buffer[idx].x = my_size;
-                    hash_insert(hashtable, buffer[idx]);
-                }else if(hashtable->hash_function(buffer[idx]) == 0){ //put x = 0 in slice 1
-                    buffer[idx].x = 1;
-                    hash_insert(hashtable, buffer[idx]);
-                }
-            }
-        }
-
-        if(sent*buffer_size + idx == lines){
-            break;
-        }
-        sent++;
-        stored = 0;
-    }
-
-	fclose(pf);
 	/****Cycle for generations*************************************************/
 	int i;
 	signed char *matrix_tmp = NULL;
-
+	// To save the first and second slices
+	//signed char *first_slice, *second_slice;
 	// Matrix that runs through the cube
 	signed char *dynamic_matrix[N_SLICES];
 	//item *first_list, *second_list;
@@ -204,22 +154,13 @@ int main(int argc, char *argv[]){
 	for(i = 0; i < N_SLICES; i++)
 		dynamic_matrix[i] = calloc(cube_size * cube_size, sizeof(char));
 
-    //first and last dead to live lists
-    item *d_t_l[2];
-    //first and last live to dead lists
-    item *l_t_d[2];
-
     while(n_generations--){
-		//TODO fazer free das l_t_d
-		for(int i=0; i < 2; i++){
-			l_t_d[i] = list_init();
-			d_t_l[i] = list_init();
-		}
+		//DEBUG_gen;
         MPI_Barrier(new_world); //REQUIRED!!
 		int empty_slices = 0;
 		//first 3 slice insertions
-		for(i = 1; i < N_SLICES; i++)
-			insert_in_slice(dynamic_matrix[i], hashtable, i-1) ? empty_slices = 0 : empty_slices++;
+		for(i = 0; i < N_SLICES; i++)
+			insert_in_slice(dynamic_matrix[i], hashtable, i) ? empty_slices = 0 : empty_slices++;
 
 		/*lists that takes all the possible dead candidates to become live
 		one for each slice*/
@@ -228,18 +169,19 @@ int main(int argc, char *argv[]){
 			dead_to_live[i] = list_init();
 
         int middle;
-
+        //if(id == 3)
+        //    printf("middle = %d my_size = %d\n", middle, my_size);
 		for(i = 0; i < my_size + 2; i++){
 			item *list_aux = list_init(), *aux = NULL;
 			int count;
-
-			middle = i;
+			//in the last iteration we should examine the first hash_list
+			middle = i+1;
 			//If there are 3 consecutive empty slices there is no need to clean the middle one
 			int safe_slice = 0;
 			if(empty_slices > 2)
 				safe_slice = 1;
-
-            //In the last slice there's no need to fill the right slice
+			/*first 3 slices are already filled, and when it wraps around
+			slices 1 and 2 are already filled too*/
 			if(i > 0 && i < my_size+1){
                 insert_in_slice(dynamic_matrix[2], hashtable, (middle+1)) ? empty_slices = 0 : empty_slices++;
             }
@@ -247,43 +189,32 @@ int main(int argc, char *argv[]){
 			while(hashtable->table[middle] != NULL){
 				count = 0;
 				aux = hash_first(hashtable, middle);
-
+				if(list_search(hashtable->table[middle],aux->K)){
+					printf("REPEATED LIVE CELL!\n" );
+					DEBUG_cell(aux->K);
+					DEBUG_middle;
+				}
 				//checks neighbors of the live cell in aux
-				check_neighbors(dynamic_matrix, dead_to_live, aux, &count, my_size);
-
-                //In the limit slices it doesn't check for the live ones
-				if(middle == 0 || middle == my_size + 1){
-					list_aux = list_push(list_aux, aux);
+				check_neighbors(dynamic_matrix, dead_to_live, aux, &count);
 				//if cell stays alive goes to the temporary list
-				}else if(count >= 2 && count <= 4){
+				if(count >= 2 && count <= 4)
 					list_aux = list_push(list_aux, aux);
-				}else{ //else it dies, so doesn't stay in the hash table
-                    //in the first and last slices, the live_to_dead should be kept
-                    if(middle == 1){
-                        l_t_d[0] = list_push(l_t_d[0], aux);
-                    }else if(middle == my_size){
-                        l_t_d[1] = list_push(l_t_d[1], aux);
-                    }else
-                        free(aux);
-                }
-			}//CHECK GOOD 1
+				else //else it dies, so doesn't stay in the hash table
+					free(aux);
+			}
 			//inserts just the live cells that stayed alive
 			hashtable->table[middle] = list_aux;
 			list_aux = NULL;
 
-			//When first slice's or last slice's dead_to_live is complete
-			//It is transfered to d_t_l be sent
-            if(middle == 2)
-                d_t_l[0] = dead_to_live[0];
-            else if(middle == my_size+1)
-                d_t_l[1] = dead_to_live[0];
-
             //insert dead cells that become live in hashtable
-            if(i > 1){
-	           hashtable->table[middle - 1] = lists_concatenate(hashtable->table[middle - 1], dead_to_live[0]);
+            if(i>1){
+	           hashtable->table[WRAP(middle - 1)] = lists_concatenate(hashtable->table[WRAP(middle - 1)], dead_to_live[0]);
                dead_to_live[0] = list_init();
         	}
+          // if(id == 3)
+            //    list_print(hashtable->table[WRAP(middle - 1)]);
 
+            //dead_to_live lists shift
             dead_to_live[0] = dead_to_live[1];
 			dead_to_live[1] = dead_to_live[2];
 			dead_to_live[2] = NULL;
@@ -295,170 +226,126 @@ int main(int argc, char *argv[]){
 			dynamic_matrix[2] = matrix_tmp;
 			if(!safe_slice) //if the leftmost slice is safe(empty), it doesn't need to be cleaned
 		          SLICE_CLEAN(dynamic_matrix[2]);
-		}//end for hashlist
-
+			//goes on in the hashtable
+            //middle++;
+            //if(id == 3)
+        //        printf("middle = %d\n", middle);
+		}
+        /*SEND HASH_LIST[middle - 1] to (id + 1)%p*****************************/
+        /*RECEIVE HASH_LIST[middle] from (id + 1)%p or dead_to_live ? *********/
+        //if(id == 3)
+        //    printf("middle = %d\n", middle);
+    //    exit(0);
         if(p > 1){
-            int n_coms = 2; //number of comunications
-			//Destinies: previous, next processors
-            int dest[2] = {PREV_P(id), NEXT_P(id)};
-			//Sources: next, previous processors
-            int source[2] = {NEXT_P(id), PREV_P(id)};
-
-            for(int v = 0; v != n_coms; v++){
-                int incoming_lsize[2]={0,0};
-                int list_size[2];
-
-                list_size[0] = list_count_el(l_t_d[v]);
-                list_size[1] = list_count_el(d_t_l[v]);
-                int total_send_size = list_size[0] + list_size[1];
-
-                // SEND SIZE OF LISTS
-                MPI_Sendrecv(list_size, 2, MPI_INT, dest[v], TAG + v,
-                        incoming_lsize, 2, MPI_INT, source[v], TAG + v,
+            int send_idx[3] = {my_size, my_size + 1, 2};
+            int recv_idx[3] = {0, 1, my_size+2};
+			//Destinies: next, next, previous processors
+            int dest[3] = {NEXT_P(id), NEXT_P(id), PREV_P(id)};
+			//Sources: previous, previous, next processors
+            int source[3] = {PREV_P(id), PREV_P(id), NEXT_P(id)};
+            for(int v = 0; v != sizeof send_idx/sizeof *send_idx; v++){
+                int incoming_lsize=0, list_size = list_count_el(hashtable->table[send_idx[v]]);
+                // SEND SIZE OF HASHLIST AND GET SIZE OF THE INCOMING HASHLIST
+                MPI_Sendrecv(&list_size, 1, MPI_INT, dest[v], TAG + v,
+                        &incoming_lsize, 1, MPI_INT, source[v], TAG + v,
                         new_world, &status);
-
                 // CONVERT LIST TO VECTOR
-                data *dsend = NULL;//Vector to receive list
-                if(total_send_size){
-                    dsend = malloc(total_send_size * sizeof(data));
-
-					//Vectorizes the list
-                    item* list = lists_concatenate(l_t_d[v], d_t_l[v]);
-					item* aux = list;
+                data *dsend = NULL;
+                if(list_size){
+                    dsend = malloc(list_size * sizeof(data));
                     int k = 0;
-                    while(aux != NULL){
-                        dsend[k++] = aux->K;
-                        //Separate l_t_d from d_t_l so l_t_d can be freed later
-						if(k == list_size[0]){
-							item* splitter = aux;
-							aux = aux->next;
-							splitter->next = NULL;
-						}else
-							aux = aux->next;
+					//Vectorizes the hashlist
+                    data K;
+                    while(hashtable->table[send_idx[v]] != NULL){
+                        K = hash_first(hashtable, send_idx[v])->K;
+                        K = hash_index_revert(K, my_index);
+                        dsend[k++] = K;
+                    }
+					//Refills the hashlist
+					while(k--){
+                        K = my_hash_index(dsend[k], my_index, my_size);
+                        hash_insert(hashtable, K);
                     }
                 }
-
                 // ALLOC MEMORY TO RECEIVE THE INCOMING LIST IN VECTOR FORM
                 data *drecv = NULL;
-                int total_recv_size = incoming_lsize[0] + incoming_lsize[1];
-                if(total_recv_size)
-                    drecv = malloc(total_recv_size * sizeof(data));
+                if(incoming_lsize)
+                    drecv = malloc(incoming_lsize * sizeof(data));
 
 				//Decides whether it just sends, just receives or sends and receives
-                if(!total_send_size && !total_recv_size)
+                if(!list_size && !incoming_lsize)
                     ; // SKIP
-                else if(total_send_size && !total_recv_size)
-                    MPI_Send(dsend, total_send_size, MPI_DATA, dest[v], TAG + v + 2, new_world); // SEND
-                else if(!total_send_size && total_recv_size){
-                    MPI_Recv(drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 2, new_world, &status); // RECEIVE
-
-                    for(int k = 0; k < incoming_lsize[0]; k++){ //Remove l_t_d from hashtable
-                        //transform indexes to the receiver thread hashtable
-                        if(drecv[k].x == 1)
-							drecv[k].x = my_size+1;
-						else
-							drecv[k].x = 0;
-                        hash_remove(hashtable, drecv[k]);
-                    }
-
-                    for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Insert d_t_l in hashtable
-                        //transform indexes to the receiver thread hashtable
-                        if(drecv[k].x == 1)
-							drecv[k].x = my_size+1;
-						else
-							drecv[k].x = 0;
+                else if(list_size && !incoming_lsize)
+                    MPI_Send(dsend, list_size, MPI_DATA, dest[v], TAG + v + 1, new_world); // SEND
+                else if(!list_size && incoming_lsize){
+                    MPI_Recv(drecv, incoming_lsize, MPI_DATA, source[v], TAG + v + 1, new_world, &status); // RECEIVE
+                    // CONVERT VECTOR TO HASHLIST
+                    hashtable->table[recv_idx[v]] = NULL; //TODO free da lista em vez de meter a NULL
+                    for(int k = 0; k != incoming_lsize; k++){
+                        drecv[k] = my_hash_index(drecv[k], my_index, my_size);
                         hash_insert(hashtable, drecv[k]);
                     }
                 }
                 else{
-                    MPI_Sendrecv(dsend, total_send_size, MPI_DATA, dest[v], TAG + v + 2,
-                                drecv, total_recv_size, MPI_DATA, source[v], TAG + v + 2,
+                    MPI_Sendrecv(dsend, list_size, MPI_DATA, dest[v], TAG + v +1,
+                                drecv, incoming_lsize, MPI_DATA, source[v], TAG + v+ 1,
                                 new_world, &status);
-
-                    for(int k = 0; k < incoming_lsize[0]; k++){ //Remove l_t_d from hashtable
-                        //transform indexes to the receiver thread hashtable
-                        if(drecv[k].x == 1)
-							drecv[k].x = my_size+1;
-						else
-                            drecv[k].x = 0;
-                        hash_remove(hashtable, drecv[k]);
-                    }
-
-                    for(int k = incoming_lsize[0]; k < total_recv_size; k++){//Insert d_t_l in hashtable
-                        //transform indexes to the receiver thread hashtable
-                        if(drecv[k].x == 1)
-							drecv[k].x = my_size+1;
-						else
-							drecv[k].x = 0;
+                    // CONVERT VECTOR TO HASHLIST
+                    hashtable->table[recv_idx[v]] = NULL; //TODO free da lista em vez de meter a NULL
+                    for(int k = 0; k != incoming_lsize; k++){
+                        drecv[k] = my_hash_index(drecv[k], my_index, my_size);
                         hash_insert(hashtable, drecv[k]);
                     }
                 }
-                if(dsend != NULL){
-					if(l_t_d[v] != NULL)
-						list_free(l_t_d[v]);
+				/*if(id==0){
+					printf("--%d--\n",id );
+					list_sort(&hashtable->table[0]);
+					list_print(hashtable->table[0]);
+					printf("*******************\n" );
+					fflush(stdout);
+					//sleep(5);
+				}
+				MPI_Barrier(new_world);
+				if(id==p-1){
+					printf("--%d--\n",id );
+					list_sort(&hashtable->table[0]);
+					list_print(hashtable->table[0]);
+					printf("*******************\n" );
+					fflush(stdout);
+					//sleep(5);
+				}*/
+                if(dsend != NULL)
                     free(dsend);
-				}
-                if(drecv != NULL){
+                if(drecv != NULL)
                     free(drecv);
-				}
             }
-        }else{ //for just one thread, copy the boundary slices
-            hashtable->table[my_size+1] = list_copy_and_change(hashtable->table[1], my_size);
-            hashtable->table[0] = list_copy_and_change(hashtable->table[my_size], my_size);
         }
 		/******INFO SENT********************************/
 		for(i = 0; i < N_SLICES; i++)
 			SLICE_CLEAN(dynamic_matrix[i]);
 		/*********END GENERATION**********************/
 	}
-    MPI_Barrier(new_world);
     /*END PROCESSES AND PRINT HASH TABLE***************************************/
     for(i = 0; i < N_SLICES; i++)
         free(dynamic_matrix[i]);
     // All processes sort their own chunk
-    hash_sort_chunk(hashtable, 1, my_size);
-    hash_revert(hashtable, my_index);
-
-    /*To print the final output, all machines (in order) have to send
-    * their hashtable to the "master" macine. The "master" have to print their
-    * hashtables as it receives them*/
-    if(id == 0){
-        hash_print_chunk(hashtable, 1, my_size);
-        int tsize;
-        data *hrecv = NULL;
-        for(int j = 1; j < p; j++){
-            MPI_Recv(&tsize, 1, MPI_INT, j, TAG + j, new_world, &status);
-            if(tsize){
-                hrecv = malloc(tsize * sizeof(data));
-                MPI_Recv(hrecv, tsize, MPI_DATA, j, TAG + j + 1, new_world, &status);
-                for(int n = 0; n < tsize; n++)
-                    print_data(hrecv[n]);
-            }
-        }
-        fflush(stdout);
-    }else{
-        int hsize = 0;
-        data *hsend = NULL;
-        for(int j = 1; j < my_size+1; j++){
-            hsize += list_count_el(hashtable->table[j]); //Count all the live cells in the hashtable
-        }
-        hsend = malloc(hsize * sizeof(data));
-        for(int j = 1, l = 0; j < my_size+1; j++){
-            while(hashtable->table[j] != NULL){
-                hsend[l++] = hash_first(hashtable, j)->K;
-            }
-        }
-        MPI_Send(&hsize, 1, MPI_INT, 0, TAG + id, new_world);
-        if(hsize)
-            MPI_Send(hsend, hsize, MPI_DATA, 0, TAG + id + 1, new_world);
+    hash_sort_chunk(hashtable, 0, my_size);
+    // All processes print their own chunk iteratively
+    for(i = 0; i < p; i++){
+        if(id == i){
+            hash_revert(hashtable, my_index);
+            hash_print_chunk(hashtable, 0, my_size);
+			fflush(stdout);
+		}
+        MPI_Barrier(new_world);
     }
+    MPI_Finalize();
+    hash_free(hashtable);
 	if(id==0){
 		clock_t end = clock();
 		double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		printf("Execution time: %lf\n", time_spent);
 	}
-    MPI_Finalize();
-    hash_free(hashtable);
     exit(0);
 }
 /****************************END of MAIN****************************************/
@@ -480,13 +367,11 @@ void chunks_indexes(int *w, int n_chunks){
 ***********************************************************************/
 data my_hash_index(data K, int my_index, int my_size){
     data Y = K;
-
-    if(K.x == WRAP(my_index-1))//last slice of prev proc
-        Y.x = 0;
-    else if(K.x == (my_index + my_size)%cube_size) //first slice of next proc
-        Y.x = my_size + 1;
-    else
-        Y.x = K.x - my_index + 1;
+    if(K.x < my_index){
+        Y.x = my_size + K.x;
+    }else{
+        Y.x -= my_index;
+    }
     return Y;
 }
 
@@ -495,7 +380,7 @@ data my_hash_index(data K, int my_index, int my_size){
 ***********************************************************************/
 data hash_index_revert(data K, int my_index){
     data Y = K;
-    Y.x = WRAP((Y.x + my_index-1)%cube_size);
+    Y.x = (Y.x + my_index)%cube_size;
 
     return Y;
 }
@@ -554,21 +439,24 @@ int insert_in_slice(signed char * slice, hashtable_s *hashtable, int entry){
 * Checks the 6 neighbors of one live cell and calls check_entry for each
 *of them
 ***********************************************************************/
-void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count, int my_size){
+void check_neighbors(signed char **matrix, item **dead_to_live, item *node, int *count){
 	int x = node->K.x;
 	int y = node->K.y;
 	int z = node->K.z;
 	data K = {.x = x, .y = y, .z = z};
 
-    if(x >= 1){
-        K.x = x - 1;
-        check_entry(&matrix[0][MINDEX(y,z)], &dead_to_live[0], K, count);
-    }
-    if(x <= my_size){
-        K.x = x + 1;
-        check_entry(&matrix[2][MINDEX(y,z)], &dead_to_live[2], K, count);
-    }
-    K.x = x;
+	// x coordinate neighbor search
+	if(x != 0)
+		K.x = x - 1;
+	else
+		K.x = cube_size - 1;
+	check_entry(&matrix[0][MINDEX(y,z)], &dead_to_live[0], K, count);
+	if(x != cube_size-1)
+		K.x = x + 1;
+	else
+		K.x = 0;
+	check_entry(&matrix[2][MINDEX(y,z)], &dead_to_live[2], K, count);
+	K.x = x;
 
 	// y coordinate neighbor search
 	if(y != 0)
@@ -661,19 +549,12 @@ item* sort(item* list1, item* list2){
     return result;
 }
 
-/***********************************************************************
-* Sets the coordinates of a struct to the input coordinates
-***********************************************************************/
 data set_data(int x, int y, int z){
 	data K;
 	K.x = x; K.y = y; K.z = z;
 	return K;
 }
 
-/***********************************************************************
-* Reverts the coordinates of each cell in an hashtable to the global
-* coordinates
-***********************************************************************/
 void hash_revert(hashtable_s* hashtable, int my_index){
     item *aux;
     for(int i = 0; i < hashtable->size; i++){
@@ -682,16 +563,5 @@ void hash_revert(hashtable_s* hashtable, int my_index){
             aux->K = hash_index_revert(aux->K, my_index);
             aux = aux->next;
         }
-    }
-}
-
-/***********************************************************************
-* Reverts the coordinates of each cell in a list to the global coodinates
-***********************************************************************/
-void list_revert(item *list, int my_index){
-    item *aux = list;
-    while(aux != NULL){
-        aux->K = hash_index_revert(aux->K, my_index);
-        aux = aux->next;
     }
 }

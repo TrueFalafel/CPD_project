@@ -3,6 +3,7 @@
 #include "./LinkedListLib/linked_list.h"
 #include "./HashTableLib/hashtable.h"
 #include <string.h>
+#include <time.h>
 #define N_SLICES 3
 #define MIDDLE_SLICE 1
 
@@ -35,6 +36,7 @@ int main(int argc, char *argv[]){
     }
     /**************************************************************************/
     /*GET CUBE SIZE -> FIRST LINE OF INPUT TEXT FILE & NUMBER OF GENERATIONS***/
+	clock_t begin = clock();
     n_generations = atoi(argv[2]);
     fscanf(pf, "%d", &cube_size);
 
@@ -51,6 +53,11 @@ int main(int argc, char *argv[]){
 	hash_sort(hashtable);
     hash_print(hashtable);
     hash_free(hashtable);
+	/****  Exec time  ***/
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("Execution time: %lf\n", time_spent);
+	/***Exec time [end]**/
     exit(0);
 }
 /****************************END of MAIN******************************************/

@@ -1,2 +1,2 @@
 #!/bin/bash
-scp -r *.c LinkedListLib/ HashTableLib/ ist178799@cluster.rnl.tecnico.ulisboa.pt:
+scp -r *.c life3d LinkedListLib/ HashTableLib/ ist178799@cluster.rnl.tecnico.ulisboa.pt:~/MPI_Project/
