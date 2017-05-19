@@ -169,6 +169,9 @@ int main(int argc, char *argv[]){
                     buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
                     hash_insert(hashtable, buffer[idx]);
                 }
+                //buffer[idx].x already comes transformed by my_hash_index.
+                //data with x = 0, has x = my_size + 1
+                //data with x = my_size-1, has x = 0
                 if(hashtable->hash_function(buffer[idx]) == 0){ //put x=my_size-1 in slice my_size
                     buffer[idx].x = my_size;
                     hash_insert(hashtable, buffer[idx]);
@@ -185,7 +188,7 @@ int main(int argc, char *argv[]){
         sent++;
         stored = 0;
     }
-
+    free(buffer);
 	fclose(pf);
 	/****Cycle for generations*************************************************/
 	int i;
@@ -204,7 +207,6 @@ int main(int argc, char *argv[]){
     item *l_t_d[2];
 
     while(n_generations--){
-		//TODO fazer free das l_t_d
 		for(int i=0; i < 2; i++){
 			l_t_d[i] = list_init();
 			d_t_l[i] = list_init();
@@ -388,6 +390,8 @@ int main(int argc, char *argv[]){
                     }
                 }
                 if(dsend != NULL){
+                    /*Free live to dead cells. Do not free dead to live cells
+                    because they are appended in the hashtable*/
 					if(l_t_d[v] != NULL)
 						list_free(l_t_d[v]);
                     free(dsend);
@@ -397,6 +401,8 @@ int main(int argc, char *argv[]){
 				}
             }
         }else{ //for just one thread, copy the boundary slices
+            list_free(hashtable->table[my_size+1]);
+            list_free(hashtable->table[0]);
             hashtable->table[my_size+1] = list_copy_and_change(hashtable->table[1], my_size);
             hashtable->table[0] = list_copy_and_change(hashtable->table[my_size], my_size);
         }
@@ -418,6 +424,7 @@ int main(int argc, char *argv[]){
     * hashtables as it receives them*/
     if(id == 0){
         hash_print_chunk(hashtable, 1, my_size);
+        hash_free(hashtable);
         int tsize;
         data *hrecv = NULL;
         for(int j = 1; j < p; j++){
@@ -428,6 +435,7 @@ int main(int argc, char *argv[]){
                 for(int n = 0; n < tsize; n++)
                     print_data(hrecv[n]);
             }
+            free(hrecv);
         }
         fflush(stdout);
     }else{
@@ -442,12 +450,13 @@ int main(int argc, char *argv[]){
                 hsend[l++] = hash_first(hashtable, j)->K;
             }
         }
+        hash_free(hashtable);
         MPI_Send(&hsize, 1, MPI_INT, 0, TAG + id, new_world);
         if(hsize)
             MPI_Send(hsend, hsize, MPI_DATA, 0, TAG + id + 1, new_world);
+        free(hsend);
     }
     MPI_Finalize();
-    hash_free(hashtable);
     exit(0);
 }
 /****************************END of MAIN****************************************/
