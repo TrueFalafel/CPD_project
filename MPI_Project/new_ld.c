@@ -175,10 +175,10 @@ int main(int argc, char *argv[]){
                     buffer[idx] = my_hash_index(buffer[idx], my_index, my_size);
                     hash_insert(hashtable, buffer[idx]);
                 }
-                if(hashtable->hash_function(buffer[idx]) == my_size-1){ //put x=my_size-1 in slice my_size
+                if(hashtable->hash_function(buffer[idx]) == 0){ //put x=my_size-1 in slice my_size
                     buffer[idx].x = my_size;
                     hash_insert(hashtable, buffer[idx]);
-                }else if(hashtable->hash_function(buffer[idx]) == 0){ //put x = 0 in slice 1
+                }else if(hashtable->hash_function(buffer[idx]) == my_size+1){ //put x = 0 in slice 1
                     buffer[idx].x = 1;
                     hash_insert(hashtable, buffer[idx]);
                 }
